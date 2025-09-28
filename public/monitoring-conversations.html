@@ -13,7 +13,30 @@
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
-    <div class="container mx-auto px-4 py-8">
+    <!-- Admin Login Modal -->
+    <div id="auth-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-xl p-8 max-w-md w-full mx-4">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Admin Access Required</h2>
+                <p class="text-gray-600">Enter the admin password to view conversation monitoring</p>
+            </div>
+            <form id="auth-form" onsubmit="authenticate(event)">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                    <input type="password" id="admin-password" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                           placeholder="Enter admin password">
+                </div>
+                <button type="submit" id="auth-btn"
+                        class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                    Access Dashboard
+                </button>
+            </form>
+            <div id="auth-error" class="mt-4 text-red-600 text-sm text-center hidden"></div>
+        </div>
+    </div>
+
+    <div id="dashboard-content" class="container mx-auto px-4 py-8" style="display: none;">
         <div class="max-w-6xl mx-auto">
             <!-- Header -->
             <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
@@ -21,10 +44,16 @@
                     <div>
                         <h1 class="text-3xl font-bold text-gray-900">🦉 TeachSG Conversation Monitoring</h1>
                         <p class="text-gray-600 mt-2">Real-time conversation tracking and analytics</p>
+                        <div class="mt-2">
+                            <a href="/monitoring.html" class="text-blue-600 hover:text-blue-800 text-sm">← Usage Monitoring</a>
+                        </div>
                     </div>
                     <div class="text-right">
                         <div class="text-sm text-gray-500">Last updated</div>
                         <div id="last-updated" class="font-semibold text-gray-900">Loading...</div>
+                        <button onclick="logout()" class="mt-2 bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">
+                            Logout
+                        </button>
                     </div>
                 </div>
             </div>
@@ -125,6 +154,75 @@
     </div>
 
     <script>
+        // Authentication system
+        const ADMIN_PASSWORD_HASH = '1ebc94617b3d20e251cf865b51896e12acd96e4061400e0e95643769ae9a55e5'; // SHA-256 of secure admin password
+
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function authenticate(event) {
+            event.preventDefault();
+
+            const password = document.getElementById('admin-password').value;
+            const authBtn = document.getElementById('auth-btn');
+            const authError = document.getElementById('auth-error');
+
+            authBtn.disabled = true;
+            authBtn.textContent = 'Verifying...';
+            authError.classList.add('hidden');
+
+            try {
+                const hashedPassword = await hashPassword(password);
+
+                if (hashedPassword === ADMIN_PASSWORD_HASH) {
+                    // Success - store auth state and show dashboard
+                    sessionStorage.setItem('adminAuthenticated', 'true');
+                    document.getElementById('auth-modal').style.display = 'none';
+                    document.getElementById('dashboard-content').style.display = 'block';
+
+                    // Initialize dashboard
+                    loadConversations();
+                    setInterval(loadConversations, 30000);
+                } else {
+                    // Failed authentication
+                    authError.textContent = 'Invalid password. Please try again.';
+                    authError.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Authentication error:', error);
+                authError.textContent = 'Authentication failed. Please try again.';
+                authError.classList.remove('hidden');
+            }
+
+            authBtn.disabled = false;
+            authBtn.textContent = 'Access Dashboard';
+            document.getElementById('admin-password').value = '';
+        }
+
+        // Check authentication on page load
+        function checkAuthentication() {
+            const isAuthenticated = sessionStorage.getItem('adminAuthenticated');
+
+            if (isAuthenticated === 'true') {
+                document.getElementById('auth-modal').style.display = 'none';
+                document.getElementById('dashboard-content').style.display = 'block';
+                return true;
+            }
+
+            return false;
+        }
+
+        // Logout function
+        function logout() {
+            sessionStorage.removeItem('adminAuthenticated');
+            location.reload();
+        }
+
         let allConversations = [];
         let filteredConversations = [];
         let currentPage = 1;
@@ -351,11 +449,12 @@
             }
         });
 
-        // Load conversations on page load
+        // Initialize on page load
         document.addEventListener('DOMContentLoaded', () => {
-            loadConversations();
-            // Auto-refresh every 30 seconds
-            setInterval(loadConversations, 30000);
+            if (checkAuthentication()) {
+                loadConversations();
+                setInterval(loadConversations, 30000);
+            }
         });
     </script>
 </body>
