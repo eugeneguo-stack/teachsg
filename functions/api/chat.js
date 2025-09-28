@@ -164,7 +164,55 @@ export async function onRequestPost(context) {
             );
         }
 
-        // 3. Proceed with AI if needed - check limits first
+        // 3. Try Workers AI for basic queries first (cheaper than Claude)
+        let workersAIResponse;
+        try {
+            const workersAICheckResponse = await fetch(`${origin}/api/workers-ai`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    query: truncatedMessage
+                })
+            });
+            workersAIResponse = await workersAICheckResponse.json();
+        } catch (error) {
+            console.log('Workers AI check failed:', error);
+            workersAIResponse = { useClaudeInstead: true };
+        }
+
+        if (!workersAIResponse.useClaudeInstead && workersAIResponse.response) {
+            // Cache the Workers AI response for future use
+            try {
+                await fetch(`${origin}/api/cache`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'set',
+                        query: truncatedMessage,
+                        response: workersAIResponse.response
+                    })
+                });
+            } catch (error) {
+                console.log('Cache set failed:', error);
+            }
+
+            return new Response(
+                JSON.stringify({
+                    response: workersAIResponse.response,
+                    workers_ai: true,
+                    model: workersAIResponse.model || 'llama-4-scout',
+                    cost_saved: true
+                }),
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...corsHeaders,
+                    },
+                }
+            );
+        }
+
+        // 4. Proceed with Claude if needed - check limits first
         // Check global daily budget first ($10 limit)
         const origin = new URL(request.url).origin;
         const globalUsageResponse = await fetch(`${origin}/api/global-usage`, {
