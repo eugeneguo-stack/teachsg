@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usage Monitoring - Teach.sg</title>
+    <title>GPT-OSS-120B Monitoring - Teach.sg</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -33,8 +33,8 @@
 
     <div id="dashboard-content" class="container mx-auto px-4 py-8" style="display: none;">
         <header class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-800 mb-2">Teach.sg Monitoring</h1>
-            <p class="text-lg text-gray-600">Usage analytics and cost monitoring</p>
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">🤖 GPT-OSS-120B Monitoring</h1>
+            <p class="text-lg text-gray-600">Real-time usage analytics and cost tracking for Teach.sg</p>
         </header>
 
         <!-- Status Cards -->
@@ -244,7 +244,12 @@
 
         async function loadData(days = 7) {
             try {
-                const response = await fetch(`/api/monitoring?days=${days}&detailed=false`);
+                // Use new GPT-OSS-120B usage monitoring endpoint
+                const response = await fetch('/api/workers-ai-usage', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: '{}'
+                });
                 const data = await response.json();
 
                 if (!response.ok) {
@@ -252,11 +257,47 @@
                 }
 
                 currentData = data;
-                updateDashboard(data);
+                updateDashboardGPT(data);
             } catch (error) {
                 console.error('Error loading data:', error);
-                showError('Failed to load monitoring data: ' + error.message);
+                showError('Failed to load GPT-OSS-120B monitoring data: ' + error.message);
             }
+        }
+
+        function updateDashboardGPT(data) {
+            // Handle GPT-OSS-120B monitoring data structure
+            const { daily, monthly, pricing, alerts } = data;
+
+            // Update status cards based on GPT-OSS-120B data
+            let statusText = '✅ NORMAL';
+            let statusColor = 'text-green-600';
+
+            if (daily.limit_reached || monthly.limit_reached) {
+                statusText = '🚫 LIMIT REACHED';
+                statusColor = 'text-red-600';
+            } else if (daily.warning || monthly.warning) {
+                statusText = '⚠️ WARNING';
+                statusColor = 'text-yellow-600';
+            }
+
+            document.getElementById('status-indicator').className = `text-2xl font-bold mb-1 ${statusColor}`;
+            document.getElementById('status-indicator').textContent = statusText;
+            document.getElementById('status-text').textContent = `$${daily.estimated_cost.toFixed(4)} of $${daily.limit.toFixed(2)} used today`;
+
+            document.getElementById('today-cost').textContent = `$${daily.estimated_cost.toFixed(4)}`;
+            document.getElementById('today-questions').textContent = daily.requests;
+            document.getElementById('today-ips').textContent = `${daily.gpt_oss_120b_requests} GPT-OSS calls`;
+            document.getElementById('avg-cost').textContent = `$${(monthly.estimated_cost / 30).toFixed(4)}`;
+
+            // Update token usage stats
+            document.getElementById('cache-hits').textContent = daily.input_tokens.toLocaleString();
+            document.getElementById('cache-savings').textContent = `${daily.output_tokens.toLocaleString()} tokens`;
+
+            // Update daily breakdown table with GPT data
+            updateTableGPT(daily, monthly);
+
+            // Update charts with GPT data
+            updateChartsGPT(daily, monthly);
         }
 
         function updateDashboard(data) {
@@ -290,6 +331,95 @@
 
             // Update charts
             updateCharts(daily_breakdown);
+        }
+
+        function updateTableGPT(daily, monthly) {
+            const tbody = document.getElementById('daily-breakdown');
+            tbody.innerHTML = '';
+
+            // Create a simplified table for GPT-OSS-120B data
+            const row = document.createElement('tr');
+            row.className = 'border-b hover:bg-gray-50';
+            row.innerHTML = `
+                <td class="py-2 px-4">${daily.date}</td>
+                <td class="py-2 px-4">$${daily.estimated_cost.toFixed(4)}</td>
+                <td class="py-2 px-4">${daily.requests}</td>
+                <td class="py-2 px-4">${daily.input_tokens + daily.output_tokens} tokens</td>
+                <td class="py-2 px-4">${daily.percentage_used.toFixed(1)}% of limit</td>
+            `;
+            tbody.appendChild(row);
+
+            // Add monthly summary
+            const monthlyRow = document.createElement('tr');
+            monthlyRow.className = 'border-b hover:bg-gray-50 bg-blue-50';
+            monthlyRow.innerHTML = `
+                <td class="py-2 px-4 font-semibold">${monthly.month} (Month)</td>
+                <td class="py-2 px-4 font-semibold">$${monthly.estimated_cost.toFixed(4)}</td>
+                <td class="py-2 px-4 font-semibold">${monthly.requests}</td>
+                <td class="py-2 px-4 font-semibold">${monthly.input_tokens + monthly.output_tokens} tokens</td>
+                <td class="py-2 px-4 font-semibold">${monthly.percentage_used.toFixed(1)}% of limit</td>
+            `;
+            tbody.appendChild(monthlyRow);
+        }
+
+        function updateChartsGPT(daily, monthly) {
+            // Simple charts for GPT-OSS-120B data
+            const labels = [daily.date];
+            const costs = [daily.estimated_cost];
+            const requests = [daily.requests];
+            const tokens = [daily.input_tokens + daily.output_tokens];
+
+            // Cost chart
+            if (costChart) costChart.destroy();
+            const costCtx = document.getElementById('costChart').getContext('2d');
+            costChart = new Chart(costCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Used Today', 'Remaining Budget'],
+                    datasets: [{
+                        data: [daily.estimated_cost, daily.limit - daily.estimated_cost],
+                        backgroundColor: ['rgba(59, 130, 246, 0.8)', 'rgba(229, 231, 235, 0.5)'],
+                        borderColor: ['rgb(59, 130, 246)', 'rgb(229, 231, 235)'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Usage chart
+            if (usageChart) usageChart.destroy();
+            const usageCtx = document.getElementById('usageChart').getContext('2d');
+            usageChart = new Chart(usageCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Input Tokens', 'Output Tokens', 'Total Requests'],
+                    datasets: [{
+                        label: 'Today\'s Usage',
+                        data: [daily.input_tokens, daily.output_tokens, daily.requests * 1000], // Scale requests for visibility
+                        backgroundColor: ['rgba(34, 197, 94, 0.8)', 'rgba(168, 85, 247, 0.8)', 'rgba(249, 115, 22, 0.8)']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
         }
 
         function updateTable(daily_breakdown) {
