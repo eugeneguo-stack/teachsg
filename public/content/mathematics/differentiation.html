@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Differentiation - TeachSG</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: #f3f4f6;
+            color: #333;
+        }
+
+        .header {
+            background: #fefaf6;
+            color: #1e3a8a;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-nav {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header a {
+            color: #1e3a8a;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .header a:hover {
+            color: #d97706;
+            text-decoration: underline;
+        }
+
+        .brand {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .brand .teach {
+            color: #1e3a8a;
+        }
+
+        .brand .sg {
+            color: #d97706;
+        }
+
+        .nav-link {
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: transparent;
+            min-height: calc(100vh - 60px);
+            position: relative;
+        }
+
+        .container:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(30, 58, 138, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30, 58, 138, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #d97706;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .formula-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-left: 4px solid #d97706;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .formula-section.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .formula-section.animate-in:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .formula-section.type-default { border-left-color: #d97706; }
+        .formula-section.type-download { border-left-color: #1e3a8a; }
+        .formula-section.type-info { border-left-color: #8b1538; }
+
+        .formula-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .formula-icon {
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .katex-display {
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .katex * {
+            font-family: KaTeX_Main, "Times New Roman", serif !important;
+        }
+
+        .note {
+            font-style: italic;
+            color: #666;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .variable-explanation {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .formula-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-nav">
+            <a href="/" class="brand"><span class="teach">Teach</span><span class="sg">.sg</span></a>
+            <a href="/content/mathematics/" class="nav-link">← Back to Mathematics</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Differentiation</h1>
+
+        <div class="formula-section type-default">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Differentiation Rules
+            </div>
+            <div class="katex-display">$$1.\,\frac{\text{d}}{\text{d}x} c = 0$$</div>
+            <div class="katex-display">$$2.\,\frac{\text{d}}{\text{d}x} x^n = nx^{n-1}$$</div>
+            <div class="katex-display">$$3.\,\frac{\text{d}}{\text{d}x} \sin x = \cos  x$$</div>
+            <div class="katex-display">$$4.\,\frac{\text{d}}{\text{d}x} \cos x = -\sin  x$$</div>
+            <div class="katex-display">$$5.\,\frac{\text{d}}{\text{d}x} \tan x = \sec^2 x$$</div>
+            <div class="katex-display">$$6.\,\frac{\text{d}}{\text{d}x} e^{x} = e^{x}$$</div>
+            <div class="katex-display">$$7.\,\frac{\text{d}}{\text{d}x} \ln\; x = \frac{1}{x}$$</div>
+            <div class="note">Note: $\frac{\text{d}}{\text{d}x} k\text{f}(x)=k\times\frac{\text{d}}{\text{d}x} \text{f}(x)$</div>
+        </div>
+
+        <div class="formula-section type-download">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Chain Rule
+            </div>
+            <div class="variable-explanation">For $y=\text{f}(u)$ and $u=\text{g}(x)$,</div>
+            <div class="katex-display">$$\dfrac{\text{d}y}{\text{d}x} = \dfrac{\text{d}y}{\text{d}u} \times \dfrac{\text{d}u}{\text{d}x}$$</div>
+        </div>
+
+        <div class="formula-section type-info">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Further Differentiation Rules (Chain Rule)
+            </div>
+            <div class="katex-display">$$1.\,\frac{\text{d}}{\text{d}x} (ax+b)^n = an(ax+b)^{n-1}$$</div>
+            <div class="katex-display">$$2.\,\frac{\text{d}}{\text{d}x} \sin (ax+b) = a\cos  (ax+b)$$</div>
+            <div class="katex-display">$$3.\,\frac{\text{d}}{\text{d}x} \cos (ax+b) = -a\sin  (ax+b)$$</div>
+            <div class="katex-display">$$4.\,\frac{\text{d}}{\text{d}x} \tan (ax+b) = a\sec^2 (ax+b)$$</div>
+            <div class="katex-display">$$5.\,\frac{\text{d}}{\text{d}x} e^{ax+b} = ae^{ax+b}$$</div>
+            <div class="katex-display">$$6.\,\frac{\text{d}}{\text{d}x} \ln\; (ax+b) = \frac{a}{ax+b}$$</div>
+        </div>
+
+        <div class="formula-section type-default">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Product Rule
+            </div>
+            <div class="katex-display">$$\dfrac{\text{d}}{\text{d}x}(uv) = u\dfrac{\text{d}v}{\text{d}x} + v\dfrac{\text{d}u}{\text{d}x}$$</div>
+        </div>
+
+        <div class="formula-section type-download">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Quotient Rule
+            </div>
+            <div class="katex-display">$$\dfrac{\text{d}}{\text{d}x}\left(\dfrac{u}{v}\right)=\dfrac{v\frac{\text{d}u}{\text{d}x}-u\frac{\text{d}v}{\text{d}x}}{v^2}$$</div>
+        </div>
+
+        <div class="formula-section type-info">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Gradient Of Curve
+            </div>
+            <div class="variable-explanation">From $y=\text{f}(x)$,</div>
+            <div class="katex-display">$$\dfrac{\text{d}y}{\text{d}x} \text{ is the gradient of the curve.}$$</div>
+        </div>
+
+        <div class="formula-section type-default">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Gradient Of Tangent & Normal
+            </div>
+            <div class="variable-explanation">From $\dfrac{\text{d}y}{\text{d}x}$, substitute $x=k$ to get $m$ (gradient of tangent).</div>
+            <div class="katex-display">$$-\dfrac{1}{m} \text{ is the gradient of the normal.}$$</div>
+        </div>
+
+        <div class="formula-section type-download">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Increasing & Decreasing Functions
+            </div>
+            <div class="katex-display">$$\text{1. For increasing functions, } \dfrac{\text{d}y}{\text{d}x}>0$$</div>
+            <div class="katex-display">$$\text{2. For decreasing functions, } \dfrac{\text{d}y}{\text{d}x}<0$$</div>
+        </div>
+
+        <div class="formula-section type-info">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Rates Of Change
+            </div>
+            <div class="katex-display">$$\dfrac{\text{d}y}{\text{d}t}=\dfrac{\text{d}y}{\text{d}x}\times\dfrac{\text{d}x}{\text{d}t}$$</div>
+        </div>
+
+        <div class="formula-section type-default">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                First Derivative Test
+            </div>
+            <div class="variable-explanation">If $\dfrac{\text{d}y}{\text{d}x}=0$ for $x=k$, test for $k^-$, $k$, $k^+$.</div>
+
+            <div class="variable-explanation">Maximum point:</div>
+            <div class="katex-display">$$\begin{array}{|c|c|c|c|}
+\hline
+x & k^- & k & k^+\\\hline
+\dfrac{\text{d}y}{\text{d}x} & + & 0 & - \\ \hline
+\end{array}$$</div>
+
+            <div class="variable-explanation">Minimum point:</div>
+            <div class="katex-display">$$\begin{array}{|c|c|c|c|}
+\hline
+x & k^- & k & k^+\\\hline
+\dfrac{\text{d}y}{\text{d}x} & - & 0 & + \\ \hline
+\end{array}$$</div>
+
+            <div class="variable-explanation">Inflexion point:</div>
+            <div class="katex-display">$$\begin{array}{|c|c|c|c|}
+\hline
+x & k^- & k & k^+\\\hline
+\dfrac{\text{d}y}{\text{d}x} & + & 0 & + \\\hline
+\dfrac{\text{d}y}{\text{d}x} & - & 0 & -  \\\hline
+\end{array}$$</div>
+        </div>
+
+        <div class="formula-section type-download">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Second Derivative Test
+            </div>
+            <div class="katex-display">$$\text{1. If } \dfrac{\text{d}^2y}{\text{d}x^2}<0, \text{ it is a maximum point.}$$</div>
+            <div class="katex-display">$$\text{2. If } \dfrac{\text{d}^2y}{\text{d}x^2}>0, \text{ it is a minimum point.}$$</div>
+            <div class="katex-display">$$\text{3. If } \dfrac{\text{d}^2y}{\text{d}x^2}=0, \text{ need to do first derivative test.}$$</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+
+            // Scroll-triggered animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('animate-in');
+                        }, index * 100); // Stagger animation
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all formula sections
+            document.querySelectorAll('.formula-section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
