@@ -68,7 +68,8 @@ export async function onRequestPost(context) {
             const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
 
             // Check user's daily usage
-            const usageResponse = await fetch(`${request.url.origin}/api/usage`, {
+            const origin = new URL(request.url).origin;
+            const usageResponse = await fetch(`${origin}/api/usage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ user_id })
