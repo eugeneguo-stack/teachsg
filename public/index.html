@@ -30,7 +30,7 @@
         }
 
         .gradient-text {
-            background: linear-gradient(135deg, #1e40af 0%, #d97706 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #d97706 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -105,14 +105,14 @@
                 <!-- Hero Title -->
                 <div class="mb-8">
                     <h1 class="text-7xl md:text-8xl font-bold mb-6">
-                        <span class="text-blue-700">Teach</span><span class="text-amber-500">.sg</span>
+                        <span style="color: #1e3a8a;">Teach</span><span style="color: #d97706;">.sg</span>
                     </h1>
                     <p class="text-2xl md:text-3xl text-gray-700 font-light mb-4">
                         Your AI-Powered Learning Companion
                     </p>
                     <p class="text-lg text-gray-600 max-w-2xl mx-auto">
                         Master Singapore O-Level Mathematics & Music Theory with personalized AI tutoring.
-                        <span class="text-amber-600 font-semibold">Completely free</span> • No registration required
+                        <span style="color: #d97706;" class="font-semibold">Completely free</span> • No registration required
                     </p>
                 </div>
 
@@ -124,32 +124,29 @@
                             <span class="font-semibold text-lg">Free AI Tutoring</span>
                         </div>
                         <div id="daily-usage" class="text-gray-600 mb-2">4 questions/day (10¢ budget)</div>
-                        <div id="remaining-questions" class="text-amber-600 text-sm">Ready to help! 🤖</div>
+                        <div id="remaining-questions" style="color: #d97706;" class="text-sm">Ready to help! 🤖</div>
                     </div>
                 </div>
 
                 <!-- CTA Buttons -->
                 <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                    <button onclick="scrollToChat()" class="bg-blue-600 hover:bg-blue-700 hover-lift px-8 py-4 rounded-xl text-white font-semibold text-lg transition-all shadow-lg">
+                    <button onclick="scrollToChat()" style="background-color: #1e3a8a;" class="hover:opacity-90 hover-lift px-8 py-4 rounded-xl text-white font-semibold text-lg transition-all shadow-lg">
                         🚀 Start Learning Now
                     </button>
-                    <a href="/theme-selector.html" class="bg-amber-500 hover:bg-amber-600 hover-lift px-8 py-4 rounded-xl text-white font-semibold text-lg transition-all shadow-lg">
-                        🎨 Choose Theme
-                    </a>
                 </div>
 
                 <!-- Stats Section -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                     <div class="glass-card rounded-xl p-6 hover-lift">
-                        <div class="text-3xl font-bold text-blue-700 mb-2">36</div>
+                        <div class="text-3xl font-bold mb-2" style="color: #1e3a8a;">36</div>
                         <div class="text-gray-600">Math Topics</div>
                     </div>
                     <div class="glass-card rounded-xl p-6 hover-lift">
-                        <div class="text-3xl font-bold text-amber-600 mb-2">157</div>
+                        <div class="text-3xl font-bold mb-2" style="color: #d97706;">157</div>
                         <div class="text-gray-600">Music Lessons</div>
                     </div>
                     <div class="glass-card rounded-xl p-6 hover-lift">
-                        <div class="text-3xl font-bold text-blue-700 mb-2">∞</div>
+                        <div class="text-3xl font-bold mb-2" style="color: #1e3a8a;">∞</div>
                         <div class="text-gray-600">AI Questions</div>
                     </div>
                 </div>
@@ -165,7 +162,7 @@
                 </div>
 
                 <div class="glass-card rounded-2xl overflow-hidden hover-lift">
-                    <div class="bg-gradient-to-r from-blue-800 to-blue-600 px-8 py-6">
+                    <div style="background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);" class="px-8 py-6">
                         <h3 class="text-white text-2xl font-semibold mb-2">Start a Conversation</h3>
                         <p class="text-blue-100">Get personalized help with mathematics and music theory</p>
                     </div>
@@ -182,7 +179,7 @@
                                 <div class="flex items-center">
                                     <span class="text-2xl mr-3">📐</span>
                                     <div>
-                                        <div class="font-semibold text-gray-800 group-hover:text-blue-700">Coordinate Geometry</div>
+                                        <div class="font-semibold text-gray-800" style="transition: color 0.3s;" onmouseover="this.style.color='#1e3a8a'" onmouseout="this.style.color='#1f2937'">Coordinate Geometry</div>
                                         <div class="text-sm text-gray-600">Learn about points, lines, and curves</div>
                                     </div>
                                 </div>
@@ -192,7 +189,7 @@
                                 <div class="flex items-center">
                                     <span class="text-2xl mr-3">📈</span>
                                     <div>
-                                        <div class="font-semibold text-gray-800 group-hover:text-amber-600">Quadratic Equations</div>
+                                        <div class="font-semibold text-gray-800" style="transition: color 0.3s;" onmouseover="this.style.color='#d97706'" onmouseout="this.style.color='#1f2937'">Quadratic Equations</div>
                                         <div class="text-sm text-gray-600">Solve ax² + bx + c = 0</div>
                                     </div>
                                 </div>
@@ -202,7 +199,7 @@
                                 <div class="flex items-center">
                                     <span class="text-2xl mr-3">🎵</span>
                                     <div>
-                                        <div class="font-semibold text-gray-800 group-hover:text-blue-600">Music Scales</div>
+                                        <div class="font-semibold text-gray-800" style="transition: color 0.3s;" onmouseover="this.style.color='#1e3a8a'" onmouseout="this.style.color='#1f2937'">Music Scales</div>
                                         <div class="text-sm text-gray-600">Major, minor, and modal scales</div>
                                     </div>
                                 </div>
@@ -212,7 +209,7 @@
                                 <div class="flex items-center">
                                     <span class="text-2xl mr-3">🎹</span>
                                     <div>
-                                        <div class="font-semibold text-gray-800 group-hover:text-amber-700">Piano Chords</div>
+                                        <div class="font-semibold text-gray-800" style="transition: color 0.3s;" onmouseover="this.style.color='#d97706'" onmouseout="this.style.color='#1f2937'">Piano Chords</div>
                                         <div class="text-sm text-gray-600">Common progressions and voicings</div>
                                     </div>
                                 </div>
@@ -226,13 +223,13 @@
                                 type="text"
                                 id="message-input"
                                 placeholder="Ask me anything about math or music..."
-                                class="flex-1 glass-card border-0 rounded-xl px-6 py-4 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all"
+                                class="flex-1 glass-card border-0 rounded-xl px-6 py-4 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 transition-all" style="--tw-ring-color: #d97706;"
                                 onkeypress="handleKeyPress(event)"
                             >
                             <button
                                 onclick="sendMessage()"
                                 id="send-button"
-                                class="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-8 py-4 rounded-xl font-semibold transition-all hover-lift shadow-lg"
+                                style="background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);" class="hover:opacity-90 text-white px-8 py-4 rounded-xl font-semibold transition-all hover-lift shadow-lg"
                             >
                                 Send
                             </button>
@@ -254,33 +251,33 @@
                     <a href="mathematics.html" class="glass-card rounded-2xl p-8 hover-lift transition-all group">
                         <div class="text-center mb-6">
                             <div class="text-6xl mb-4">📊</div>
-                            <h3 class="text-2xl font-bold text-gray-800 mb-2 group-hover:text-blue-700">Mathematics</h3>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-2" style="transition: color 0.3s;" onmouseover="this.style.color='#1e3a8a'" onmouseout="this.style.color='#1f2937'">Mathematics</h3>
                             <p class="text-gray-600">Master O-Level math concepts with step-by-step guidance</p>
                         </div>
                         <ul class="space-y-3 text-gray-700">
                             <li class="flex items-center">
-                                <span class="text-amber-400 mr-3">✓</span>
+                                <span style="color: #d97706;" class="mr-3">✓</span>
                                 Additional Mathematics (A-Math)
                             </li>
                             <li class="flex items-center">
-                                <span class="text-amber-400 mr-3">✓</span>
+                                <span style="color: #d97706;" class="mr-3">✓</span>
                                 Elementary Mathematics (E-Math)
                             </li>
                             <li class="flex items-center">
-                                <span class="text-amber-400 mr-3">✓</span>
+                                <span style="color: #d97706;" class="mr-3">✓</span>
                                 Coordinate Geometry
                             </li>
                             <li class="flex items-center">
-                                <span class="text-amber-400 mr-3">✓</span>
+                                <span style="color: #d97706;" class="mr-3">✓</span>
                                 Quadratic Functions
                             </li>
                             <li class="flex items-center">
-                                <span class="text-amber-400 mr-3">✓</span>
+                                <span style="color: #d97706;" class="mr-3">✓</span>
                                 Trigonometry & Statistics
                             </li>
                         </ul>
                         <div class="mt-6 text-center">
-                            <span class="text-amber-300 font-semibold group-hover:text-white transition-colors">
+                            <span style="color: #d97706;" class="font-semibold transition-colors" onmouseover="this.style.color='white'" onmouseout="this.style.color='#d97706'">
                                 → Browse 36 Math Topics
                             </span>
                         </div>
@@ -289,33 +286,33 @@
                     <a href="music.html" class="glass-card rounded-2xl p-8 hover-lift transition-all group">
                         <div class="text-center mb-6">
                             <div class="text-6xl mb-4">🎵</div>
-                            <h3 class="text-2xl font-bold text-gray-800 mb-2 group-hover:text-amber-600">Music</h3>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-2" style="transition: color 0.3s;" onmouseover="this.style.color='#d97706'" onmouseout="this.style.color='#1f2937'">Music</h3>
                             <p class="text-gray-600">Learn music theory and practical skills</p>
                         </div>
                         <ul class="space-y-3 text-gray-700">
                             <li class="flex items-center">
-                                <span class="text-amber-400 mr-3">✓</span>
+                                <span style="color: #d97706;" class="mr-3">✓</span>
                                 Piano Tutorials & Techniques
                             </li>
                             <li class="flex items-center">
-                                <span class="text-amber-400 mr-3">✓</span>
+                                <span style="color: #d97706;" class="mr-3">✓</span>
                                 Chord Progressions
                             </li>
                             <li class="flex items-center">
-                                <span class="text-amber-400 mr-3">✓</span>
+                                <span style="color: #d97706;" class="mr-3">✓</span>
                                 Praise & Worship Songs
                             </li>
                             <li class="flex items-center">
-                                <span class="text-amber-400 mr-3">✓</span>
+                                <span style="color: #d97706;" class="mr-3">✓</span>
                                 Music Theory Fundamentals
                             </li>
                             <li class="flex items-center">
-                                <span class="text-amber-400 mr-3">✓</span>
+                                <span style="color: #d97706;" class="mr-3">✓</span>
                                 Instrumental Pieces
                             </li>
                         </ul>
                         <div class="mt-6 text-center">
-                            <span class="text-amber-300 font-semibold group-hover:text-white transition-colors">
+                            <span style="color: #d97706;" class="font-semibold transition-colors" onmouseover="this.style.color='white'" onmouseout="this.style.color='#d97706'">
                                 → Browse 157 Music Lessons
                             </span>
                         </div>
