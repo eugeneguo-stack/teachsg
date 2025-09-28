@@ -129,8 +129,11 @@ function handleKeyPress(event) {
 function formatAIResponse(content) {
     // Format the AI response to look more like Claude app
     return content
-        // Format headings (ALL CAPS words followed by colon)
-        .replace(/^([A-Z][A-Z\s&-]+):$/gm, '<h3 class="font-bold text-lg text-gray-800 mt-4 mb-2">$1</h3>')
+        // Format section headings (sentence case words followed by colon)
+        .replace(/^([A-Z][a-z\s]+[a-z]):$/gm, '<h3 class="font-bold text-lg text-gray-800 mt-4 mb-2">$1</h3>')
+
+        // Format subsection headings
+        .replace(/^([A-Z][A-Z\s&-]+):$/gm, '<h4 class="font-semibold text-gray-700 mt-3 mb-1 text-sm uppercase tracking-wide">$1</h4>')
 
         // Format numbered sections (1., 2., etc.)
         .replace(/^(\d+\.\s+[^:]+):/gm, '<h4 class="font-semibold text-gray-700 mt-3 mb-1">$1:</h4>')
@@ -138,12 +141,9 @@ function formatAIResponse(content) {
         // Format bullet points
         .replace(/^- (.+)$/gm, '<div class="ml-4 mb-1">• $1</div>')
 
-        // Format bold text (words in all caps within sentences)
-        .replace(/\b([A-Z]{2,})\b/g, '<strong class="font-semibold">$1</strong>')
-
         // Format examples and practice sections
-        .replace(/^(PRACTICAL EXAMPLE|EXAMPLE|PRACTICE):/gm, '<div class="bg-blue-50 p-3 rounded-lg mt-4 mb-2"><strong class="text-blue-800">$1:</strong>')
-        .replace(/^(Would you like to|Try this|Next steps):/gm, '</div><div class="bg-green-50 p-3 rounded-lg mt-4 mb-2"><strong class="text-green-800">$1:</strong>')
+        .replace(/^(Practical example|Example|Practice):/gmi, '<div class="bg-blue-50 p-3 rounded-lg mt-4 mb-2"><strong class="text-blue-800">$1:</strong>')
+        .replace(/^(Would you like to|Try this|Next steps):/gmi, '</div><div class="bg-green-50 p-3 rounded-lg mt-4 mb-2"><strong class="text-green-800">$1:</strong>')
 
         // Format line breaks properly
         .replace(/\n\n/g, '</p><p class="mb-2">')
