@@ -183,6 +183,18 @@ function handleKeyPress(event) {
 function formatAIResponse(content) {
     // Format the AI response to look more like Claude app
     return content
+        // Format markdown bold text **text** -> <strong>text</strong>
+        .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
+
+        // Format markdown italic text *text* -> <em>text</em>
+        .replace(/\*((?!\*)[^*]+)\*/g, '<em class="italic">$1</em>')
+
+        // Format code blocks ```code``` -> styled code blocks
+        .replace(/```([\s\S]*?)```/g, '<div class="bg-gray-100 rounded-lg p-3 my-2 font-mono text-sm">$1</div>')
+
+        // Format inline code `code` -> styled inline code
+        .replace(/`([^`]+)`/g, '<code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono">$1</code>')
+
         // Format section headings (sentence case words followed by colon)
         .replace(/^([A-Z][a-z\s]+[a-z]):$/gm, '<h3 class="font-bold text-lg text-gray-800 mt-4 mb-2">$1</h3>')
 
@@ -192,8 +204,11 @@ function formatAIResponse(content) {
         // Format numbered sections (1., 2., etc.)
         .replace(/^(\d+\.\s+[^:]+):/gm, '<h4 class="font-semibold text-gray-700 mt-3 mb-1">$1:</h4>')
 
-        // Format bullet points
-        .replace(/^- (.+)$/gm, '<div class="ml-4 mb-1">• $1</div>')
+        // Format bullet points (both - and •)
+        .replace(/^[•-] (.+)$/gm, '<div class="ml-4 mb-1 flex items-start"><span class="text-blue-500 mr-2">•</span><span>$1</span></div>')
+
+        // Format numbered lists
+        .replace(/^(\d+)\. (.+)$/gm, '<div class="ml-4 mb-1 flex items-start"><span class="text-blue-500 mr-2 font-semibold">$1.</span><span>$2</span></div>')
 
         // Format examples and practice sections
         .replace(/^(Practical example|Example|Practice):/gmi, '<div class="bg-blue-50 p-3 rounded-lg mt-4 mb-2"><strong class="text-blue-800">$1:</strong>')
