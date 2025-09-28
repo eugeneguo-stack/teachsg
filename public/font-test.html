@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Test - TeachSG</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <!-- Font imports -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Nunito+Sans:wght@400;500;600;700&family=Source+Sans+Pro:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600&family=Crimson+Text:wght@400;600&family=Lora:wght@400;600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 2rem;
+            background: #f3f4f6;
+            color: #333;
+        }
+
+        .header {
+            background: #1e3a8a;
+            color: white;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .test-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-left: 4px solid #d97706;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .font-name {
+            background: #1e3a8a;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* Font combinations */
+        .inter-source {
+            --heading-font: 'Inter', sans-serif;
+            --body-font: 'Source Serif Pro', serif;
+        }
+        .poppins-lora {
+            --heading-font: 'Poppins', sans-serif;
+            --body-font: 'Lora', serif;
+        }
+        .nunito-crimson {
+            --heading-font: 'Nunito Sans', sans-serif;
+            --body-font: 'Crimson Text', serif;
+        }
+        .source-merriweather {
+            --heading-font: 'Source Sans Pro', sans-serif;
+            --body-font: 'Merriweather', serif;
+        }
+        .montserrat-source {
+            --heading-font: 'Montserrat', sans-serif;
+            --body-font: 'Source Serif Pro', serif;
+        }
+
+        .test-title {
+            font-family: var(--heading-font);
+            font-size: 2rem;
+            font-weight: 600;
+            color: #d97706;
+            margin-bottom: 1rem;
+        }
+
+        .test-subtitle {
+            font-family: var(--heading-font);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin: 1.5rem 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .test-body {
+            font-family: var(--body-font);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .katex * {
+            font-family: KaTeX_Main, "Times New Roman", serif !important;
+        }
+
+        .katex-display {
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .note {
+            font-style: italic;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Font Combination Test</h1>
+        <p>Testing different font combinations for TeachSG content pages</p>
+    </div>
+
+    <div class="test-section inter-source">
+        <div class="font-name">Inter + Source Serif Pro</div>
+        <h1 class="test-title">Coordinate Geometry</h1>
+
+        <h2 class="test-subtitle">
+            <span>📈</span>
+            Gradient
+        </h2>
+        <div class="katex-display">$$m=\frac{y_1-y_2}{x_1-x_2}$$</div>
+
+        <h2 class="test-subtitle">
+            <span>⭕</span>
+            Circle
+        </h2>
+        <div class="katex-display">$$(x-a)^2+(y-b)^2=r^2$$</div>
+        <div class="test-body">$(a,b)$: centre of circle</div>
+        <div class="test-body">$r$: radius</div>
+        <div class="note">Modern and clean combination. Inter is highly readable and Source Serif Pro adds elegance.</div>
+    </div>
+
+    <div class="test-section poppins-lora">
+        <div class="font-name">Poppins + Lora</div>
+        <h1 class="test-title">Coordinate Geometry</h1>
+
+        <h2 class="test-subtitle">
+            <span>📈</span>
+            Gradient
+        </h2>
+        <div class="katex-display">$$m=\frac{y_1-y_2}{x_1-x_2}$$</div>
+
+        <h2 class="test-subtitle">
+            <span>⭕</span>
+            Circle
+        </h2>
+        <div class="katex-display">$$(x-a)^2+(y-b)^2=r^2$$</div>
+        <div class="test-body">$(a,b)$: centre of circle</div>
+        <div class="test-body">$r$: radius</div>
+        <div class="note">Friendly and approachable. Poppins has rounded characters and Lora is excellent for reading.</div>
+    </div>
+
+    <div class="test-section nunito-crimson">
+        <div class="font-name">Nunito Sans + Crimson Text</div>
+        <h1 class="test-title">Coordinate Geometry</h1>
+
+        <h2 class="test-subtitle">
+            <span>📈</span>
+            Gradient
+        </h2>
+        <div class="katex-display">$$m=\frac{y_1-y_2}{x_1-x_2}$$</div>
+
+        <h2 class="test-subtitle">
+            <span>⭕</span>
+            Circle
+        </h2>
+        <div class="katex-display">$$(x-a)^2+(y-b)^2=r^2$$</div>
+        <div class="test-body">$(a,b)$: centre of circle</div>
+        <div class="test-body">$r$: radius</div>
+        <div class="note">Warm and educational. Perfect for learning environments with great readability.</div>
+    </div>
+
+    <div class="test-section source-merriweather">
+        <div class="font-name">Source Sans Pro + Merriweather</div>
+        <h1 class="test-title">Coordinate Geometry</h1>
+
+        <h2 class="test-subtitle">
+            <span>📈</span>
+            Gradient
+        </h2>
+        <div class="katex-display">$$m=\frac{y_1-y_2}{x_1-x_2}$$</div>
+
+        <h2 class="test-subtitle">
+            <span>⭕</span>
+            Circle
+        </h2>
+        <div class="katex-display">$$(x-a)^2+(y-b)^2=r^2$$</div>
+        <div class="test-body">$(a,b)$: centre of circle</div>
+        <div class="test-body">$r$: radius</div>
+        <div class="note">Academic and professional. Adobe's Source Sans Pro with Merriweather designed for screens.</div>
+    </div>
+
+    <div class="test-section montserrat-source">
+        <div class="font-name">Montserrat + Source Serif Pro</div>
+        <h1 class="test-title">Coordinate Geometry</h1>
+
+        <h2 class="test-subtitle">
+            <span>📈</span>
+            Gradient
+        </h2>
+        <div class="katex-display">$$m=\frac{y_1-y_2}{x_1-x_2}$$</div>
+
+        <h2 class="test-subtitle">
+            <span>⭕</span>
+            Circle
+        </h2>
+        <div class="katex-display">$$(x-a)^2+(y-b)^2=r^2$$</div>
+        <div class="test-body">$(a,b)$: centre of circle</div>
+        <div class="test-body">$r$: radius</div>
+        <div class="note">Stylish and geometric. Montserrat has unique character with excellent serif pairing.</div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+        });
+    </script>
+</body>
+</html>
