@@ -355,11 +355,47 @@ function updateUsageDisplay(remaining, limit, isGlobalLimit = false) {
             dailyUsage.textContent = 'Your limit: 10¢ budget used';
         }
     }
+
+    // Update conversation counter in chat interface
+    updateConversationCounter(remaining);
+}
+
+// Update conversation counter in chat interface
+function updateConversationCounter(remaining) {
+    const counter = document.getElementById('conversation-counter');
+    const remainingSpan = document.getElementById('conversations-remaining');
+
+    if (counter && remainingSpan) {
+        remainingSpan.textContent = remaining;
+
+        // Show counter after first interaction or if limit is getting low
+        if (remaining < 25 || remaining <= 10) {
+            counter.classList.remove('hidden');
+
+            // Change styling based on remaining count
+            const counterBadge = counter.querySelector('div');
+            if (remaining <= 5) {
+                counterBadge.className = 'inline-block bg-red-50 text-red-700 px-4 py-2 rounded-lg border border-red-200';
+            } else if (remaining <= 10) {
+                counterBadge.className = 'inline-block bg-yellow-50 text-yellow-700 px-4 py-2 rounded-lg border border-yellow-200';
+            } else {
+                counterBadge.className = 'inline-block bg-blue-50 text-blue-700 px-4 py-2 rounded-lg border border-blue-200';
+            }
+        }
+    }
 }
 
 // Add some welcome quick start options on load
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     console.log('Teach.sg Chat initialized - No registration required!');
+
+    // Initialize conversation counter display
+    try {
+        const remaining = await getRemainingConversations();
+        updateConversationCounter(remaining);
+    } catch (error) {
+        console.error('Failed to initialize conversation counter:', error);
+    }
 
     // Initialize usage display
     const remaining = getRemainingConversations();
