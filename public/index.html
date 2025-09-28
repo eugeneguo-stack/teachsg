@@ -91,6 +91,40 @@
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Enhanced chat styling */
+        .chat-message {
+            position: relative;
+        }
+
+        .chat-message::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .chat-message.user::before {
+            right: -12px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+
+        .chat-message.ai::before {
+            left: -12px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
     </style>
 </head>
 <body class="min-h-screen overflow-x-hidden">

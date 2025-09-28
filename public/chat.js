@@ -29,13 +29,13 @@ function hasReachedDailyLimit() {
 function addMessage(content, isUser = false) {
     const chatContainer = document.getElementById('chat-container');
     const messageDiv = document.createElement('div');
-    messageDiv.className = `mb-4 ${isUser ? 'text-right' : 'text-left'}`;
+    messageDiv.className = `mb-6 flex ${isUser ? 'justify-end' : 'justify-start'} animate-fade-in`;
 
     const messageBubble = document.createElement('div');
-    messageBubble.className = `inline-block ${isUser ? 'max-w-xs lg:max-w-md' : 'max-w-2xl lg:max-w-4xl'} px-4 py-3 rounded-lg ${
+    messageBubble.className = `chat-message ${isUser ? 'user max-w-xs lg:max-w-md' : 'ai max-w-2xl lg:max-w-4xl'} px-6 py-4 rounded-2xl transition-all duration-300 hover:scale-105 ${
         isUser
-            ? 'bg-blue-500 text-white'
-            : 'bg-white text-gray-800 shadow-lg'
+            ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/25'
+            : 'bg-gradient-to-r from-white to-gray-50 text-gray-800 shadow-xl border border-gray-100'
     }`;
 
     if (isUser) {
@@ -66,13 +66,16 @@ function addTypingIndicator() {
     const chatContainer = document.getElementById('chat-container');
     const typingDiv = document.createElement('div');
     typingDiv.id = 'typing-indicator';
-    typingDiv.className = 'mb-4 text-left';
+    typingDiv.className = 'mb-6 flex justify-start animate-fade-in';
     typingDiv.innerHTML = `
-        <div class="inline-block bg-white text-gray-500 px-4 py-2 rounded-lg shadow">
-            <div class="flex items-center space-x-1">
-                <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
-                <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+        <div class="chat-message ai max-w-xs px-6 py-4 rounded-2xl bg-gradient-to-r from-gray-100 to-gray-50 text-gray-600 shadow-lg border border-gray-100">
+            <div class="flex items-center space-x-2">
+                <span class="text-sm">🤖 Thinking</span>
+                <div class="flex space-x-1">
+                    <div class="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
+                    <div class="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                    <div class="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                </div>
             </div>
         </div>
     `;
