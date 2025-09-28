@@ -6,16 +6,18 @@ function addMessage(content, isUser = false) {
     messageDiv.className = `mb-4 ${isUser ? 'text-right' : 'text-left'}`;
 
     const messageBubble = document.createElement('div');
-    messageBubble.className = `inline-block max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+    messageBubble.className = `inline-block ${isUser ? 'max-w-xs lg:max-w-md' : 'max-w-2xl lg:max-w-4xl'} px-4 py-3 rounded-lg ${
         isUser
             ? 'bg-blue-500 text-white'
-            : 'bg-white text-gray-800 shadow'
+            : 'bg-white text-gray-800 shadow-lg'
     }`;
 
     if (isUser) {
         messageBubble.textContent = content;
     } else {
-        messageBubble.innerHTML = content;
+        // Format AI response with proper markdown-like styling
+        const formattedContent = formatAIResponse(content);
+        messageBubble.innerHTML = formattedContent;
         // Render LaTeX math expressions
         setTimeout(() => {
             renderMathInElement(messageBubble, {
@@ -122,6 +124,37 @@ function handleKeyPress(event) {
         event.preventDefault();
         sendMessage();
     }
+}
+
+function formatAIResponse(content) {
+    // Format the AI response to look more like Claude app
+    return content
+        // Format headings (ALL CAPS words followed by colon)
+        .replace(/^([A-Z][A-Z\s&-]+):$/gm, '<h3 class="font-bold text-lg text-gray-800 mt-4 mb-2">$1</h3>')
+
+        // Format numbered sections (1., 2., etc.)
+        .replace(/^(\d+\.\s+[^:]+):/gm, '<h4 class="font-semibold text-gray-700 mt-3 mb-1">$1:</h4>')
+
+        // Format bullet points
+        .replace(/^- (.+)$/gm, '<div class="ml-4 mb-1">• $1</div>')
+
+        // Format bold text (words in all caps within sentences)
+        .replace(/\b([A-Z]{2,})\b/g, '<strong class="font-semibold">$1</strong>')
+
+        // Format examples and practice sections
+        .replace(/^(PRACTICAL EXAMPLE|EXAMPLE|PRACTICE):/gm, '<div class="bg-blue-50 p-3 rounded-lg mt-4 mb-2"><strong class="text-blue-800">$1:</strong>')
+        .replace(/^(Would you like to|Try this|Next steps):/gm, '</div><div class="bg-green-50 p-3 rounded-lg mt-4 mb-2"><strong class="text-green-800">$1:</strong>')
+
+        // Format line breaks properly
+        .replace(/\n\n/g, '</p><p class="mb-2">')
+        .replace(/\n/g, '<br>')
+
+        // Wrap in paragraph tags
+        .replace(/^/, '<p class="mb-2">')
+        .replace(/$/, '</p>')
+
+        // Clean up any unclosed divs
+        .replace(/(<div[^>]*>[^<]*<\/strong>[^<]*(?!<\/div>))$/g, '$1</div>');
 }
 
 // Add some welcome quick start options on load
