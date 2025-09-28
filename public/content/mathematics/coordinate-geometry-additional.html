@@ -89,9 +89,16 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
         }
 
-        .formula-section:hover {
+        .formula-section.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .formula-section.animate-in:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
             background: rgba(255, 255, 255, 1);
@@ -139,6 +146,26 @@
         .katex * {
             font-family: KaTeX_Main, "Times New Roman", serif !important;
         }
+
+        /* Enhanced variable highlighting */
+        .highlight-var {
+            background: linear-gradient(135deg, rgba(217, 119, 6, 0.15), rgba(30, 58, 138, 0.15));
+            border-radius: 4px;
+            padding: 2px 4px;
+            margin: 0 1px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .formula-section:hover .highlight-var {
+            background: linear-gradient(135deg, rgba(217, 119, 6, 0.25), rgba(30, 58, 138, 0.25));
+            transform: scale(1.05);
+        }
+
+        .var-coord { background: rgba(139, 92, 246, 0.15); }
+        .var-slope { background: rgba(239, 68, 68, 0.15); }
+        .var-radius { background: rgba(16, 185, 129, 0.15); }
+        .var-center { background: rgba(245, 158, 11, 0.15); }
 
         .note {
             font-style: italic;
@@ -231,8 +258,8 @@
                 Circle
             </div>
             <div class="katex-display">$$(x-a)^2+(y-b)^2=r^2$$</div>
-            <div class="variable-explanation">$(a,b)$: centre of circle</div>
-            <div class="variable-explanation">$r$: radius</div>
+            <div class="variable-explanation"><span class="highlight-var var-center">$(a,b)$</span>: centre of circle</div>
+            <div class="variable-explanation"><span class="highlight-var var-radius">$r$</span>: radius</div>
         </div>
 
         <div class="formula-section type-circle">
@@ -241,8 +268,8 @@
                 Circle (Second Formula)
             </div>
             <div class="katex-display">$$x^2+y^2+2gx+2fy+c=0$$</div>
-            <div class="variable-explanation">$(-g,-f)$: centre of circle</div>
-            <div class="variable-explanation">$\sqrt{f^2+g^2-c}$: radius</div>
+            <div class="variable-explanation"><span class="highlight-var var-center">$(-g,-f)$</span>: centre of circle</div>
+            <div class="variable-explanation"><span class="highlight-var var-radius">$\sqrt{f^2+g^2-c}$</span>: radius</div>
         </div>
     </div>
 
@@ -253,6 +280,27 @@
                     {left: "$$", right: "$$", display: true},
                     {left: "$", right: "$", display: false}
                 ]
+            });
+
+            // Scroll-triggered animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('animate-in');
+                        }, index * 100); // Stagger animation
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all formula sections
+            document.querySelectorAll('.formula-section').forEach(section => {
+                observer.observe(section);
             });
         });
     </script>
