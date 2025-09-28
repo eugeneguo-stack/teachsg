@@ -92,7 +92,7 @@ async function sendMessage(message = null) {
 
     // Check individual user daily limit first
     if (hasReachedDailyLimit()) {
-        addMessage("You've reached your daily limit of 25 conversations (10¢ budget). Come back tomorrow for more free tutoring! 😊");
+        addMessage("You've reached your daily limit of 25 conversations. Come back tomorrow for more free tutoring! 😊");
         updateUsageDisplay(0, DAILY_CONVERSATION_LIMIT);
         return;
     }
@@ -138,7 +138,7 @@ async function sendMessage(message = null) {
                     updateUsageDisplay(0, 4, true);
                 } else {
                     // Individual user limit reached
-                    addMessage(`Daily limit reached! ${data.message || "You've reached your 10¢ daily budget (≈25 conversations). Come back tomorrow for more free tutoring!"}`);
+                    addMessage(`Daily limit reached! ${data.message || "You've reached your daily limit of 25 conversations. Come back tomorrow for more free tutoring!"}`);
                     updateUsageDisplay(0, data.limit || 25);
                 }
             } else {
