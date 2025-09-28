@@ -11,7 +11,7 @@ export async function onRequestPost(context) {
 
             // Get existing conversations for this fingerprint
             const conversationsKey = `conversations_${fingerprintId}`;
-            const existingConversations = await env.TEACHSG_KV.get(conversationsKey, 'json') || [];
+            const existingConversations = await env.RESPONSE_CACHE.get(conversationsKey, 'json') || [];
 
             // Create new conversation entry
             const newConversation = {
@@ -27,12 +27,12 @@ export async function onRequestPost(context) {
             existingConversations.push(newConversation);
 
             // Store updated conversations
-            await env.TEACHSG_KV.put(conversationsKey, JSON.stringify(existingConversations));
+            await env.RESPONSE_CACHE.put(conversationsKey, JSON.stringify(existingConversations));
 
             // Update daily count
             const dailyCountKey = `daily_count_${fingerprintId}_${today}`;
-            const currentCount = parseInt(await env.TEACHSG_KV.get(dailyCountKey) || '0');
-            await env.TEACHSG_KV.put(dailyCountKey, (currentCount + 1).toString());
+            const currentCount = parseInt(await env.RESPONSE_CACHE.get(dailyCountKey) || '0');
+            await env.RESPONSE_CACHE.put(dailyCountKey, (currentCount + 1).toString());
 
             return new Response(JSON.stringify({
                 success: true,
@@ -47,7 +47,7 @@ export async function onRequestPost(context) {
             // Get daily conversation count for rate limiting
             const today = new Date().toISOString().split('T')[0];
             const dailyCountKey = `daily_count_${fingerprintId}_${today}`;
-            const count = parseInt(await env.TEACHSG_KV.get(dailyCountKey) || '0');
+            const count = parseInt(await env.RESPONSE_CACHE.get(dailyCountKey) || '0');
 
             return new Response(JSON.stringify({
                 count,
@@ -80,11 +80,11 @@ export async function onRequestGet(context) {
 
         if (action === 'list') {
             // List all conversations for monitoring
-            const { keys } = await env.TEACHSG_KV.list({ prefix: 'conversations_' });
+            const { keys } = await env.RESPONSE_CACHE.list({ prefix: 'conversations_' });
             const allConversations = [];
 
             for (const key of keys) {
-                const conversations = await env.TEACHSG_KV.get(key.name, 'json') || [];
+                const conversations = await env.RESPONSE_CACHE.get(key.name, 'json') || [];
                 allConversations.push(...conversations);
             }
 
@@ -100,7 +100,7 @@ export async function onRequestGet(context) {
         if (fingerprintId) {
             // Get conversations for specific fingerprint
             const conversationsKey = `conversations_${fingerprintId}`;
-            const conversations = await env.TEACHSG_KV.get(conversationsKey, 'json') || [];
+            const conversations = await env.RESPONSE_CACHE.get(conversationsKey, 'json') || [];
 
             return new Response(JSON.stringify(conversations), {
                 headers: { 'Content-Type': 'application/json' }
