@@ -39,8 +39,32 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 2rem;
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+            background:
+                radial-gradient(circle at 20% 20%, rgba(217, 119, 6, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(30, 58, 138, 0.03) 0%, transparent 50%),
+                linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
             min-height: calc(100vh - 60px);
+            position: relative;
+        }
+
+        .container:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(30, 58, 138, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30, 58, 138, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container > * {
+            position: relative;
+            z-index: 1;
         }
 
         h1 {
@@ -58,18 +82,53 @@
         .formula-section {
             margin: 2rem 0;
             padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border-left: 4px solid #d97706;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
+
+        .formula-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .formula-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(217, 119, 6, 0.1), rgba(30, 58, 138, 0.1));
+            border-radius: 0 12px 0 60px;
+        }
+
+        .formula-section.type-gradient { border-left-color: #ef4444; }
+        .formula-section.type-equation { border-left-color: #10b981; }
+        .formula-section.type-point { border-left-color: #8b5cf6; }
+        .formula-section.type-line { border-left-color: #f59e0b; }
+        .formula-section.type-area { border-left-color: #06b6d4; }
+        .formula-section.type-circle { border-left-color: #ec4899; }
 
         .formula-title {
             font-family: 'Dosis', sans-serif;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 600;
             color: #1e3a8a;
             margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .formula-icon {
+            font-size: 1.5rem;
+            opacity: 0.8;
         }
 
         .katex-display {
@@ -113,50 +172,74 @@
     <div class="container">
         <h1>Coordinate Geometry</h1>
 
-        <div class="formula-section">
-            <div class="formula-title">Gradient</div>
+        <div class="formula-section type-gradient">
+            <div class="formula-title">
+                <span class="formula-icon">📈</span>
+                Gradient
+            </div>
             <div class="katex-display">$$m=\frac{y_1-y_2}{x_1-x_2}$$</div>
         </div>
 
-        <div class="formula-section">
-            <div class="formula-title">Equation</div>
+        <div class="formula-section type-equation">
+            <div class="formula-title">
+                <span class="formula-icon">📝</span>
+                Equation
+            </div>
             <div class="katex-display">$$y-y_1=m(x-x_1)$$</div>
             <div class="katex-display">$$y=mx+c$$</div>
         </div>
 
-        <div class="formula-section">
-            <div class="formula-title">Midpoint</div>
+        <div class="formula-section type-point">
+            <div class="formula-title">
+                <span class="formula-icon">📍</span>
+                Midpoint
+            </div>
             <div class="katex-display">$$\left(\frac{x_1+x_2}{2}, \frac{y_1+y_2}{2}\right)$$</div>
         </div>
 
-        <div class="formula-section">
-            <div class="formula-title">Parallel Lines</div>
+        <div class="formula-section type-line">
+            <div class="formula-title">
+                <span class="formula-icon">📏</span>
+                Parallel Lines
+            </div>
             <div class="katex-display">$$m_1=m_2$$</div>
         </div>
 
-        <div class="formula-section">
-            <div class="formula-title">Perpendicular Lines</div>
+        <div class="formula-section type-line">
+            <div class="formula-title">
+                <span class="formula-icon">⟂</span>
+                Perpendicular Lines
+            </div>
             <div class="katex-display">$$m_1=-\frac{1}{m_2}$$</div>
             <div class="katex-display">$$m_1\times m_2=-1$$</div>
         </div>
 
-        <div class="formula-section">
-            <div class="formula-title">Area Of Quadrilateral</div>
+        <div class="formula-section type-area">
+            <div class="formula-title">
+                <span class="formula-icon">📊</span>
+                Area Of Quadrilateral
+            </div>
             <div class="katex-display">$$A=\frac{1}{2}\left| \begin{array}{ccccc} x_1 & x_2 & x_3 & x_4 & x_1\\ y_1& y_2 & y_3 & y_4 & y_1\end{array} \right|$$</div>
             <div class="katex-display">$$=\frac{1}{2}|(x_1y_2+x_2y_3+x_3y_4+x_4y_1)$$</div>
             <div class="katex-display">$$-(x_2y_1+x_3y_2+x_4y_3+x_1y_4)|$$</div>
             <div class="note"><strong>Note:</strong> coordinates should be in anti-clockwise direction</div>
         </div>
 
-        <div class="formula-section">
-            <div class="formula-title">Circle</div>
+        <div class="formula-section type-circle">
+            <div class="formula-title">
+                <span class="formula-icon">⭕</span>
+                Circle
+            </div>
             <div class="katex-display">$$(x-a)^2+(y-b)^2=r^2$$</div>
             <div class="variable-explanation">$(a,b)$: centre of circle</div>
             <div class="variable-explanation">$r$: radius</div>
         </div>
 
-        <div class="formula-section">
-            <div class="formula-title">Circle (Second Formula)</div>
+        <div class="formula-section type-circle">
+            <div class="formula-title">
+                <span class="formula-icon">🔄</span>
+                Circle (Second Formula)
+            </div>
             <div class="katex-display">$$x^2+y^2+2gx+2fy+c=0$$</div>
             <div class="variable-explanation">$(-g,-f)$: centre of circle</div>
             <div class="variable-explanation">$\sqrt{f^2+g^2-c}$: radius</div>
