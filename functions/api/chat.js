@@ -48,7 +48,7 @@ export async function onRequestPost(context) {
         }
 
         // Parse request body
-        const { message, user_id } = await request.json();
+        const { message } = await request.json();
 
         if (!message) {
             return new Response(
@@ -63,48 +63,34 @@ export async function onRequestPost(context) {
             );
         }
 
-        // Check usage limits if user is logged in
-        if (user_id) {
-            const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
+        // Get user's IP address for usage tracking
+        const clientIP = request.headers.get('CF-Connecting-IP') ||
+                        request.headers.get('X-Forwarded-For') ||
+                        'unknown';
 
-            // Check user's daily usage
-            const origin = new URL(request.url).origin;
-            const usageResponse = await fetch(`${origin}/api/usage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ user_id })
-            });
+        // Check IP-based daily usage (no registration required)
+        const origin = new URL(request.url).origin;
+        const usageResponse = await fetch(`${origin}/api/usage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                ip_address: clientIP,
+                cost_estimate: 0.025 // ~2.5 cents per question
+            })
+        });
 
-            const usageData = await usageResponse.json();
+        const usageData = await usageResponse.json();
 
-            if (!usageData.allowed) {
-                return new Response(
-                    JSON.stringify({
-                        error: 'Daily limit reached',
-                        limit: usageData.limit,
-                        plan: usageData.plan,
-                        upgrade_url: '/auth.html#upgrade'
-                    }),
-                    {
-                        status: 429,
-                        headers: {
-                            'Content-Type': 'application/json',
-                            ...corsHeaders
-                        }
-                    }
-                );
-            }
-        } else {
-            // For anonymous users, limit to 3 questions per session
-            // This is a simple check - you might want to implement IP-based limiting
+        if (!usageData.allowed) {
             return new Response(
                 JSON.stringify({
-                    error: 'Please log in to continue',
-                    message: 'Free users must create an account to use the AI tutor',
-                    login_url: '/auth.html'
+                    error: 'Daily usage limit reached',
+                    message: `You've reached your daily limit of ${usageData.limit} questions (10¢ budget). Try again tomorrow!`,
+                    reset_time: 'tomorrow',
+                    remaining_budget: '$0.00'
                 }),
                 {
-                    status: 401,
+                    status: 429,
                     headers: {
                         'Content-Type': 'application/json',
                         ...corsHeaders

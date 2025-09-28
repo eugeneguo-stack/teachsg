@@ -70,14 +70,6 @@ async function sendMessage(message = null) {
 
     if (!messageText) return;
 
-    // Check if user is logged in
-    const user = JSON.parse(localStorage.getItem('user') || 'null');
-
-    if (!user) {
-        addMessage('Please log in to use the AI tutor. <a href="/auth.html" class="text-blue-600 underline">Click here to sign up or log in</a>');
-        return;
-    }
-
     isLoading = true;
     sendButton.disabled = true;
     sendButton.textContent = 'Sending...';
@@ -96,8 +88,7 @@ async function sendMessage(message = null) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                message: messageText,
-                user_id: user.id
+                message: messageText
             })
         });
 
@@ -108,11 +99,9 @@ async function sendMessage(message = null) {
 
         if (!response.ok) {
             if (response.status === 429) {
-                // Usage limit reached
-                addMessage(`Daily limit reached! You've used ${data.limit} questions today. <a href="${data.upgrade_url}" class="text-blue-600 underline">Upgrade your plan</a> for more questions.`);
-            } else if (response.status === 401) {
-                // Authentication required
-                addMessage(`${data.message || 'Please log in to continue'} <a href="${data.login_url}" class="text-blue-600 underline">Sign up or log in here</a>`);
+                // Daily budget reached
+                addMessage(`Daily limit reached! ${data.message || "You've reached your 10¢ daily budget (≈4 questions). Come back tomorrow for more free tutoring!"}`);
+                updateUsageDisplay(0, data.limit || 4);
             } else {
                 addMessage(data.error || 'Sorry, I encountered an error. Please try again.');
             }
@@ -175,39 +164,29 @@ function formatAIResponse(content) {
         .replace(/(<div[^>]*>[^<]*<\/strong>[^<]*(?!<\/div>))$/g, '$1</div>');
 }
 
-// Display user status
-function displayUserStatus() {
-    const user = JSON.parse(localStorage.getItem('user') || 'null');
-    const userStatus = document.getElementById('user-status');
-    const authPrompt = document.getElementById('auth-prompt');
-    const userWelcome = document.getElementById('user-welcome');
-    const userUsage = document.getElementById('user-usage');
+// Update usage display
+function updateUsageDisplay(remaining, limit) {
+    const remainingQuestions = document.getElementById('remaining-questions');
+    const dailyUsage = document.getElementById('daily-usage');
 
-    if (user) {
-        const name = user.user_metadata?.full_name || user.email.split('@')[0];
-        userWelcome.textContent = `Welcome, ${name}!`;
-        userUsage.textContent = 'Free plan: 10 questions/day';
+    if (remainingQuestions) {
+        if (remaining > 0) {
+            remainingQuestions.textContent = `${remaining}/${limit} questions left today`;
+            remainingQuestions.className = 'text-green-600 text-xs mt-1';
+        } else {
+            remainingQuestions.textContent = 'Daily limit reached - back tomorrow! 😊';
+            remainingQuestions.className = 'text-orange-600 text-xs mt-1';
+        }
+    }
 
-        userStatus.classList.remove('hidden');
-        authPrompt.classList.add('hidden');
-
-        // Add logout handler
-        document.getElementById('logout-btn').addEventListener('click', () => {
-            localStorage.removeItem('user');
-            window.location.reload();
-        });
-    } else {
-        userStatus.classList.add('hidden');
-        authPrompt.classList.remove('hidden');
+    if (dailyUsage && remaining === 0) {
+        dailyUsage.textContent = 'Limit reached (10¢ budget used)';
     }
 }
 
 // Add some welcome quick start options on load
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Teach.sg Chat initialized');
-
-    // Display user authentication status
-    displayUserStatus();
+    console.log('Teach.sg Chat initialized - No registration required!');
 
     // Check if there's an auto-question from another page
     const autoQuestion = sessionStorage.getItem('autoQuestion');

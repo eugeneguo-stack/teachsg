@@ -18,12 +18,12 @@ export async function onRequestPost(context) {
         // Initialize Supabase
         const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
 
-        // Get user from request
-        const { user_id } = await request.json();
+        // Get IP and cost data from request
+        const { ip_address, cost_estimate } = await request.json();
 
-        if (!user_id) {
+        if (!ip_address) {
             return new Response(
-                JSON.stringify({ error: 'User ID required' }),
+                JSON.stringify({ error: 'IP address required' }),
                 {
                     status: 400,
                     headers: { 'Content-Type': 'application/json', ...corsHeaders }
@@ -34,41 +34,32 @@ export async function onRequestPost(context) {
         // Get today's date
         const today = new Date().toISOString().split('T')[0];
 
-        // Check user's usage for today
+        // Check IP's usage for today
         const { data: usage, error: usageError } = await supabase
-            .from('user_usage')
+            .from('ip_usage')
             .select('*')
-            .eq('user_id', user_id)
+            .eq('ip_address', ip_address)
             .eq('date', today)
             .single();
 
-        // Get user's subscription plan
-        const { data: userProfile, error: profileError } = await supabase
-            .from('user_profiles')
-            .select('subscription_plan')
-            .eq('user_id', user_id)
-            .single();
+        // 10 cent daily budget = 4 questions at 2.5 cents each
+        const dailyBudget = 0.10; // $0.10
+        const dailyQuestionLimit = Math.floor(dailyBudget / (cost_estimate || 0.025));
 
-        const plan = userProfile?.subscription_plan || 'free';
+        const currentUsage = usage?.question_count || 0;
+        const currentCost = usage?.total_cost || 0;
 
-        // Define limits
-        const limits = {
-            free: 10,
-            student: 100,
-            premium: -1 // unlimited
-        };
+        // Check if user has exceeded budget or question limit
+        const nextCost = currentCost + (cost_estimate || 0.025);
 
-        const dailyLimit = limits[plan];
-        const currentUsage = usage?.count || 0;
-
-        // Check if user has exceeded limit
-        if (dailyLimit !== -1 && currentUsage >= dailyLimit) {
+        if (currentUsage >= dailyQuestionLimit || nextCost > dailyBudget) {
             return new Response(
                 JSON.stringify({
                     allowed: false,
                     remaining: 0,
-                    limit: dailyLimit,
-                    plan: plan,
+                    limit: dailyQuestionLimit,
+                    current_cost: currentCost,
+                    daily_budget: dailyBudget,
                     resetTime: 'tomorrow'
                 }),
                 {
@@ -80,28 +71,35 @@ export async function onRequestPost(context) {
         // Update or create usage record
         if (usage) {
             await supabase
-                .from('user_usage')
-                .update({ count: currentUsage + 1 })
-                .eq('user_id', user_id)
+                .from('ip_usage')
+                .update({
+                    question_count: currentUsage + 1,
+                    total_cost: nextCost
+                })
+                .eq('ip_address', ip_address)
                 .eq('date', today);
         } else {
             await supabase
-                .from('user_usage')
+                .from('ip_usage')
                 .insert({
-                    user_id: user_id,
+                    ip_address: ip_address,
                     date: today,
-                    count: 1
+                    question_count: 1,
+                    total_cost: cost_estimate || 0.025
                 });
         }
 
-        const remaining = dailyLimit === -1 ? -1 : dailyLimit - (currentUsage + 1);
+        const remaining = dailyQuestionLimit - (currentUsage + 1);
+        const remainingBudget = dailyBudget - nextCost;
 
         return new Response(
             JSON.stringify({
                 allowed: true,
                 remaining: remaining,
-                limit: dailyLimit,
-                plan: plan,
+                limit: dailyQuestionLimit,
+                current_cost: nextCost,
+                remaining_budget: remainingBudget,
+                daily_budget: dailyBudget,
                 resetTime: 'tomorrow'
             }),
             {

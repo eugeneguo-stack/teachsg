@@ -17,19 +17,12 @@
                 <div>
                     <h1 class="text-4xl font-bold text-gray-800 mb-2">Teach.sg</h1>
                     <p class="text-lg text-gray-600">Your AI-powered Math & Music Learning Companion</p>
-                    <p class="text-sm text-gray-500 mt-1">Aligned with Singapore O-Level curriculum</p>
+                    <p class="text-sm text-gray-500 mt-1">Aligned with Singapore O-Level curriculum • Free to use!</p>
                 </div>
-                <div id="user-status" class="hidden">
-                    <div class="bg-white rounded-lg shadow p-3 text-sm">
-                        <div id="user-welcome" class="font-medium text-gray-800"></div>
-                        <div id="user-usage" class="text-gray-600"></div>
-                        <button id="logout-btn" class="text-red-600 hover:text-red-800 mt-1">Logout</button>
-                    </div>
-                </div>
-                <div id="auth-prompt" class="hidden">
-                    <a href="/auth.html" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
-                        Sign Up / Login
-                    </a>
+                <div id="usage-status" class="bg-white rounded-lg shadow p-3 text-sm">
+                    <div class="font-medium text-gray-800">💫 Free AI Tutoring</div>
+                    <div id="daily-usage" class="text-gray-600">4 questions/day (10¢ budget)</div>
+                    <div id="remaining-questions" class="text-green-600 text-xs mt-1">Ready to help! 🤖</div>
                 </div>
             </div>
         </header>
