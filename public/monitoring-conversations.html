@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeachSG - Conversation Monitoring</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-6xl mx-auto">
+            <!-- Header -->
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">🦉 TeachSG Conversation Monitoring</h1>
+                        <p class="text-gray-600 mt-2">Real-time conversation tracking and analytics</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm text-gray-500">Last updated</div>
+                        <div id="last-updated" class="font-semibold text-gray-900">Loading...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="text-2xl font-bold text-blue-600" id="total-conversations">-</div>
+                    <div class="text-sm text-gray-600">Total Conversations</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="text-2xl font-bold text-green-600" id="today-conversations">-</div>
+                    <div class="text-sm text-gray-600">Today's Conversations</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="text-2xl font-bold text-purple-600" id="unique-users">-</div>
+                    <div class="text-sm text-gray-600">Unique Users</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="text-2xl font-bold text-orange-600" id="avg-per-user">-</div>
+                    <div class="text-sm text-gray-600">Avg per User</div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <div class="flex flex-wrap items-center gap-4">
+                    <button onclick="loadConversations()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        🔄 Refresh
+                    </button>
+                    <select id="date-filter" onchange="filterByDate()" class="border border-gray-300 rounded-lg px-3 py-2">
+                        <option value="">All dates</option>
+                        <option value="today">Today</option>
+                        <option value="yesterday">Yesterday</option>
+                        <option value="last7days">Last 7 days</option>
+                    </select>
+                    <input type="text" id="search-input" placeholder="Search conversations..."
+                           class="border border-gray-300 rounded-lg px-3 py-2 flex-1 min-w-64"
+                           oninput="filterConversations()">
+                </div>
+            </div>
+
+            <!-- Conversations List -->
+            <div class="bg-white rounded-lg shadow-sm">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-xl font-semibold text-gray-900">Recent Conversations</h2>
+                </div>
+
+                <div id="loading" class="p-8 text-center text-gray-500">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                    Loading conversations...
+                </div>
+
+                <div id="conversations-container" class="hidden">
+                    <div id="conversations-list"></div>
+
+                    <!-- Pagination -->
+                    <div class="p-6 border-t border-gray-200 flex items-center justify-between">
+                        <div class="text-sm text-gray-600">
+                            Showing <span id="showing-count">0</span> conversations
+                        </div>
+                        <div class="flex space-x-2">
+                            <button id="prev-page" onclick="previousPage()" disabled
+                                    class="px-3 py-1 border rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+                                Previous
+                            </button>
+                            <span id="page-info" class="px-3 py-1 text-sm">Page 1</span>
+                            <button id="next-page" onclick="nextPage()" disabled
+                                    class="px-3 py-1 border rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="no-conversations" class="hidden p-8 text-center text-gray-500">
+                    No conversations found matching your criteria.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conversation Modal -->
+    <div id="conversation-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-gray-900">Conversation Details</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="modal-content" class="p-6 overflow-y-auto max-h-[70vh]">
+                <!-- Modal content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allConversations = [];
+        let filteredConversations = [];
+        let currentPage = 1;
+        const itemsPerPage = 20;
+
+        // Load conversations from API
+        async function loadConversations() {
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('conversations-container').classList.add('hidden');
+            document.getElementById('no-conversations').classList.add('hidden');
+
+            try {
+                const response = await fetch('/api/conversations?action=list');
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to load conversations');
+                }
+
+                allConversations = data;
+                filteredConversations = [...allConversations];
+                updateStats();
+                displayConversations();
+                updateLastUpdated();
+
+            } catch (error) {
+                console.error('Error loading conversations:', error);
+                document.getElementById('loading').innerHTML =
+                    '<div class="text-red-600">Failed to load conversations: ' + error.message + '</div>';
+            }
+        }
+
+        // Update statistics
+        function updateStats() {
+            const today = new Date().toISOString().split('T')[0];
+            const todayConversations = allConversations.filter(conv => conv.date === today);
+            const uniqueUsers = new Set(allConversations.map(conv => conv.fingerprintId)).size;
+            const avgPerUser = uniqueUsers > 0 ? (allConversations.length / uniqueUsers).toFixed(1) : 0;
+
+            document.getElementById('total-conversations').textContent = allConversations.length.toLocaleString();
+            document.getElementById('today-conversations').textContent = todayConversations.length.toLocaleString();
+            document.getElementById('unique-users').textContent = uniqueUsers.toLocaleString();
+            document.getElementById('avg-per-user').textContent = avgPerUser;
+        }
+
+        // Display conversations with pagination
+        function displayConversations() {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageConversations = filteredConversations.slice(startIndex, endIndex);
+
+            if (pageConversations.length === 0) {
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('conversations-container').classList.add('hidden');
+                document.getElementById('no-conversations').classList.remove('hidden');
+                return;
+            }
+
+            const conversationsList = document.getElementById('conversations-list');
+            conversationsList.innerHTML = '';
+
+            pageConversations.forEach(conversation => {
+                const conversationElement = createConversationElement(conversation);
+                conversationsList.appendChild(conversationElement);
+            });
+
+            // Update pagination
+            document.getElementById('showing-count').textContent = filteredConversations.length.toLocaleString();
+            document.getElementById('page-info').textContent = `Page ${currentPage} of ${Math.ceil(filteredConversations.length / itemsPerPage)}`;
+
+            document.getElementById('prev-page').disabled = currentPage === 1;
+            document.getElementById('next-page').disabled = endIndex >= filteredConversations.length;
+
+            // Show conversations container
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('conversations-container').classList.remove('hidden');
+            document.getElementById('no-conversations').classList.add('hidden');
+        }
+
+        // Create conversation element
+        function createConversationElement(conversation) {
+            const div = document.createElement('div');
+            div.className = 'border-b border-gray-200 p-4 hover:bg-gray-50 cursor-pointer transition-colors';
+            div.onclick = () => openConversationModal(conversation);
+
+            const timestamp = new Date(conversation.timestamp).toLocaleString();
+            const userPreview = conversation.userMessage.substring(0, 100) + (conversation.userMessage.length > 100 ? '...' : '');
+            const aiPreview = conversation.aiResponse.substring(0, 150) + (conversation.aiResponse.length > 150 ? '...' : '');
+
+            div.innerHTML = `
+                <div class="flex items-start justify-between mb-2">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm font-medium text-blue-600">${conversation.fingerprintId.substring(0, 8)}...</span>
+                        <span class="text-xs text-gray-500">${timestamp}</span>
+                    </div>
+                    <button class="text-blue-600 hover:text-blue-800 text-sm">View Details →</button>
+                </div>
+                <div class="space-y-2">
+                    <div class="text-sm">
+                        <span class="font-medium text-gray-700">User:</span>
+                        <span class="text-gray-600">${userPreview}</span>
+                    </div>
+                    <div class="text-sm">
+                        <span class="font-medium text-gray-700">AI:</span>
+                        <span class="text-gray-600">${aiPreview}</span>
+                    </div>
+                </div>
+            `;
+
+            return div;
+        }
+
+        // Open conversation modal
+        function openConversationModal(conversation) {
+            const modal = document.getElementById('conversation-modal');
+            const modalContent = document.getElementById('modal-content');
+
+            const timestamp = new Date(conversation.timestamp).toLocaleString();
+
+            modalContent.innerHTML = `
+                <div class="space-y-6">
+                    <div class="border-b border-gray-200 pb-4">
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div><span class="font-medium">Fingerprint ID:</span> ${conversation.fingerprintId}</div>
+                            <div><span class="font-medium">Timestamp:</span> ${timestamp}</div>
+                            <div><span class="font-medium">Conversation ID:</span> ${conversation.id}</div>
+                            <div><span class="font-medium">Date:</span> ${conversation.date}</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="bg-blue-50 rounded-lg p-4">
+                            <div class="font-medium text-blue-800 mb-2">👤 User Question:</div>
+                            <div class="text-gray-700 whitespace-pre-wrap">${conversation.userMessage}</div>
+                        </div>
+
+                        <div class="bg-green-50 rounded-lg p-4">
+                            <div class="font-medium text-green-800 mb-2">🦉 AI Response:</div>
+                            <div class="text-gray-700 whitespace-pre-wrap">${conversation.aiResponse}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('conversation-modal').classList.add('hidden');
+        }
+
+        // Filter conversations by search
+        function filterConversations() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+
+            filteredConversations = allConversations.filter(conversation => {
+                return conversation.userMessage.toLowerCase().includes(searchTerm) ||
+                       conversation.aiResponse.toLowerCase().includes(searchTerm) ||
+                       conversation.fingerprintId.toLowerCase().includes(searchTerm);
+            });
+
+            currentPage = 1;
+            displayConversations();
+        }
+
+        // Filter by date
+        function filterByDate() {
+            const dateFilter = document.getElementById('date-filter').value;
+            const today = new Date();
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            const lastWeek = new Date(today);
+            lastWeek.setDate(lastWeek.getDate() - 7);
+
+            switch (dateFilter) {
+                case 'today':
+                    filteredConversations = allConversations.filter(conv =>
+                        conv.date === today.toISOString().split('T')[0]
+                    );
+                    break;
+                case 'yesterday':
+                    filteredConversations = allConversations.filter(conv =>
+                        conv.date === yesterday.toISOString().split('T')[0]
+                    );
+                    break;
+                case 'last7days':
+                    filteredConversations = allConversations.filter(conv =>
+                        new Date(conv.date) >= lastWeek
+                    );
+                    break;
+                default:
+                    filteredConversations = [...allConversations];
+            }
+
+            currentPage = 1;
+            displayConversations();
+        }
+
+        // Pagination
+        function previousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                displayConversations();
+            }
+        }
+
+        function nextPage() {
+            if (currentPage * itemsPerPage < filteredConversations.length) {
+                currentPage++;
+                displayConversations();
+            }
+        }
+
+        // Update last updated timestamp
+        function updateLastUpdated() {
+            document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('conversation-modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('conversation-modal')) {
+                closeModal();
+            }
+        });
+
+        // Load conversations on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadConversations();
+            // Auto-refresh every 30 seconds
+            setInterval(loadConversations, 30000);
+        });
+    </script>
+</body>
+</html>

@@ -1,29 +1,78 @@
 let isLoading = false;
+let userFingerprint = null;
 
-// Individual user conversation tracking (localStorage-based)
+// Fingerprint-based conversation tracking
 const DAILY_CONVERSATION_LIMIT = 25;
 
-function getUserConversationCount() {
-    const today = new Date().toISOString().split('T')[0];
-    const key = `teach_sg_conversations_${today}`;
-    const stored = localStorage.getItem(key);
-    return stored ? parseInt(stored) : 0;
+async function initializeFingerprint() {
+    if (!userFingerprint) {
+        userFingerprint = await window.browserFingerprint.getUserId();
+    }
+    return userFingerprint;
 }
 
-function incrementUserConversationCount() {
+async function getUserConversationCount() {
+    await initializeFingerprint();
+    try {
+        const response = await fetch('/api/conversations', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action: 'getDailyCount',
+                fingerprintId: userFingerprint
+            })
+        });
+        const data = await response.json();
+        return data.count || 0;
+    } catch (error) {
+        console.error('Failed to get conversation count:', error);
+        // Fallback to localStorage
+        const today = new Date().toISOString().split('T')[0];
+        const key = `teach_sg_conversations_${today}`;
+        const stored = localStorage.getItem(key);
+        return stored ? parseInt(stored) : 0;
+    }
+}
+
+async function incrementUserConversationCount() {
+    // Keep localStorage as backup
     const today = new Date().toISOString().split('T')[0];
     const key = `teach_sg_conversations_${today}`;
-    const current = getUserConversationCount();
+    const current = await getUserConversationCount();
     localStorage.setItem(key, (current + 1).toString());
     return current + 1;
 }
 
-function getRemainingConversations() {
-    return Math.max(0, DAILY_CONVERSATION_LIMIT - getUserConversationCount());
+async function getRemainingConversations() {
+    const count = await getUserConversationCount();
+    return Math.max(0, DAILY_CONVERSATION_LIMIT - count);
 }
 
-function hasReachedDailyLimit() {
-    return getUserConversationCount() >= DAILY_CONVERSATION_LIMIT;
+async function hasReachedDailyLimit() {
+    const count = await getUserConversationCount();
+    return count >= DAILY_CONVERSATION_LIMIT;
+}
+
+async function storeConversation(userMessage, aiResponse) {
+    await initializeFingerprint();
+    try {
+        const response = await fetch('/api/conversations', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action: 'store',
+                fingerprintId: userFingerprint,
+                userMessage,
+                aiResponse,
+                conversationId: Date.now().toString()
+            })
+        });
+        const data = await response.json();
+        return data.success;
+    } catch (error) {
+        console.error('Failed to store conversation:', error);
+        return false;
+    }
 }
 
 function addMessage(content, isUser = false) {
@@ -102,7 +151,7 @@ async function sendMessage(message = null) {
     if (isLoading) return;
 
     // Check individual user daily limit first
-    if (hasReachedDailyLimit()) {
+    if (await hasReachedDailyLimit()) {
         addMessage("You've reached your daily limit of 25 conversations. Come back tomorrow for more free tutoring! 😊");
         updateUsageDisplay(0, DAILY_CONVERSATION_LIMIT);
         return;
@@ -159,11 +208,15 @@ async function sendMessage(message = null) {
         }
 
         // Add AI response
-        addMessage(data.response || 'Sorry, I encountered an error. Please try again.');
+        const aiResponse = data.response || 'Sorry, I encountered an error. Please try again.';
+        addMessage(aiResponse);
+
+        // Store conversation in KV storage
+        await storeConversation(messageText, aiResponse);
 
         // Increment user's conversation count for successful responses
-        const conversationsUsed = incrementUserConversationCount();
-        const remaining = getRemainingConversations();
+        const conversationsUsed = await incrementUserConversationCount();
+        const remaining = await getRemainingConversations();
         updateUsageDisplay(remaining, DAILY_CONVERSATION_LIMIT);
 
     } catch (error) {
