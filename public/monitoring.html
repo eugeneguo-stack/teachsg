@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usage Monitoring - Teach.sg</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+    <!-- Admin Login Modal -->
+    <div id="auth-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-xl p-8 max-w-md w-full mx-4">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Admin Access Required</h2>
+                <p class="text-gray-600">Enter the admin password to view monitoring dashboard</p>
+            </div>
+            <form id="auth-form" onsubmit="authenticate(event)">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                    <input type="password" id="admin-password" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                           placeholder="Enter admin password">
+                </div>
+                <button type="submit" id="auth-btn"
+                        class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                    Access Dashboard
+                </button>
+            </form>
+            <div id="auth-error" class="mt-4 text-red-600 text-sm text-center hidden"></div>
+        </div>
+    </div>
+
+    <div id="dashboard-content" class="container mx-auto px-4 py-8" style="display: none;">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">Teach.sg Monitoring</h1>
+            <p class="text-lg text-gray-600">Usage analytics and cost monitoring</p>
+        </header>
+
+        <!-- Status Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">Today's Status</h3>
+                <div id="status-indicator" class="text-2xl font-bold mb-1">Loading...</div>
+                <div id="status-text" class="text-sm text-gray-600">Checking status...</div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">Today's Cost</h3>
+                <div id="today-cost" class="text-2xl font-bold text-blue-600 mb-1">$0.00</div>
+                <div class="text-sm text-gray-600">of $10.00 limit</div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">Questions Today</h3>
+                <div id="today-questions" class="text-2xl font-bold text-green-600 mb-1">0</div>
+                <div id="today-ips" class="text-sm text-gray-600">0 unique users</div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">7-Day Average</h3>
+                <div id="avg-cost" class="text-2xl font-bold text-purple-600 mb-1">$0.00</div>
+                <div class="text-sm text-gray-600">daily cost</div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Daily Cost Trend</h3>
+                <canvas id="costChart" width="400" height="200"></canvas>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Questions & Users</h3>
+                <canvas id="usageChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- Detailed Statistics -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Daily Breakdown</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full table-auto">
+                    <thead>
+                        <tr class="border-b">
+                            <th class="text-left py-2 px-4">Date</th>
+                            <th class="text-left py-2 px-4">Cost</th>
+                            <th class="text-left py-2 px-4">Questions</th>
+                            <th class="text-left py-2 px-4">Unique IPs</th>
+                            <th class="text-left py-2 px-4">Avg Cost/Question</th>
+                        </tr>
+                    </thead>
+                    <tbody id="daily-breakdown">
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-gray-500">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Cache Statistics -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Optimization Stats</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="text-center p-4 bg-blue-50 rounded-lg">
+                    <div id="cache-hits" class="text-2xl font-bold text-blue-600">0</div>
+                    <div class="text-sm text-gray-600">Estimated Cache Hits</div>
+                </div>
+                <div class="text-center p-4 bg-green-50 rounded-lg">
+                    <div id="cache-savings" class="text-2xl font-bold text-green-600">$0.00</div>
+                    <div class="text-sm text-gray-600">Estimated Savings</div>
+                </div>
+                <div class="text-center p-4 bg-purple-50 rounded-lg">
+                    <div class="text-lg font-bold text-purple-600">2000 chars</div>
+                    <div class="text-sm text-gray-600">Input Token Limit</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Controls</h3>
+            <div class="flex flex-wrap gap-4">
+                <button onclick="loadData(7)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+                    Last 7 Days
+                </button>
+                <button onclick="loadData(30)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+                    Last 30 Days
+                </button>
+                <button onclick="loadData(1)" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+                    Today Only
+                </button>
+                <button onclick="refreshData()" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg">
+                    Refresh
+                </button>
+            </div>
+            <div class="mt-4 text-sm text-gray-600">
+                <p>• Data updates in real-time</p>
+                <p>• Cache statistics are estimated based on keyword matching</p>
+                <p>• IP addresses are anonymized for privacy</p>
+            </div>
+        </div>
+
+        <div class="text-center mt-8">
+            <a href="/" class="text-blue-600 hover:text-blue-800">← Back to Teach.sg</a>
+        </div>
+    </div> <!-- End dashboard-content -->
+
+    <script>
+        // Authentication system
+        const ADMIN_PASSWORD_HASH = '1ebc94617b3d20e251cf865b51896e12acd96e4061400e0e95643769ae9a55e5'; // SHA-256 of secure admin password
+
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function authenticate(event) {
+            event.preventDefault();
+
+            const password = document.getElementById('admin-password').value;
+            const authBtn = document.getElementById('auth-btn');
+            const authError = document.getElementById('auth-error');
+
+            authBtn.disabled = true;
+            authBtn.textContent = 'Verifying...';
+            authError.classList.add('hidden');
+
+            try {
+                const hashedPassword = await hashPassword(password);
+
+                if (hashedPassword === ADMIN_PASSWORD_HASH) {
+                    // Success - store auth state and show dashboard
+                    sessionStorage.setItem('adminAuthenticated', 'true');
+                    document.getElementById('auth-modal').style.display = 'none';
+                    document.getElementById('dashboard-content').style.display = 'block';
+
+                    // Initialize dashboard
+                    loadData(7);
+                    setInterval(refreshData, 5 * 60 * 1000);
+                } else {
+                    // Failed authentication
+                    authError.textContent = 'Invalid password. Please try again.';
+                    authError.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Authentication error:', error);
+                authError.textContent = 'Authentication failed. Please try again.';
+                authError.classList.remove('hidden');
+            }
+
+            authBtn.disabled = false;
+            authBtn.textContent = 'Access Dashboard';
+            document.getElementById('admin-password').value = '';
+        }
+
+        // Check authentication on page load
+        function checkAuthentication() {
+            const isAuthenticated = sessionStorage.getItem('adminAuthenticated');
+
+            if (isAuthenticated === 'true') {
+                document.getElementById('auth-modal').style.display = 'none';
+                document.getElementById('dashboard-content').style.display = 'block';
+                return true;
+            }
+
+            return false;
+        }
+
+        // Logout function
+        function logout() {
+            sessionStorage.removeItem('adminAuthenticated');
+            location.reload();
+        }
+
+        // Add logout button to header
+        function addLogoutButton() {
+            const header = document.querySelector('header');
+            const logoutBtn = document.createElement('button');
+            logoutBtn.textContent = 'Logout';
+            logoutBtn.className = 'absolute top-4 right-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm';
+            logoutBtn.onclick = logout;
+            header.style.position = 'relative';
+            header.appendChild(logoutBtn);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (checkAuthentication()) {
+                addLogoutButton();
+                loadData(7);
+                setInterval(refreshData, 5 * 60 * 1000);
+            }
+        });
+
+        // Rest of the existing JavaScript code...
+        let costChart, usageChart;
+        let currentData = null;
+
+        async function loadData(days = 7) {
+            try {
+                const response = await fetch(`/api/monitoring?days=${days}&detailed=false`);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to load monitoring data');
+                }
+
+                currentData = data;
+                updateDashboard(data);
+            } catch (error) {
+                console.error('Error loading data:', error);
+                showError('Failed to load monitoring data: ' + error.message);
+            }
+        }
+
+        function updateDashboard(data) {
+            const { summary, daily_breakdown, cache_stats } = data;
+
+            // Update status cards
+            const statusColors = {
+                'NORMAL': { color: 'text-green-600', text: '✅ NORMAL' },
+                'WARNING': { color: 'text-yellow-600', text: '⚠️ WARNING' },
+                'LIMIT_REACHED': { color: 'text-red-600', text: '🚫 LIMIT REACHED' }
+            };
+
+            const statusInfo = statusColors[summary.today_status] || statusColors['NORMAL'];
+            document.getElementById('status-indicator').className = `text-2xl font-bold mb-1 ${statusInfo.color}`;
+            document.getElementById('status-indicator').textContent = statusInfo.text;
+            document.getElementById('status-text').textContent = `$${summary.today_cost} of $10.00 used`;
+
+            document.getElementById('today-cost').textContent = `$${summary.today_cost}`;
+            document.getElementById('today-questions').textContent = summary.today_questions;
+            document.getElementById('today-ips').textContent = `${summary.today_unique_ips} unique users`;
+            document.getElementById('avg-cost').textContent = `$${summary.average_daily_cost}`;
+
+            // Update cache stats
+            if (cache_stats) {
+                document.getElementById('cache-hits').textContent = cache_stats.estimated_hits;
+                document.getElementById('cache-savings').textContent = `$${cache_stats.estimated_savings.toFixed(2)}`;
+            }
+
+            // Update daily breakdown table
+            updateTable(daily_breakdown);
+
+            // Update charts
+            updateCharts(daily_breakdown);
+        }
+
+        function updateTable(daily_breakdown) {
+            const tbody = document.getElementById('daily-breakdown');
+            tbody.innerHTML = '';
+
+            daily_breakdown.forEach(day => {
+                const avgCostPerQuestion = day.global_questions > 0 ?
+                    (day.global_cost / day.global_questions).toFixed(3) : '0.000';
+
+                const row = document.createElement('tr');
+                row.className = 'border-b hover:bg-gray-50';
+                row.innerHTML = `
+                    <td class="py-2 px-4">${day.date}</td>
+                    <td class="py-2 px-4">$${day.global_cost.toFixed(4)}</td>
+                    <td class="py-2 px-4">${day.global_questions}</td>
+                    <td class="py-2 px-4">${day.unique_ips}</td>
+                    <td class="py-2 px-4">$${avgCostPerQuestion}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function updateCharts(daily_breakdown) {
+            const labels = daily_breakdown.map(day => day.date).reverse();
+            const costs = daily_breakdown.map(day => day.global_cost).reverse();
+            const questions = daily_breakdown.map(day => day.global_questions).reverse();
+            const ips = daily_breakdown.map(day => day.unique_ips).reverse();
+
+            // Cost chart
+            if (costChart) costChart.destroy();
+            const costCtx = document.getElementById('costChart').getContext('2d');
+            costChart = new Chart(costCtx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Daily Cost ($)',
+                        data: costs,
+                        borderColor: 'rgb(59, 130, 246)',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 10
+                        }
+                    }
+                }
+            });
+
+            // Usage chart
+            if (usageChart) usageChart.destroy();
+            const usageCtx = document.getElementById('usageChart').getContext('2d');
+            usageChart = new Chart(usageCtx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Questions',
+                        data: questions,
+                        backgroundColor: 'rgba(34, 197, 94, 0.8)',
+                        yAxisID: 'y'
+                    }, {
+                        label: 'Unique Users',
+                        data: ips,
+                        backgroundColor: 'rgba(168, 85, 247, 0.8)',
+                        yAxisID: 'y1'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            grid: {
+                                drawOnChartArea: false,
+                            },
+                        }
+                    }
+                }
+            });
+        }
+
+        function refreshData() {
+            if (currentData) {
+                const days = currentData.summary.period_days;
+                loadData(days);
+            } else {
+                loadData(7);
+            }
+        }
+
+        function showError(message) {
+            const statusIndicator = document.getElementById('status-indicator');
+            statusIndicator.textContent = '❌ ERROR';
+            statusIndicator.className = 'text-2xl font-bold mb-1 text-red-600';
+            document.getElementById('status-text').textContent = message;
+        }
+
+        // Authentication replaces the default initialization
+    </script>
+</body>
+</html>
