@@ -424,17 +424,17 @@ function updateConversationCounter(remaining) {
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('Teach.sg Chat initialized - No registration required!');
 
-    // Initialize conversation counter display
+    // Initialize conversation counter and usage display
     try {
         const remaining = await getRemainingConversations();
         updateConversationCounter(remaining);
+        updateUsageDisplay(remaining, DAILY_CONVERSATION_LIMIT);
     } catch (error) {
         console.error('Failed to initialize conversation counter:', error);
+        // Fallback to show counter with default value
+        updateConversationCounter(25);
+        updateUsageDisplay(25, DAILY_CONVERSATION_LIMIT);
     }
-
-    // Initialize usage display
-    const remaining = getRemainingConversations();
-    updateUsageDisplay(remaining, DAILY_CONVERSATION_LIMIT);
 
     // Check if there's an auto-question from another page
     const autoQuestion = sessionStorage.getItem('autoQuestion');
