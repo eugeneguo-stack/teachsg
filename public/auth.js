@@ -5,20 +5,32 @@ async function initSupabase() {
     try {
         // Fetch configuration from API
         const configResponse = await fetch('/api/config');
+
+        if (!configResponse.ok) {
+            throw new Error(`HTTP ${configResponse.status}: ${configResponse.statusText}`);
+        }
+
         const config = await configResponse.json();
+
+        // Check if configuration is complete
+        if (config.error || !config.configured) {
+            console.error('Supabase configuration error:', config);
+            showMessage(config.message || 'Supabase configuration is missing. Please set up environment variables.', 'error');
+            return false;
+        }
 
         if (typeof window !== 'undefined' && window.supabase && config.supabaseUrl && config.supabaseAnonKey) {
             supabase = window.supabase.createClient(config.supabaseUrl, config.supabaseAnonKey);
             console.log('Supabase initialized successfully');
             return true;
         } else {
-            console.error('Failed to initialize Supabase - missing configuration');
+            console.error('Failed to initialize Supabase - missing dependencies or configuration');
             showMessage('Configuration error. Please check your setup.', 'error');
             return false;
         }
     } catch (error) {
         console.error('Failed to load Supabase configuration:', error);
-        showMessage('Failed to connect to authentication service.', 'error');
+        showMessage('Failed to connect to authentication service. Please check if environment variables are configured.', 'error');
         return false;
     }
 }
