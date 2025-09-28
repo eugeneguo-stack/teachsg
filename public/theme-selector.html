@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Selector - Teach.sg</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .blue-palette {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --primary-dark: #1e3a8a;
+            --accent: #60a5fa;
+        }
+
+        .gold-palette {
+            --primary: #d97706;
+            --primary-light: #f59e0b;
+            --primary-dark: #b45309;
+            --accent: #fbbf24;
+        }
+
+        .color-swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.1);
+        }
+
+        .selected {
+            ring: 3px;
+            ring-color: #374151;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50 p-8">
+    <div class="max-w-4xl mx-auto">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Theme Color Selector</h1>
+            <p class="text-lg text-gray-600">Choose your preferred blue and gold shades for Teach.sg</p>
+        </header>
+
+        <!-- Blue Color Selection -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Select Blue Shade</h2>
+            <div class="grid grid-cols-6 md:grid-cols-8 gap-4">
+                <!-- Light Blues -->
+                <div class="text-center">
+                    <div class="color-swatch bg-blue-100 mx-auto mb-2" data-color="#dbeafe" data-name="blue-100"></div>
+                    <span class="text-xs text-gray-600">Light</span>
+                </div>
+                <div class="text-center">
+                    <div class="color-swatch bg-blue-200 mx-auto mb-2" data-color="#bfdbfe" data-name="blue-200"></div>
+                    <span class="text-xs text-gray-600">Lighter</span>
+                </div>
+                <div class="text-center">
+                    <div class="color-swatch bg-blue-300 mx-auto mb-2" data-color="#93c5fd" data-name="blue-300"></div>
+                    <span class="text-xs text-gray-600">Soft</span>
+                </div>
+
+                <!-- Medium Blues -->
+                <div class="text-center">
+                    <div class="color-swatch bg-blue-500 mx-auto mb-2" data-color="#3b82f6" data-name="blue-500"></div>
+                    <span class="text-xs text-gray-600">Classic</span>
+                </div>
+                <div class="text-center">
+                    <div class="color-swatch bg-blue-600 mx-auto mb-2 selected" data-color="#2563eb" data-name="blue-600"></div>
+                    <span class="text-xs text-gray-600">Primary</span>
+                </div>
+                <div class="text-center">
+                    <div class="color-swatch bg-blue-700 mx-auto mb-2" data-color="#1d4ed8" data-name="blue-700"></div>
+                    <span class="text-xs text-gray-600">Bold</span>
+                </div>
+
+                <!-- Dark Blues -->
+                <div class="text-center">
+                    <div class="color-swatch bg-blue-800 mx-auto mb-2" data-color="#1e40af" data-name="blue-800"></div>
+                    <span class="text-xs text-gray-600">Dark</span>
+                </div>
+                <div class="text-center">
+                    <div class="color-swatch bg-blue-900 mx-auto mb-2" data-color="#1e3a8a" data-name="blue-900"></div>
+                    <span class="text-xs text-gray-600">Navy</span>
+                </div>
+
+                <!-- Special Blues -->
+                <div class="text-center">
+                    <div class="color-swatch mx-auto mb-2" style="background-color: #0ea5e9;" data-color="#0ea5e9" data-name="sky-500"></div>
+                    <span class="text-xs text-gray-600">Sky</span>
+                </div>
+                <div class="text-center">
+                    <div class="color-swatch mx-auto mb-2" style="background-color: #0284c7;" data-color="#0284c7" data-name="sky-600"></div>
+                    <span class="text-xs text-gray-600">Sky+</span>
+                </div>
+                <div class="text-center">
+                    <div class="color-swatch mx-auto mb-2" style="background-color: #0369a1;" data-color="#0369a1" data-name="sky-700"></div>
+                    <span class="text-xs text-gray-600">Ocean</span>
+                </div>
+                <div class="text-center">
+                    <div class="color-swatch mx-auto mb-2" style="background-color: #164e63;" data-color="#164e63" data-name="cyan-800"></div>
+                    <span class="text-xs text-gray-600">Teal</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gold Color Selection -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Select Gold Shade</h2>
+            <div class="grid grid-cols-6 md:grid-cols-8 gap-4">
+                <!-- Light Golds -->
+                <div class="text-center">
+                    <div class="color-swatch bg-yellow-200 mx-auto mb-2" data-color="#fef08a" data-name="yellow-200"></div>
+                    <span class="text-xs text-gray-600">Cream</span>
+                </div>
+                <div class="text-center">
+                    <div class="color-swatch bg-yellow-300 mx-auto mb-2" data-color="#fde047" data-name="yellow-300"></div>
+                    <span class="text-xs text-gray-600">Light</span>
+                </div>
+                <div class="text-center">
+                    <div class="color-swatch bg-yellow-400 mx-auto mb-2" data-color="#facc15" data-name="yellow-400"></div>
+                    <span class="text-xs text-gray-600">Bright</span>
+                </div>
+
+                <!-- Medium Golds -->
+                <div class="text-center">
+                    <div class="color-swatch bg-yellow-500 mx-auto mb-2" data-color="#eab308" data-name="yellow-500"></div>
+                    <span class="text-xs text-gray-600">Classic</span>
+                </div>
+                <div class="text-center">
+                    <div class="color-swatch bg-amber-400 mx-auto mb-2" data-color="#fbbf24" data-name="amber-400"></div>
+                    <span class="text-xs text-gray-600">Amber</span>
+                </div>
+                <div class="text-center">
+                    <div class="color-swatch bg-amber-500 mx-auto mb-2 selected" data-color="#f59e0b" data-name="amber-500"></div>
+                    <span class="text-xs text-gray-600">Gold</span>
+                </div>
+
+                <!-- Dark Golds -->
+                <div class="text-center">
+                    <div class="color-swatch bg-amber-600 mx-auto mb-2" data-color="#d97706" data-name="amber-600"></div>
+                    <span class="text-xs text-gray-600">Deep</span>
+                </div>
+                <div class="text-center">
+                    <div class="color-swatch bg-amber-700 mx-auto mb-2" data-color="#b45309" data-name="amber-700"></div>
+                    <span class="text-xs text-gray-600">Bronze</span>
+                </div>
+
+                <!-- Special Golds -->
+                <div class="text-center">
+                    <div class="color-swatch mx-auto mb-2" style="background-color: #f59e0b;" data-color="#f59e0b" data-name="orange-400"></div>
+                    <span class="text-xs text-gray-600">Orange</span>
+                </div>
+                <div class="text-center">
+                    <div class="color-swatch mx-auto mb-2" style="background-color: #ea580c;" data-color="#ea580c" data-name="orange-600"></div>
+                    <span class="text-xs text-gray-600">Rust</span>
+                </div>
+                <div class="text-center">
+                    <div class="color-swatch mx-auto mb-2" style="background-color: #dc2626;" data-color="#dc2626" data-name="red-600"></div>
+                    <span class="text-xs text-gray-600">Red</span>
+                </div>
+                <div class="text-center">
+                    <div class="color-swatch mx-auto mb-2" style="background-color: #059669;" data-color="#059669" data-name="emerald-600"></div>
+                    <span class="text-xs text-gray-600">Green</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preview Section -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Live Preview</h2>
+            <div class="bg-white rounded-xl shadow-lg p-8 border">
+                <div class="text-center mb-8">
+                    <h1 class="text-5xl font-bold mb-4">
+                        <span style="color: var(--selected-blue, #2563eb);">Teach</span><span style="color: var(--selected-gold, #f59e0b);">.sg</span>
+                    </h1>
+                    <p class="text-xl text-gray-600">Your AI-Powered Learning Companion</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="border rounded-lg p-6" style="border-color: var(--selected-blue, #2563eb);">
+                        <h3 class="text-xl font-semibold mb-3" style="color: var(--selected-blue, #2563eb);">Mathematics</h3>
+                        <p class="text-gray-600 mb-4">Master O-Level math concepts</p>
+                        <button class="px-4 py-2 rounded-lg text-white" style="background-color: var(--selected-blue, #2563eb);">
+                            Learn More
+                        </button>
+                    </div>
+
+                    <div class="border rounded-lg p-6" style="border-color: var(--selected-gold, #f59e0b);">
+                        <h3 class="text-xl font-semibold mb-3" style="color: var(--selected-gold, #f59e0b);">Music Theory</h3>
+                        <p class="text-gray-600 mb-4">Piano and music fundamentals</p>
+                        <button class="px-4 py-2 rounded-lg text-white" style="background-color: var(--selected-gold, #f59e0b);">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Selected Colors Display -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Selected Colors</h2>
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="text-center">
+                        <h3 class="text-lg font-semibold mb-3">Primary Blue</h3>
+                        <div id="selected-blue-swatch" class="w-20 h-20 bg-blue-600 mx-auto rounded-lg mb-2"></div>
+                        <p id="selected-blue-name" class="text-sm text-gray-600">blue-600</p>
+                        <p id="selected-blue-hex" class="text-xs text-gray-500">#2563eb</p>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-lg font-semibold mb-3">Accent Gold</h3>
+                        <div id="selected-gold-swatch" class="w-20 h-20 bg-amber-500 mx-auto rounded-lg mb-2"></div>
+                        <p id="selected-gold-name" class="text-sm text-gray-600">amber-500</p>
+                        <p id="selected-gold-hex" class="text-xs text-gray-500">#f59e0b</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Action Buttons -->
+        <div class="text-center">
+            <button onclick="applyTheme()" class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold mr-4">
+                Apply This Theme
+            </button>
+            <button onclick="generateCSS()" class="bg-gray-600 hover:bg-gray-700 text-white px-8 py-3 rounded-lg font-semibold">
+                Generate CSS Code
+            </button>
+        </div>
+
+        <!-- CSS Output -->
+        <div id="css-output" class="mt-8 hidden">
+            <h3 class="text-lg font-semibold mb-3">Generated CSS:</h3>
+            <pre class="bg-gray-100 p-4 rounded-lg overflow-x-auto"><code id="css-code"></code></pre>
+        </div>
+    </div>
+
+    <script>
+        let selectedBlue = { color: '#2563eb', name: 'blue-600' };
+        let selectedGold = { color: '#f59e0b', name: 'amber-500' };
+
+        // Handle color selection
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('color-swatch')) {
+                const color = e.target.dataset.color;
+                const name = e.target.dataset.name;
+
+                // Determine if it's blue or gold based on parent section
+                const section = e.target.closest('section');
+                const isBlue = section.querySelector('h2').textContent.includes('Blue');
+
+                // Remove previous selection in this category
+                const currentSelected = section.querySelector('.selected');
+                if (currentSelected) {
+                    currentSelected.classList.remove('selected', 'ring', 'ring-gray-700');
+                }
+
+                // Add selection to clicked swatch
+                e.target.classList.add('selected', 'ring', 'ring-gray-700');
+
+                // Update selected colors
+                if (isBlue) {
+                    selectedBlue = { color, name };
+                    updateBlueDisplay();
+                } else {
+                    selectedGold = { color, name };
+                    updateGoldDisplay();
+                }
+
+                updatePreview();
+            }
+        });
+
+        function updateBlueDisplay() {
+            document.getElementById('selected-blue-swatch').style.backgroundColor = selectedBlue.color;
+            document.getElementById('selected-blue-name').textContent = selectedBlue.name;
+            document.getElementById('selected-blue-hex').textContent = selectedBlue.color;
+        }
+
+        function updateGoldDisplay() {
+            document.getElementById('selected-gold-swatch').style.backgroundColor = selectedGold.color;
+            document.getElementById('selected-gold-name').textContent = selectedGold.name;
+            document.getElementById('selected-gold-hex').textContent = selectedGold.color;
+        }
+
+        function updatePreview() {
+            document.documentElement.style.setProperty('--selected-blue', selectedBlue.color);
+            document.documentElement.style.setProperty('--selected-gold', selectedGold.color);
+        }
+
+        function generateCSS() {
+            const css = `/* Blue-Gold Theme for Teach.sg */
+:root {
+    --primary-blue: ${selectedBlue.color};
+    --accent-gold: ${selectedGold.color};
+}
+
+.text-primary { color: var(--primary-blue); }
+.bg-primary { background-color: var(--primary-blue); }
+.border-primary { border-color: var(--primary-blue); }
+
+.text-accent { color: var(--accent-gold); }
+.bg-accent { background-color: var(--accent-gold); }
+.border-accent { border-color: var(--accent-gold); }
+
+.btn-primary {
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+}
+
+.btn-accent {
+    background-color: var(--accent-gold);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+}`;
+
+            document.getElementById('css-code').textContent = css;
+            document.getElementById('css-output').classList.remove('hidden');
+        }
+
+        function applyTheme() {
+            alert(`Theme selected!\\nBlue: ${selectedBlue.name} (${selectedBlue.color})\\nGold: ${selectedGold.name} (${selectedGold.color})\\n\\nThis will be applied to the homepage.`);
+        }
+
+        // Initialize preview
+        updatePreview();
+    </script>
+</body>
+</html>
