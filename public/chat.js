@@ -313,6 +313,37 @@ function formatAIResponse(content) {
         .replace(/^---\s*$/gm, '')
         .replace(/\n---\n/g, '\n\n')
 
+        // Format markdown tables
+        .replace(/\n\|(.+)\|\n\|[-\s\|]+\|\n((?:\|.+\|\n?)+)/g, (match, header, rows) => {
+            const headerCells = header.split('|').map(cell => cell.trim()).filter(cell => cell);
+            const tableRows = rows.trim().split('\n').map(row =>
+                row.split('|').map(cell => cell.trim()).filter(cell => cell)
+            );
+
+            let tableHTML = '<div class="my-4 overflow-x-auto"><table class="min-w-full border border-gray-300 rounded-lg">';
+
+            // Header
+            tableHTML += '<thead class="bg-gray-50"><tr>';
+            headerCells.forEach(cell => {
+                tableHTML += `<th class="border border-gray-300 px-4 py-2 text-left font-semibold text-gray-700">${cell}</th>`;
+            });
+            tableHTML += '</tr></thead>';
+
+            // Body
+            tableHTML += '<tbody>';
+            tableRows.forEach((row, index) => {
+                const bgClass = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+                tableHTML += `<tr class="${bgClass}">`;
+                row.forEach(cell => {
+                    tableHTML += `<td class="border border-gray-300 px-4 py-2">${cell}</td>`;
+                });
+                tableHTML += '</tr>';
+            });
+            tableHTML += '</tbody></table></div>';
+
+            return '\n' + tableHTML + '\n';
+        })
+
         // Format line breaks properly
         .replace(/\n\n/g, '</p><p class="mb-2">')
         .replace(/\n/g, '<br>')
