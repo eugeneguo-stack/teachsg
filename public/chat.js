@@ -77,7 +77,7 @@ function addTypingIndicator() {
     typingDiv.innerHTML = `
         <div class="chat-message ai max-w-xs px-6 py-4 rounded-2xl bg-gradient-to-r from-gray-100 to-gray-50 text-gray-600 shadow-lg border border-gray-100">
             <div class="flex items-center space-x-2">
-                <img src="owl-logo.png" alt="Owl" class="w-4 h-4">
+                <span class="text-lg">🦉</span>
                 <span class="text-sm">Thinking</span>
                 <div class="flex space-x-1">
                     <div class="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>

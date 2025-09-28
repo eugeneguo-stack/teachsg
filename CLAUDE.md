@@ -13,7 +13,7 @@ AI-powered educational platform for Singapore O-Level curriculum featuring Mathe
 ## Key Features
 - GPT-OSS-120B chat integration with educational focus
 - Modern chat UI with gradient bubbles and animations
-- Owl mascot branding throughout interface
+- Owl emoji (🦉) branding throughout interface
 - Markdown and LaTeX math formatting support
 - Usage tracking and rate limiting
 - Responsive design for mobile/desktop
@@ -44,7 +44,7 @@ npx playwright test  # Run after git push to test live deployment
 - `/functions/api/chat.js` - Main chat routing logic
 - `/public/chat.js` - Frontend chat functionality with usage tracking
 - `/public/index.html` - Main landing page with owl branding
-- `/public/owl-logo.png` - Cute owl mascot image
+- Owl emoji (🦉) used throughout interface for branding
 
 ## Project Structure
 - `teachsg/` - Active development repository
@@ -61,6 +61,6 @@ npx playwright test  # Run after git push to test live deployment
 
 ## Notes
 - Removed Claude 3.5 Sonnet integration (cost optimization)
-- Owl mascot sourced from legacy WordPress uploads
+- Using owl emoji (🦉) for clean, universal branding
 - All aesthetic improvements deployed and working
 - Directory structure organized for clarity (active vs archived)
