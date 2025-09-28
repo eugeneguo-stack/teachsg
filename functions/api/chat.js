@@ -63,13 +63,40 @@ export async function onRequestPost(context) {
             );
         }
 
-        // Get user's IP address for usage tracking
+        // Check global daily budget first ($10 limit)
+        const origin = new URL(request.url).origin;
+        const globalUsageResponse = await fetch(`${origin}/api/global-usage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({})
+        });
+
+        const globalUsageData = await globalUsageResponse.json();
+
+        if (!globalUsageData.allowed) {
+            return new Response(
+                JSON.stringify({
+                    error: 'Platform daily limit reached',
+                    message: globalUsageData.message || 'Daily platform budget of $10 has been reached. Service resumes tomorrow!',
+                    reset_time: 'tomorrow',
+                    global_limit: true
+                }),
+                {
+                    status: 429,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...corsHeaders
+                    }
+                }
+            );
+        }
+
+        // Get user's IP address for individual usage tracking
         const clientIP = request.headers.get('CF-Connecting-IP') ||
                         request.headers.get('X-Forwarded-For') ||
                         'unknown';
 
         // Check IP-based daily usage (no registration required)
-        const origin = new URL(request.url).origin;
         const usageResponse = await fetch(`${origin}/api/usage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

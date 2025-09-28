@@ -99,9 +99,15 @@ async function sendMessage(message = null) {
 
         if (!response.ok) {
             if (response.status === 429) {
-                // Daily budget reached
-                addMessage(`Daily limit reached! ${data.message || "You've reached your 10¢ daily budget (≈4 questions). Come back tomorrow for more free tutoring!"}`);
-                updateUsageDisplay(0, data.limit || 4);
+                if (data.global_limit) {
+                    // Global platform limit reached
+                    addMessage(`🌍 Platform Daily Limit Reached! The site has served its $10 daily budget across all users. Thanks for using Teach.sg - we'll be back tomorrow with fresh tutoring! 📚✨`);
+                    updateUsageDisplay(0, 4, true);
+                } else {
+                    // Individual user limit reached
+                    addMessage(`Daily limit reached! ${data.message || "You've reached your 10¢ daily budget (≈4 questions). Come back tomorrow for more free tutoring!"}`);
+                    updateUsageDisplay(0, data.limit || 4);
+                }
             } else {
                 addMessage(data.error || 'Sorry, I encountered an error. Please try again.');
             }
@@ -165,22 +171,29 @@ function formatAIResponse(content) {
 }
 
 // Update usage display
-function updateUsageDisplay(remaining, limit) {
+function updateUsageDisplay(remaining, limit, isGlobalLimit = false) {
     const remainingQuestions = document.getElementById('remaining-questions');
     const dailyUsage = document.getElementById('daily-usage');
 
     if (remainingQuestions) {
-        if (remaining > 0) {
+        if (isGlobalLimit) {
+            remainingQuestions.textContent = 'Platform daily budget reached ($10) 🌍';
+            remainingQuestions.className = 'text-red-600 text-xs mt-1';
+        } else if (remaining > 0) {
             remainingQuestions.textContent = `${remaining}/${limit} questions left today`;
             remainingQuestions.className = 'text-green-600 text-xs mt-1';
         } else {
-            remainingQuestions.textContent = 'Daily limit reached - back tomorrow! 😊';
+            remainingQuestions.textContent = 'Your daily limit reached - back tomorrow! 😊';
             remainingQuestions.className = 'text-orange-600 text-xs mt-1';
         }
     }
 
     if (dailyUsage && remaining === 0) {
-        dailyUsage.textContent = 'Limit reached (10¢ budget used)';
+        if (isGlobalLimit) {
+            dailyUsage.textContent = 'Platform limit: $10 daily budget';
+        } else {
+            dailyUsage.textContent = 'Your limit: 10¢ budget used';
+        }
     }
 }
 
