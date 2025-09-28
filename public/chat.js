@@ -1,5 +1,31 @@
 let isLoading = false;
 
+// Individual user conversation tracking (localStorage-based)
+const DAILY_CONVERSATION_LIMIT = 25;
+
+function getUserConversationCount() {
+    const today = new Date().toISOString().split('T')[0];
+    const key = `teach_sg_conversations_${today}`;
+    const stored = localStorage.getItem(key);
+    return stored ? parseInt(stored) : 0;
+}
+
+function incrementUserConversationCount() {
+    const today = new Date().toISOString().split('T')[0];
+    const key = `teach_sg_conversations_${today}`;
+    const current = getUserConversationCount();
+    localStorage.setItem(key, (current + 1).toString());
+    return current + 1;
+}
+
+function getRemainingConversations() {
+    return Math.max(0, DAILY_CONVERSATION_LIMIT - getUserConversationCount());
+}
+
+function hasReachedDailyLimit() {
+    return getUserConversationCount() >= DAILY_CONVERSATION_LIMIT;
+}
+
 function addMessage(content, isUser = false) {
     const chatContainer = document.getElementById('chat-container');
     const messageDiv = document.createElement('div');
@@ -64,6 +90,13 @@ function removeTypingIndicator() {
 async function sendMessage(message = null) {
     if (isLoading) return;
 
+    // Check individual user daily limit first
+    if (hasReachedDailyLimit()) {
+        addMessage("You've reached your daily limit of 25 conversations (10¢ budget). Come back tomorrow for more free tutoring! 😊");
+        updateUsageDisplay(0, DAILY_CONVERSATION_LIMIT);
+        return;
+    }
+
     const input = document.getElementById('message-input');
     const sendButton = document.getElementById('send-button');
     const messageText = message || input.value.trim();
@@ -105,8 +138,8 @@ async function sendMessage(message = null) {
                     updateUsageDisplay(0, 4, true);
                 } else {
                     // Individual user limit reached
-                    addMessage(`Daily limit reached! ${data.message || "You've reached your 10¢ daily budget (≈4 questions). Come back tomorrow for more free tutoring!"}`);
-                    updateUsageDisplay(0, data.limit || 4);
+                    addMessage(`Daily limit reached! ${data.message || "You've reached your 10¢ daily budget (≈25 conversations). Come back tomorrow for more free tutoring!"}`);
+                    updateUsageDisplay(0, data.limit || 25);
                 }
             } else {
                 addMessage(data.error || 'Sorry, I encountered an error. Please try again.');
@@ -116,6 +149,11 @@ async function sendMessage(message = null) {
 
         // Add AI response
         addMessage(data.response || 'Sorry, I encountered an error. Please try again.');
+
+        // Increment user's conversation count for successful responses
+        const conversationsUsed = incrementUserConversationCount();
+        const remaining = getRemainingConversations();
+        updateUsageDisplay(remaining, DAILY_CONVERSATION_LIMIT);
 
     } catch (error) {
         console.error('Chat error:', error);
@@ -180,7 +218,7 @@ function updateUsageDisplay(remaining, limit, isGlobalLimit = false) {
             remainingQuestions.textContent = 'Platform daily budget reached ($10) 🌍';
             remainingQuestions.className = 'text-red-600 text-xs mt-1';
         } else if (remaining > 0) {
-            remainingQuestions.textContent = `${remaining}/${limit} questions left today`;
+            remainingQuestions.textContent = `${remaining}/${limit} conversations left today`;
             remainingQuestions.className = 'text-green-600 text-xs mt-1';
         } else {
             remainingQuestions.textContent = 'Your daily limit reached - back tomorrow! 😊';
@@ -200,6 +238,10 @@ function updateUsageDisplay(remaining, limit, isGlobalLimit = false) {
 // Add some welcome quick start options on load
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Teach.sg Chat initialized - No registration required!');
+
+    // Initialize usage display
+    const remaining = getRemainingConversations();
+    updateUsageDisplay(remaining, DAILY_CONVERSATION_LIMIT);
 
     // Check if there's an auto-question from another page
     const autoQuestion = sessionStorage.getItem('autoQuestion');
