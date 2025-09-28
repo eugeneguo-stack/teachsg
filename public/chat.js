@@ -189,8 +189,33 @@ function handleKeyPress(event) {
 }
 
 function formatAIResponse(content) {
+    // Protect LaTeX expressions from markdown processing
+    const latexProtected = [];
+    let protectedContent = content;
+
+    // Protect display math $$...$$
+    protectedContent = protectedContent.replace(/\$\$([\s\S]*?)\$\$/g, (match, latex) => {
+        const placeholder = `__LATEX_DISPLAY_${latexProtected.length}__`;
+        latexProtected.push(match);
+        return placeholder;
+    });
+
+    // Protect inline math $...$
+    protectedContent = protectedContent.replace(/\$([^$\n]+?)\$/g, (match, latex) => {
+        const placeholder = `__LATEX_INLINE_${latexProtected.length}__`;
+        latexProtected.push(match);
+        return placeholder;
+    });
+
+    // Protect \(...\) and \[...\] expressions
+    protectedContent = protectedContent.replace(/\\[\(\[][\s\S]*?\\[\)\]]/g, (match) => {
+        const placeholder = `__LATEX_BRACKET_${latexProtected.length}__`;
+        latexProtected.push(match);
+        return placeholder;
+    });
+
     // Format the AI response to look more like Claude app
-    return content
+    let formatted = protectedContent
         // Format markdown bold text **text** -> <strong>text</strong>
         .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
 
@@ -232,6 +257,15 @@ function formatAIResponse(content) {
 
         // Clean up any unclosed divs
         .replace(/(<div[^>]*>[^<]*<\/strong>[^<]*(?!<\/div>))$/g, '$1</div>');
+
+    // Restore protected LaTeX expressions
+    latexProtected.forEach((latex, index) => {
+        formatted = formatted.replace(`__LATEX_DISPLAY_${index}__`, latex);
+        formatted = formatted.replace(`__LATEX_INLINE_${index}__`, latex);
+        formatted = formatted.replace(`__LATEX_BRACKET_${index}__`, latex);
+    });
+
+    return formatted;
 }
 
 // Update usage display
