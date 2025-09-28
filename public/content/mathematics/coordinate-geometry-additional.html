@@ -7,88 +7,153 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        .formula-box {
-            border-radius: 8px;
-            padding: 16px;
-            margin: 16px 0;
-            border-left: 4px solid;
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+            color: #333;
         }
-        .formula-box.default {
-            background-color: #f8fafc;
-            border-left-color: #64748b;
+
+        .header {
+            background: #00ba9b;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
         }
-        .formula-box.download {
-            background-color: #ecfdf5;
-            border-left-color: #10b981;
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
         }
-        .formula-box.info {
-            background-color: #eff6ff;
-            border-left-color: #3b82f6;
+
+        .header a:hover {
+            text-decoration: underline;
         }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-family: 'Dosis', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #00ba9b;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .formula-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #f9f9f9;
+            border-left: 4px solid #00ba9b;
+            border-radius: 4px;
+        }
+
+        .formula-title {
+            font-family: 'Dosis', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #00ba9b;
+            margin-bottom: 1rem;
+        }
+
+        .katex-display {
+            margin: 1rem 0;
+            text-align: center;
+        }
+
         .katex * {
             font-family: KaTeX_Main, "Times New Roman", serif !important;
         }
+
+        .note {
+            font-style: italic;
+            color: #666;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .variable-explanation {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <nav class="bg-white shadow-sm border-b">
-        <div class="max-w-4xl mx-auto px-4 py-3">
-            <a href="/" class="text-blue-600 hover:text-blue-800 font-medium">← Back to TeachSG</a>
-        </div>
-    </nav>
+<body>
+    <div class="header">
+        <a href="/">← Back to TeachSG</a>
+    </div>
 
-    <div class="max-w-4xl mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-gray-900 mb-8">Coordinate Geometry</h1>
+    <div class="container">
+        <h1>Coordinate Geometry</h1>
 
-        <div class="formula-box default">
-            <h3 class="font-semibold text-gray-800 mb-2">Gradient</h3>
+        <div class="formula-section">
+            <div class="formula-title">Gradient</div>
             <div class="katex-display">$$m=\frac{y_1-y_2}{x_1-x_2}$$</div>
         </div>
 
-        <div class="formula-box download">
-            <h3 class="font-semibold text-gray-800 mb-2">Equation</h3>
+        <div class="formula-section">
+            <div class="formula-title">Equation</div>
             <div class="katex-display">$$y-y_1=m(x-x_1)$$</div>
             <div class="katex-display">$$y=mx+c$$</div>
         </div>
 
-        <div class="formula-box info">
-            <h3 class="font-semibold text-gray-800 mb-2">Midpoint</h3>
+        <div class="formula-section">
+            <div class="formula-title">Midpoint</div>
             <div class="katex-display">$$\left(\frac{x_1+x_2}{2}, \frac{y_1+y_2}{2}\right)$$</div>
         </div>
 
-        <div class="formula-box default">
-            <h3 class="font-semibold text-gray-800 mb-2">Parallel Lines</h3>
+        <div class="formula-section">
+            <div class="formula-title">Parallel Lines</div>
             <div class="katex-display">$$m_1=m_2$$</div>
         </div>
 
-        <div class="formula-box download">
-            <h3 class="font-semibold text-gray-800 mb-2">Perpendicular Lines</h3>
+        <div class="formula-section">
+            <div class="formula-title">Perpendicular Lines</div>
             <div class="katex-display">$$m_1=-\frac{1}{m_2}$$</div>
             <div class="katex-display">$$m_1\times m_2=-1$$</div>
         </div>
 
-        <div class="formula-box info">
-            <h3 class="font-semibold text-gray-800 mb-2">Area Of Quadrilateral</h3>
+        <div class="formula-section">
+            <div class="formula-title">Area Of Quadrilateral</div>
             <div class="katex-display">$$A=\frac{1}{2}\left| \begin{array}{ccccc} x_1 & x_2 & x_3 & x_4 & x_1\\ y_1& y_2 & y_3 & y_4 & y_1\end{array} \right|$$</div>
             <div class="katex-display">$$=\frac{1}{2}|(x_1y_2+x_2y_3+x_3y_4+x_4y_1)$$</div>
             <div class="katex-display">$$-(x_2y_1+x_3y_2+x_4y_3+x_1y_4)|$$</div>
-            <p class="text-sm text-gray-600 mt-2"><strong>Note:</strong> coordinates should be in anti-clockwise direction</p>
+            <div class="note"><strong>Note:</strong> coordinates should be in anti-clockwise direction</div>
         </div>
 
-        <div class="formula-box default">
-            <h3 class="font-semibold text-gray-800 mb-2">Circle</h3>
+        <div class="formula-section">
+            <div class="formula-title">Circle</div>
             <div class="katex-display">$$(x-a)^2+(y-b)^2=r^2$$</div>
-            <p class="text-sm text-gray-600 mt-2">$(a,b)$: centre of circle</p>
-            <p class="text-sm text-gray-600">$r$: radius</p>
+            <div class="variable-explanation">$(a,b)$: centre of circle</div>
+            <div class="variable-explanation">$r$: radius</div>
         </div>
 
-        <div class="formula-box download">
-            <h3 class="font-semibold text-gray-800 mb-2">Circle (Second Formula)</h3>
+        <div class="formula-section">
+            <div class="formula-title">Circle (Second Formula)</div>
             <div class="katex-display">$$x^2+y^2+2gx+2fy+c=0$$</div>
-            <p class="text-sm text-gray-600 mt-2">$(-g,-f)$: centre of circle</p>
-            <p class="text-sm text-gray-600">$\sqrt{f^2+g^2-c}$: radius</p>
+            <div class="variable-explanation">$(-g,-f)$: centre of circle</div>
+            <div class="variable-explanation">$\sqrt{f^2+g^2-c}$: radius</div>
         </div>
     </div>
 
