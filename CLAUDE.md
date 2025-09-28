@@ -28,7 +28,16 @@ npx wrangler pages dev public --port 3001
 
 # Deploy to Cloudflare Pages
 git push origin main  # Auto-deploys via GitHub integration
+
+# Testing workflow
+npx playwright test  # Run after git push to test live deployment
 ```
+
+## Development Workflow
+1. Make code changes
+2. **Always git push after fixes** - ensures changes are deployed to live site
+3. Run `npx playwright test` to verify live deployment functionality
+4. This workflow ensures all fixes are properly deployed and tested
 
 ## Architecture
 - `/functions/api/workers-ai.js` - GPT-OSS-120B API integration
