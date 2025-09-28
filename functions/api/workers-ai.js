@@ -11,42 +11,10 @@ Focus on:
 
 Keep responses under 300 words and direct to the point.`;
 
-// Determine if query is suitable for Workers AI (basic questions)
+// GPT-OSS-120B handles ALL queries - no restrictions needed
 function shouldUseWorkersAI(query) {
-    const basicPatterns = [
-        // Math basics
-        /what is|define|explain|basic|simple/i,
-        /formula|equation|solve/i,
-        /\d+\s*[\+\-\*\/]\s*\d+/, // Simple arithmetic with optional spaces
-        /quadratic|linear|graph/i,
-        /area|volume|perimeter/i,
-
-        // Music basics
-        /chord|scale|note|key/i,
-        /piano|music theory/i,
-        /major|minor|sharp|flat/i,
-
-        // General educational
-        /how to|what does|meaning/i,
-        /example|practice/i
-    ];
-
-    const complexPatterns = [
-        // Complex patterns that need Claude
-        /step.*step.*step/i, // Multi-step problems
-        /proof|derive|demonstrate/i,
-        /advanced|complex|difficult/i,
-        /assignment|homework.*detailed/i,
-        /explain.*detail.*with.*example/i
-    ];
-
-    // Don't use Workers AI for complex queries
-    if (complexPatterns.some(pattern => pattern.test(query))) {
-        return false;
-    }
-
-    // Use Workers AI for basic patterns
-    return basicPatterns.some(pattern => pattern.test(query)) || query.length < 100;
+    // GPT-OSS-120B outperformed Claude in all tests, so handle everything
+    return true;
 }
 
 export async function onRequestPost(context) {
@@ -96,9 +64,9 @@ export async function onRequestPost(context) {
             );
         }
 
-        // Call Workers AI with Llama 4 Scout
-        const aiResponse = await env.AI.run('@cf/meta/llama-4-scout-17b-16e-instruct', {
-            messages: [
+        // Call Workers AI with GPT-OSS-120B (superior quality and cost-effectiveness)
+        const aiResponse = await env.AI.run('@cf/openai/gpt-oss-120b', {
+            input: [
                 {
                     role: 'system',
                     content: WORKERS_AI_SYSTEM_PROMPT
@@ -108,11 +76,34 @@ export async function onRequestPost(context) {
                     content: query
                 }
             ],
-            max_tokens: 300, // Keep responses concise
-            temperature: 0.7
+            reasoning: {
+                effort: 'medium',
+                summary: 'concise'
+            }
         });
 
-        const responseText = aiResponse.response || 'Sorry, I could not generate a response.';
+        // Handle different response formats for different models
+        let responseText;
+        if (aiResponse.output) {
+            // GPT-OSS format: find message type in output array
+            const messageOutput = aiResponse.output.find(item => item.type === 'message');
+            responseText = messageOutput?.content?.[0]?.text || 'Sorry, I could not generate a response.';
+        } else {
+            // Standard format for other models
+            responseText = aiResponse.response || 'Sorry, I could not generate a response.';
+        }
+
+        // Track usage for cost monitoring
+        const inputTokens = Math.ceil(query.length / 4); // Rough estimate: 4 chars per token
+        const outputTokens = Math.ceil(responseText.length / 4); // Rough estimate: 4 chars per token
+
+        try {
+            // Update usage statistics
+            const { updateUsage } = await import('./workers-ai-usage.js');
+            await updateUsage(env, inputTokens, outputTokens);
+        } catch (error) {
+            console.log('Usage tracking failed:', error);
+        }
 
         // Basic quality check - if response is too short or generic, use Claude instead
         if (responseText.length < 30 ||  // Reduced from 50 to 30
@@ -138,8 +129,12 @@ export async function onRequestPost(context) {
         return new Response(
             JSON.stringify({
                 response: responseText,
-                model: 'llama-4-scout-17b-16e-instruct',
-                cost_estimate: 0.001, // Much cheaper than Claude
+                model: 'gpt-oss-120b',
+                cost_estimate: {
+                    input_tokens: inputTokens,
+                    output_tokens: outputTokens,
+                    estimated_cost: ((inputTokens / 1000000) * 0.350) + ((outputTokens / 1000000) * 0.750)
+                },
                 tokens_used: responseText.length
             }),
             {

@@ -1,36 +1,4 @@
-import Anthropic from '@anthropic-ai/sdk';
-import { createClient } from '@supabase/supabase-js';
-
-const SYSTEM_PROMPT = `You are an AI tutor for Teach.sg, specializing in Singapore O-Level curriculum mathematics and music education.
-
-MATHEMATICS EXPERTISE:
-- Additional Mathematics (A-Math): Advanced topics for O-Level
-- Elementary Mathematics (E-Math): Core mathematical concepts
-- Key topics: Coordinate geometry, quadratic functions, trigonometry, calculus basics, statistics
-
-MUSIC EXPERTISE:
-- Piano tutorials and techniques
-- Chord progressions and music theory
-- Praise & worship songs and arrangements
-- Music notation and sight-reading
-
-TEACHING STYLE:
-- Clear, step-by-step explanations with proper headings
-- Use LaTeX math notation extensively: $...$ for inline, $$...$$ for display
-- All coordinates, points, and mathematical expressions should use LaTeX
-- Examples: $(x_1, y_1)$, $A(2,3)$, $y = mx + c$, etc.
-- Provide practical examples and exercises
-- Encourage practice and understanding over memorization
-
-RESPONSE FORMAT:
-- Use sentence case headings (e.g., "Basic concepts", "Key formulas")
-- Structure with clear sections and subsections
-- Use bullet points for step-by-step processes
-- Always use LaTeX for any mathematical notation
-- Include relevant formulas and examples
-- End with encouraging follow-up questions
-
-Your goal is to help students understand concepts deeply and succeed in their O-Level examinations.`;
+// GPT-OSS-120B-only architecture - no Claude needed
 
 export async function onRequestPost(context) {
     try {
@@ -70,6 +38,7 @@ export async function onRequestPost(context) {
             message;
 
         // 1. Check cache first
+        const origin = new URL(request.url).origin;
         let cacheResponse;
         try {
             const cacheCheckResponse = await fetch(`${origin}/api/cache`, {
@@ -181,7 +150,7 @@ export async function onRequestPost(context) {
         }
 
         if (!workersAIResponse.useClaudeInstead && workersAIResponse.response) {
-            // Cache the Workers AI response for future use
+            // Cache the Workers AI (GPT-OSS-120B) response for future use
             try {
                 await fetch(`${origin}/api/cache`, {
                     method: 'POST',
@@ -200,8 +169,9 @@ export async function onRequestPost(context) {
                 JSON.stringify({
                     response: workersAIResponse.response,
                     workers_ai: true,
-                    model: workersAIResponse.model || 'llama-4-scout',
-                    cost_saved: true
+                    model: workersAIResponse.model || 'gpt-oss-120b',
+                    cost_saved: true,
+                    quality: 'high' // GPT-OSS-120B provides high-quality responses
                 }),
                 {
                     headers: {
@@ -212,114 +182,17 @@ export async function onRequestPost(context) {
             );
         }
 
-        // 4. Proceed with Claude if needed - check limits first
-        // Check global daily budget first ($10 limit)
-        const origin = new URL(request.url).origin;
-        const globalUsageResponse = await fetch(`${origin}/api/global-usage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({})
-        });
-
-        const globalUsageData = await globalUsageResponse.json();
-
-        if (!globalUsageData.allowed) {
-            return new Response(
-                JSON.stringify({
-                    error: 'Platform daily limit reached',
-                    message: globalUsageData.message || 'Daily platform budget of $10 has been reached. Service resumes tomorrow!',
-                    reset_time: 'tomorrow',
-                    global_limit: true
-                }),
-                {
-                    status: 429,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        ...corsHeaders
-                    }
-                }
-            );
-        }
-
-        // Get user's IP address for individual usage tracking
-        const clientIP = request.headers.get('CF-Connecting-IP') ||
-                        request.headers.get('X-Forwarded-For') ||
-                        'unknown';
-
-        // Check IP-based daily usage (no registration required)
-        const usageResponse = await fetch(`${origin}/api/usage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                ip_address: clientIP,
-                cost_estimate: 0.025 // ~2.5 cents per question
-            })
-        });
-
-        const usageData = await usageResponse.json();
-
-        if (!usageData.allowed) {
-            return new Response(
-                JSON.stringify({
-                    error: 'Daily usage limit reached',
-                    message: `You've reached your daily limit of ${usageData.limit} questions (10¢ budget). Try again tomorrow!`,
-                    reset_time: 'tomorrow',
-                    remaining_budget: '$0.00'
-                }),
-                {
-                    status: 429,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        ...corsHeaders
-                    }
-                }
-            );
-        }
-
-        // Initialize Anthropic client
-        const anthropic = new Anthropic({
-            apiKey: env.ANTHROPIC_API_KEY,
-        });
-
-        // Create Claude message with optimized settings
-        const response = await anthropic.messages.create({
-            model: 'claude-3-5-sonnet-20241022',
-            max_tokens: 800, // Reduced from 1000 to save costs
-            temperature: 0.7,
-            system: SYSTEM_PROMPT,
-            messages: [
-                {
-                    role: 'user',
-                    content: truncatedMessage // Use truncated message
-                }
-            ],
-        });
-
-        const aiResponse = response.content[0]?.text || 'Sorry, I could not generate a response.';
-
-        // Cache the AI response for future similar queries
-        try {
-            await fetch(`${origin}/api/cache`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'set',
-                    query: truncatedMessage,
-                    response: aiResponse
-                })
-            });
-        } catch (error) {
-            console.log('Cache set failed:', error);
-        }
-
+        // 4. If we reach here, Workers AI (GPT-OSS-120B) couldn't handle the query
+        // This should rarely happen since GPT-OSS-120B handles all educational queries better than Claude
         return new Response(
             JSON.stringify({
-                response: aiResponse,
-                ai_generated: true,
-                input_tokens: truncatedMessage.length,
-                output_tokens: aiResponse.length
+                error: 'AI service temporarily unavailable',
+                message: 'GPT-OSS-120B is currently unavailable. Please try again in a few minutes.',
+                suggestion: 'Try rephrasing your question or check back shortly.',
+                model_unavailable: 'gpt-oss-120b'
             }),
             {
+                status: 503,
                 headers: {
                     'Content-Type': 'application/json',
                     ...corsHeaders,
