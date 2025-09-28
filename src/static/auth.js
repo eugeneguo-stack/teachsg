@@ -1,13 +1,25 @@
-// Supabase configuration (will be set from environment)
-const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-
 let supabase;
 
 // Initialize Supabase client
-function initSupabase() {
-    if (typeof window !== 'undefined' && window.supabase) {
-        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+async function initSupabase() {
+    try {
+        // Fetch configuration from API
+        const configResponse = await fetch('/api/config');
+        const config = await configResponse.json();
+
+        if (typeof window !== 'undefined' && window.supabase && config.supabaseUrl && config.supabaseAnonKey) {
+            supabase = window.supabase.createClient(config.supabaseUrl, config.supabaseAnonKey);
+            console.log('Supabase initialized successfully');
+            return true;
+        } else {
+            console.error('Failed to initialize Supabase - missing configuration');
+            showMessage('Configuration error. Please check your setup.', 'error');
+            return false;
+        }
+    } catch (error) {
+        console.error('Failed to load Supabase configuration:', error);
+        showMessage('Failed to connect to authentication service.', 'error');
+        return false;
     }
 }
 
@@ -166,11 +178,18 @@ function checkAuth() {
 }
 
 // Initialize everything
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     checkAuth();
-    initSupabase();
+
+    // Initialize Supabase first
+    const supabaseReady = await initSupabase();
+
     initTabSwitching();
     initFormHandlers();
 
-    console.log('Auth page initialized');
+    if (supabaseReady) {
+        console.log('Auth page initialized successfully');
+    } else {
+        console.error('Auth page initialization failed - Supabase not ready');
+    }
 });
