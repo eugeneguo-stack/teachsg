@@ -66,7 +66,7 @@ export async function onRequestPost(context) {
 
         // Create Claude message
         const response = await anthropic.messages.create({
-            model: 'claude-3-5-sonnet-20241210',
+            model: 'claude-3-5-sonnet-20241022',
             max_tokens: 1000,
             temperature: 0.7,
             system: SYSTEM_PROMPT,
