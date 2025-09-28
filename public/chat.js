@@ -309,6 +309,10 @@ function formatAIResponse(content) {
         .replace(/^(Practical example|Example|Practice):/gmi, '<div class="bg-blue-50 p-3 rounded-lg mt-4 mb-2"><strong class="text-blue-800">$1:</strong>')
         .replace(/^(Would you like to|Try this|Next steps):/gmi, '</div><div class="bg-green-50 p-3 rounded-lg mt-4 mb-2"><strong class="text-green-800">$1:</strong>')
 
+        // Remove standalone dash separators
+        .replace(/^---\s*$/gm, '')
+        .replace(/\n---\n/g, '\n\n')
+
         // Format line breaks properly
         .replace(/\n\n/g, '</p><p class="mb-2">')
         .replace(/\n/g, '<br>')
