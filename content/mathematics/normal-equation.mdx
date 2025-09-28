@@ -1,0 +1,19 @@
+---
+title: "Normal Equation"
+slug: "normal-equation"
+type: "post"
+---
+
+$\theta = (X^T X)^{-1}X^T y$
+
+Advantages and disadvantages:
+1. No need to choose $\alpha$
+2. Don't need to iterate
+3. Need to compute $(X^TX)^{-1}$
+4. Slow if $n$ is very large
+
+If $X^TX$ is non-invertible:
+1. Redundant features (linearly dependent)
+2. Too many features (e.g. $m\le n$)
+a. delete some features
+b. use regularisation

@@ -1,0 +1,20 @@
+{
+  "name": "teach-sg-cloudflare",
+  "version": "1.0.0",
+  "description": "Teach.sg - Educational platform with AI chat on Cloudflare Pages",
+  "main": "index.js",
+  "scripts": {
+    "dev": "wrangler pages dev public --compatibility-date=2024-09-28",
+    "build": "npm run build:static && npm run build:worker",
+    "build:static": "mkdir -p public && cp -r src/static/* public/",
+    "build:worker": "wrangler deploy",
+    "preview": "wrangler pages dev public"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241205.0",
+    "wrangler": "^3.91.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.1"
+  }
+}

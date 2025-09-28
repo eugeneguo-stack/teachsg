@@ -1,0 +1,30 @@
+---
+title: "Eigenvectors"
+slug: "eigenvectors"
+type: "post"
+---
+
+To capture global connectivity structure, eigenvectors are really useful. Results will be spectral clustering.
+
+Spectrum of matrix: set of eigenvalues
+Matrix: Laplacian of graph
+
+Labelled graph: <a href="https://commons.wikimedia.org/wiki/File:6n-graf.svg#/media/File:6n-graf.svg"><img class="" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/6n-graf.svg/1200px-6n-graf.svg.png" alt="6n-graf.svg" width="191" height="126" /></a>
+
+Adjacency matrix: $\left(\begin{array}{rrrrrr}
+ 0 &  1 &  0 &  0 &  1 &  0\\
+ 1 &  0 &  1 &  0 &  1 &  0\\
+ 0 &  1 &  0 &  1 &  0 &  0\\
+ 0 &  0 &  1 &  0 &  1 &  1\\
+ 1 &  1 &  0 &  1 &  0 &  0\\
+ 0 &  0 &  0 &  1 &  0 &  0\\
+\end{array}\right)$
+
+Laplacian matrix: $\left(\begin{array}{rrrrrr}
+ 2 & -1 &  0 &  0 & -1 &  0\\
+-1 &  3 & -1 &  0 & -1 &  0\\
+ 0 & -1 &  2 & -1 &  0 &  0\\
+ 0 &  0 & -1 &  3 & -1 & -1\\
+-1 & -1 &  0 & -1 &  3 &  0\\
+ 0 &  0 &  0 & -1 &  0 &  1\\
+\end{array}\right)$

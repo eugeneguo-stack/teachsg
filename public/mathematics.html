@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathematics - Teach.sg</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">Mathematics</h1>
+            <p class="text-lg text-gray-600">Singapore O-Level Mathematics Resources</p>
+            <a href="/" class="text-blue-600 hover:text-blue-800 mt-2 inline-block">← Back to Home</a>
+        </header>
+
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Additional Mathematics -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-2xl font-bold text-blue-800 mb-4">📈 Additional Mathematics</h2>
+                    <p class="text-gray-600 mb-4">Advanced O-Level mathematics topics</p>
+                    <div class="space-y-2">
+                        <a href="/content/mathematics/coordinate-geometry-additional.html" class="block p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors">
+                            <strong>Coordinate Geometry</strong><br>
+                            <span class="text-sm text-gray-600">Points, lines, and circles in the coordinate plane</span>
+                        </a>
+                        <a href="/content/mathematics/trigonometry-additional.html" class="block p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors">
+                            <strong>Trigonometry</strong><br>
+                            <span class="text-sm text-gray-600">Advanced trigonometric functions and identities</span>
+                        </a>
+                        <a href="/content/mathematics/algebra-additional.html" class="block p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors">
+                            <strong>Algebra</strong><br>
+                            <span class="text-sm text-gray-600">Polynomials, rational functions, and equations</span>
+                        </a>
+                        <a href="/content/mathematics/calculus-additional.html" class="block p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors">
+                            <strong>Calculus</strong><br>
+                            <span class="text-sm text-gray-600">Differentiation and integration basics</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Elementary Mathematics -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-2xl font-bold text-green-800 mb-4">📊 Elementary Mathematics</h2>
+                    <p class="text-gray-600 mb-4">Core O-Level mathematics concepts</p>
+                    <div class="space-y-2">
+                        <a href="/content/mathematics/coordinate-geometry-elementary.html" class="block p-3 bg-green-50 hover:bg-green-100 rounded-lg transition-colors">
+                            <strong>Coordinate Geometry</strong><br>
+                            <span class="text-sm text-gray-600">Basic coordinate plane concepts</span>
+                        </a>
+                        <a href="/content/mathematics/algebra-elementary.html" class="block p-3 bg-green-50 hover:bg-green-100 rounded-lg transition-colors">
+                            <strong>Algebra</strong><br>
+                            <span class="text-sm text-gray-600">Linear equations and basic algebraic manipulation</span>
+                        </a>
+                        <a href="/content/mathematics/geometry-elementary.html" class="block p-3 bg-green-50 hover:bg-green-100 rounded-lg transition-colors">
+                            <strong>Geometry</strong><br>
+                            <span class="text-sm text-gray-600">Shapes, angles, and geometric properties</span>
+                        </a>
+                        <a href="/content/mathematics/statistics-elementary.html" class="block p-3 bg-green-50 hover:bg-green-100 rounded-lg transition-colors">
+                            <strong>Statistics</strong><br>
+                            <span class="text-sm text-gray-600">Data analysis and probability</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Help Section -->
+            <div class="mt-8 bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">🤖 Need Help? Ask the AI Tutor</h3>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="askAI('Explain coordinate geometry basics')" class="bg-blue-100 hover:bg-blue-200 text-blue-800 px-3 py-2 rounded-lg transition-colors">
+                        Coordinate Geometry Help
+                    </button>
+                    <button onclick="askAI('How to solve quadratic equations?')" class="bg-green-100 hover:bg-green-200 text-green-800 px-3 py-2 rounded-lg transition-colors">
+                        Quadratic Equations
+                    </button>
+                    <button onclick="askAI('Trigonometry formulas and examples')" class="bg-purple-100 hover:bg-purple-200 text-purple-800 px-3 py-2 rounded-lg transition-colors">
+                        Trigonometry Help
+                    </button>
+                    <button onclick="askAI('Statistics and probability basics')" class="bg-red-100 hover:bg-red-200 text-red-800 px-3 py-2 rounded-lg transition-colors">
+                        Statistics Help
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function askAI(question) {
+            // Store the question and redirect to home with chat
+            sessionStorage.setItem('autoQuestion', question);
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>
