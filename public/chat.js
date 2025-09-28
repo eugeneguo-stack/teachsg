@@ -228,6 +228,15 @@ function formatAIResponse(content) {
         // Format inline code `code` -> styled inline code
         .replace(/`([^`]+)`/g, '<code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono">$1</code>')
 
+        // Format ### headings
+        .replace(/^### (.+)$/gm, '<h3 class="font-bold text-lg text-gray-800 mt-4 mb-2">$1</h3>')
+
+        // Format coordinate pairs like (x, y) -> $(x, y)$
+        .replace(/\(([xyz]),\s*([xyz])\)/g, '$($1, $2)$')
+
+        // Format mathematical expressions with variables like P(x, y) -> $P(x, y)$
+        .replace(/([A-Z])\(([xyz]),\s*([xyz])\)/g, '$($1($2, $3))$')
+
         // Format section headings (sentence case words followed by colon)
         .replace(/^([A-Z][a-z\s]+[a-z]):$/gm, '<h3 class="font-bold text-lg text-gray-800 mt-4 mb-2">$1</h3>')
 
