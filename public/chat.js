@@ -191,27 +191,17 @@ function handleKeyPress(event) {
 function formatAIResponse(content) {
     // Format the AI response to look more like Claude app
     return content
-        // Protect LaTeX expressions from markdown processing
-        .replace(/(\$\$[\s\S]*?\$\$|\$[^$\n]*?\$|\\[\[\(][\s\S]*?\\[\]\)])/g, function(match) {
-            return '<LATEX_PROTECTED>' + btoa(match) + '</LATEX_PROTECTED>';
-        })
+        // Format markdown bold text **text** -> <strong>text</strong>
+        .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
 
-        // Format markdown bold text **text** -> <strong>text</strong> (avoid LaTeX)
-        .replace(/\*\*((?!.*LATEX_PROTECTED).*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
-
-        // Format markdown italic text *text* -> <em>text</em> (avoid LaTeX)
-        .replace(/\*((?!\*|.*LATEX_PROTECTED)[^*\n]+)\*/g, '<em class="italic">$1</em>')
+        // Format markdown italic text *text* -> <em>text</em>
+        .replace(/\*((?!\*)[^*]+)\*/g, '<em class="italic">$1</em>')
 
         // Format code blocks ```code``` -> styled code blocks
         .replace(/```([\s\S]*?)```/g, '<div class="bg-gray-100 rounded-lg p-3 my-2 font-mono text-sm">$1</div>')
 
-        // Format inline code `code` -> styled inline code (but not LaTeX)
-        .replace(/`((?!.*LATEX_PROTECTED)[^`]+)`/g, '<code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono">$1</code>')
-
-        // Restore protected LaTeX expressions
-        .replace(/<LATEX_PROTECTED>(.*?)<\/LATEX_PROTECTED>/g, function(match, encoded) {
-            return atob(encoded);
-        })
+        // Format inline code `code` -> styled inline code
+        .replace(/`([^`]+)`/g, '<code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono">$1</code>')
 
         // Format section headings (sentence case words followed by colon)
         .replace(/^([A-Z][a-z\s]+[a-z]):$/gm, '<h3 class="font-bold text-lg text-gray-800 mt-4 mb-2">$1</h3>')
