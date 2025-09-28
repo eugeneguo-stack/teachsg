@@ -1,4 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk';
+import { createClient } from '@supabase/supabase-js';
 
 const SYSTEM_PROMPT = `You are an AI tutor for Teach.sg, specializing in Singapore O-Level curriculum mathematics and music education.
 
@@ -47,13 +48,62 @@ export async function onRequestPost(context) {
         }
 
         // Parse request body
-        const { message } = await request.json();
+        const { message, user_id } = await request.json();
 
         if (!message) {
             return new Response(
                 JSON.stringify({ error: 'Message is required' }),
                 {
                     status: 400,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...corsHeaders
+                    }
+                }
+            );
+        }
+
+        // Check usage limits if user is logged in
+        if (user_id) {
+            const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
+
+            // Check user's daily usage
+            const usageResponse = await fetch(`${request.url.origin}/api/usage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id })
+            });
+
+            const usageData = await usageResponse.json();
+
+            if (!usageData.allowed) {
+                return new Response(
+                    JSON.stringify({
+                        error: 'Daily limit reached',
+                        limit: usageData.limit,
+                        plan: usageData.plan,
+                        upgrade_url: '/auth.html#upgrade'
+                    }),
+                    {
+                        status: 429,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            ...corsHeaders
+                        }
+                    }
+                );
+            }
+        } else {
+            // For anonymous users, limit to 3 questions per session
+            // This is a simple check - you might want to implement IP-based limiting
+            return new Response(
+                JSON.stringify({
+                    error: 'Please log in to continue',
+                    message: 'Free users must create an account to use the AI tutor',
+                    login_url: '/auth.html'
+                }),
+                {
+                    status: 401,
                     headers: {
                         'Content-Type': 'application/json',
                         ...corsHeaders

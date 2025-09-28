@@ -70,6 +70,14 @@ async function sendMessage(message = null) {
 
     if (!messageText) return;
 
+    // Check if user is logged in
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+
+    if (!user) {
+        addMessage('Please log in to use the AI tutor. <a href="/auth.html" class="text-blue-600 underline">Click here to sign up or log in</a>');
+        return;
+    }
+
     isLoading = true;
     sendButton.disabled = true;
     sendButton.textContent = 'Sending...';
@@ -88,18 +96,28 @@ async function sendMessage(message = null) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                message: messageText
+                message: messageText,
+                user_id: user.id
             })
         });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
 
         const data = await response.json();
 
         // Remove typing indicator
         removeTypingIndicator();
+
+        if (!response.ok) {
+            if (response.status === 429) {
+                // Usage limit reached
+                addMessage(`Daily limit reached! You've used ${data.limit} questions today. <a href="${data.upgrade_url}" class="text-blue-600 underline">Upgrade your plan</a> for more questions.`);
+            } else if (response.status === 401) {
+                // Authentication required
+                addMessage(`${data.message || 'Please log in to continue'} <a href="${data.login_url}" class="text-blue-600 underline">Sign up or log in here</a>`);
+            } else {
+                addMessage(data.error || 'Sorry, I encountered an error. Please try again.');
+            }
+            return;
+        }
 
         // Add AI response
         addMessage(data.response || 'Sorry, I encountered an error. Please try again.');
@@ -157,9 +175,39 @@ function formatAIResponse(content) {
         .replace(/(<div[^>]*>[^<]*<\/strong>[^<]*(?!<\/div>))$/g, '$1</div>');
 }
 
+// Display user status
+function displayUserStatus() {
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    const userStatus = document.getElementById('user-status');
+    const authPrompt = document.getElementById('auth-prompt');
+    const userWelcome = document.getElementById('user-welcome');
+    const userUsage = document.getElementById('user-usage');
+
+    if (user) {
+        const name = user.user_metadata?.full_name || user.email.split('@')[0];
+        userWelcome.textContent = `Welcome, ${name}!`;
+        userUsage.textContent = 'Free plan: 10 questions/day';
+
+        userStatus.classList.remove('hidden');
+        authPrompt.classList.add('hidden');
+
+        // Add logout handler
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            localStorage.removeItem('user');
+            window.location.reload();
+        });
+    } else {
+        userStatus.classList.add('hidden');
+        authPrompt.classList.remove('hidden');
+    }
+}
+
 // Add some welcome quick start options on load
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Teach.sg Chat initialized');
+
+    // Display user authentication status
+    displayUserStatus();
 
     // Check if there's an auto-question from another page
     const autoQuestion = sessionStorage.getItem('autoQuestion');
