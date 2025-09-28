@@ -63,6 +63,108 @@ export async function onRequestPost(context) {
             );
         }
 
+        // Token limiting - truncate very long inputs
+        const MAX_INPUT_TOKENS = 2000; // ~1500 words max
+        const truncatedMessage = message.length > MAX_INPUT_TOKENS ?
+            message.substring(0, MAX_INPUT_TOKENS) + '... [message truncated for length]' :
+            message;
+
+        // 1. Check cache first
+        let cacheResponse;
+        try {
+            const cacheCheckResponse = await fetch(`${origin}/api/cache`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'get',
+                    query: truncatedMessage
+                })
+            });
+            cacheResponse = await cacheCheckResponse.json();
+        } catch (error) {
+            console.log('Cache check failed:', error);
+            cacheResponse = { cached: false };
+        }
+
+        if (cacheResponse.cached && cacheResponse.similarity > 0.8) {
+            // Increment cache hit count
+            try {
+                await fetch(`${origin}/api/cache`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'increment',
+                        query: truncatedMessage
+                    })
+                });
+            } catch (error) {
+                console.log('Cache increment failed:', error);
+            }
+
+            return new Response(
+                JSON.stringify({
+                    response: cacheResponse.response,
+                    cached: true,
+                    cost_saved: true
+                }),
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...corsHeaders,
+                    },
+                }
+            );
+        }
+
+        // 2. Check keyword fallback
+        let keywordResponse;
+        try {
+            const keywordCheckResponse = await fetch(`${origin}/api/keywords`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    query: truncatedMessage
+                })
+            });
+            keywordResponse = await keywordCheckResponse.json();
+        } catch (error) {
+            console.log('Keyword check failed:', error);
+            keywordResponse = { useAI: true };
+        }
+
+        if (!keywordResponse.useAI) {
+            // Cache the keyword response for future use
+            try {
+                await fetch(`${origin}/api/cache`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'set',
+                        query: truncatedMessage,
+                        response: keywordResponse.response
+                    })
+                });
+            } catch (error) {
+                console.log('Cache set failed:', error);
+            }
+
+            return new Response(
+                JSON.stringify({
+                    response: keywordResponse.response,
+                    keyword_match: true,
+                    type: keywordResponse.type,
+                    cost_saved: true
+                }),
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...corsHeaders,
+                    },
+                }
+            );
+        }
+
+        // 3. Proceed with AI if needed - check limits first
         // Check global daily budget first ($10 limit)
         const origin = new URL(request.url).origin;
         const globalUsageResponse = await fetch(`${origin}/api/global-usage`, {
@@ -131,24 +233,44 @@ export async function onRequestPost(context) {
             apiKey: env.ANTHROPIC_API_KEY,
         });
 
-        // Create Claude message
+        // Create Claude message with optimized settings
         const response = await anthropic.messages.create({
             model: 'claude-3-5-sonnet-20241022',
-            max_tokens: 1000,
+            max_tokens: 800, // Reduced from 1000 to save costs
             temperature: 0.7,
             system: SYSTEM_PROMPT,
             messages: [
                 {
                     role: 'user',
-                    content: message
+                    content: truncatedMessage // Use truncated message
                 }
             ],
         });
 
         const aiResponse = response.content[0]?.text || 'Sorry, I could not generate a response.';
 
+        // Cache the AI response for future similar queries
+        try {
+            await fetch(`${origin}/api/cache`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'set',
+                    query: truncatedMessage,
+                    response: aiResponse
+                })
+            });
+        } catch (error) {
+            console.log('Cache set failed:', error);
+        }
+
         return new Response(
-            JSON.stringify({ response: aiResponse }),
+            JSON.stringify({
+                response: aiResponse,
+                ai_generated: true,
+                input_tokens: truncatedMessage.length,
+                output_tokens: aiResponse.length
+            }),
             {
                 headers: {
                     'Content-Type': 'application/json',
