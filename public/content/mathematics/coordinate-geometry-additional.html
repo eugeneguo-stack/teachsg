@@ -19,10 +19,11 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+            background: #ffffff;
             color: #1e3a8a;
             padding: 1rem 0;
             border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .header-nav {
@@ -49,6 +50,14 @@
             font-family: 'Poppins', sans-serif;
             font-size: 1.5rem;
             font-weight: 600;
+        }
+
+        .brand .teach {
+            color: #1e3a8a;
+        }
+
+        .brand .sg {
+            color: #d97706;
         }
 
         .nav-link {
@@ -197,7 +206,7 @@
 <body>
     <div class="header">
         <div class="header-nav">
-            <a href="/" class="brand">Teach.sg</a>
+            <a href="/" class="brand"><span class="teach">Teach</span><span class="sg">.sg</span></a>
             <a href="/content/mathematics/" class="nav-link">← Back to Mathematics</a>
         </div>
     </div>
