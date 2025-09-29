@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensuration - TeachSG</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: #f3f4f6;
+            color: #333;
+        }
+
+        .header {
+            background: #fefaf6;
+            color: #1e3a8a;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-nav {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header a {
+            color: #1e3a8a;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .header a:hover {
+            color: #d97706;
+            text-decoration: underline;
+        }
+
+        .brand {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .brand .teach {
+            color: #1e3a8a;
+        }
+
+        .brand .sg {
+            color: #d97706;
+        }
+
+        .nav-link {
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: transparent;
+            min-height: calc(100vh - 60px);
+            position: relative;
+        }
+
+        .container:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(30, 58, 138, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30, 58, 138, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #d97706;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .formula-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-left: 4px solid #d97706;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .formula-section.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .formula-section.animate-in:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .formula-section.type-conversion { border-left-color: #1e3a8a; }
+        .formula-section.type-area { border-left-color: #d97706; }
+        .formula-section.type-volume { border-left-color: #8b1538; }
+        .formula-section.type-surface { border-left-color: #6b7280; }
+        .formula-section.type-arc { border-left-color: #1e3a8a; }
+
+        .formula-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .formula-icon {
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .katex-display {
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .katex * {
+            font-family: KaTeX_Main, "Times New Roman", serif !important;
+        }
+
+        .section-content {
+            color: #333;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .section-content strong {
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-nav">
+            <a href="/" class="brand"><span class="teach">Teach</span><span class="sg">.sg</span></a>
+            <a href="/content/mathematics/" class="nav-link">← Back to Mathematics</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Mensuration</h1>
+
+        <div class="formula-section type-conversion">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Conversion
+            </div>
+            <div class="katex-display">$$1\text{ m} = 100\text{ cm}$$</div>
+            <div class="katex-display">$$1\text{ m}^2 = 10,000\text{ cm}^2$$</div>
+            <div class="katex-display">$$1\text{ m}^3 = 1,000,000\text{ cm}^3$$</div>
+        </div>
+
+        <div class="formula-section type-area">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Parallelogram
+            </div>
+            <div class="katex-display">$$\text{Area} = b \times h$$</div>
+        </div>
+
+        <div class="formula-section type-area">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Trapezium
+            </div>
+            <div class="katex-display">$$\text{Area} = \frac{a+b}{2} \times h$$</div>
+        </div>
+
+        <div class="formula-section type-area">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Circle
+            </div>
+            <div class="katex-display">$$\text{Circumference} = 2\pi r$$</div>
+            <div class="katex-display">$$\text{Area} = \pi r^2$$</div>
+        </div>
+
+        <div class="formula-section type-volume">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Cuboid
+            </div>
+            <div class="katex-display">$$\text{Surface area} = 2(lb + lh + bh)$$</div>
+            <div class="katex-display">$$\text{Volume} = l \times b \times h$$</div>
+        </div>
+
+        <div class="formula-section type-volume">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Cylinder
+            </div>
+            <div class="section-content">
+                Surface area = 2 × base area + curved surface area
+            </div>
+            <div class="katex-display">$$= 2\pi r^2 + 2\pi r h$$</div>
+            <div class="section-content">
+                Volume = base area × height
+            </div>
+            <div class="katex-display">$$= \pi r^2 h$$</div>
+        </div>
+
+        <div class="formula-section type-volume">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Prism
+            </div>
+            <div class="katex-display">$$\text{Volume} = \text{cross-sectional area} \times l$$</div>
+        </div>
+
+        <div class="formula-section type-volume">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Pyramid
+            </div>
+            <div class="katex-display">$$\text{Volume} = \frac{1}{3} \times \text{base area} \times \text{height}$$</div>
+        </div>
+
+        <div class="formula-section type-volume">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Cone
+            </div>
+            <div class="section-content">
+                Volume = $\frac{1}{3}$ × base area × height
+            </div>
+            <div class="katex-display">$$= \frac{1}{3} \pi r^2 h$$</div>
+            <div class="section-content">
+                Surface Area = base area + curved surface area
+            </div>
+            <div class="katex-display">$$= \pi r^2 + \pi r l$$</div>
+        </div>
+
+        <div class="formula-section type-volume">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Sphere
+            </div>
+            <div class="katex-display">$$\text{Volume} = \frac{4}{3} \pi r^3$$</div>
+            <div class="katex-display">$$\text{Surface area} = 4\pi r^2$$</div>
+        </div>
+
+        <div class="formula-section type-conversion">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Radian & Degree
+            </div>
+            <div class="katex-display">$$180° = \pi \text{ rad}$$</div>
+        </div>
+
+        <div class="formula-section type-arc">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Arc Length & Sector Area
+            </div>
+            <div class="section-content">
+                <strong>Degree</strong>
+            </div>
+            <div class="katex-display">$$s = \frac{\theta}{360°} \times 2\pi r \text{, where } \theta \text{ is in degrees}$$</div>
+            <div class="katex-display">$$A = \frac{\theta}{360°} \times \pi r^2 \text{, where } \theta \text{ is in degrees}$$</div>
+
+            <div class="section-content" style="margin-top: 1.5rem;">
+                <strong>Radian</strong>
+            </div>
+            <div class="katex-display">$$s = r\theta \text{, where } \theta \text{ is in radians}$$</div>
+            <div class="katex-display">$$A = \frac{1}{2} r^2 \theta \text{, where } \theta \text{ is in radians}$$</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+
+            // Scroll-triggered animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('animate-in');
+                        }, index * 100); // Stagger animation
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all formula sections
+            document.querySelectorAll('.formula-section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementary Mathematics - TeachSG</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: #f3f4f6;
+            color: #333;
+        }
+
+        .header {
+            background: #fefaf6;
+            color: #1e3a8a;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-nav {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header a {
+            color: #1e3a8a;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .header a:hover {
+            color: #d97706;
+            text-decoration: underline;
+        }
+
+        .brand {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .brand .teach {
+            color: #1e3a8a;
+        }
+
+        .brand .sg {
+            color: #d97706;
+        }
+
+        .nav-link {
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: transparent;
+            min-height: calc(100vh - 60px);
+            position: relative;
+        }
+
+        .container:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(30, 58, 138, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30, 58, 138, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #d97706;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .formula-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-left: 4px solid #d97706;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .formula-section.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .formula-section.animate-in:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .formula-section.type-topic { border-left-color: #1e3a8a; }
+        .formula-section.type-resources { border-left-color: #8b1538; }
+
+        .formula-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .formula-icon {
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .topic-link {
+            display: block;
+            color: #d97706;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .topic-link:hover {
+            color: #1e3a8a;
+            text-decoration: underline;
+        }
+
+        .topic-number {
+            color: #1e3a8a;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-nav">
+            <a href="/" class="brand"><span class="teach">Teach</span><span class="sg">.sg</span></a>
+            <a href="/content/mathematics/" class="nav-link">← Back to Mathematics</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Elementary Mathematics</h1>
+
+        <div class="formula-section type-topic">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Core Topics
+            </div>
+            <a href="http://teach.sg/mathematics/elementary-mathematics/numbers-their-operations" class="topic-link">
+                <span class="topic-number">1.</span>Numbers & Their Operations
+            </a>
+            <a href="http://teach.sg/mathematics/elementary-mathematics/ratio-proportion" class="topic-link">
+                <span class="topic-number">2.</span>Ratio & Proportion
+            </a>
+            <a href="http://teach.sg/mathematics/elementary-mathematics/percentage" class="topic-link">
+                <span class="topic-number">3.</span>Percentage
+            </a>
+            <a href="http://teach.sg/mathematics/elementary-mathematics/rate-speed" class="topic-link">
+                <span class="topic-number">4.</span>Rate & Speed
+            </a>
+            <a href="http://teach.sg/mathematics/elementary-mathematics/algebraic-expressions-formulae" class="topic-link">
+                <span class="topic-number">5.</span>Algebraic Expressions & Formulae
+            </a>
+            <a href="http://teach.sg/mathematics/elementary-mathematics/equations" class="topic-link">
+                <span class="topic-number">6.</span>Equations
+            </a>
+            <a href="http://teach.sg/mathematics/elementary-mathematics/set-language-notation" class="topic-link">
+                <span class="topic-number">7.</span>Set Language & Notation
+            </a>
+            <a href="http://teach.sg/mathematics/elementary-mathematics/problems-in-real-world-contexts" class="topic-link">
+                <span class="topic-number">8.</span>Problems In Real-World Contexts
+            </a>
+            <a href="http://teach.sg/mathematics/elementary-mathematics/angles-triangles-polygons" class="topic-link">
+                <span class="topic-number">9.</span>Angles, Triangles & Polygons
+            </a>
+            <a href="http://teach.sg/mathematics/elementary-mathematics/congruence-similarity" class="topic-link">
+                <span class="topic-number">10.</span>Congruence & Similarity
+            </a>
+            <a href="http://teach.sg/mathematics/elementary-mathematics/properties-of-circles" class="topic-link">
+                <span class="topic-number">11.</span>Properties Of Circles
+            </a>
+            <a href="http://teach.sg/mathematics/elementary-mathematics/pythagoras-theorem-trigonometry" class="topic-link">
+                <span class="topic-number">12.</span>Pythagoras' Theorem & Trigonometry
+            </a>
+            <a href="http://teach.sg/mathematics/elementary-mathematics/mensuration" class="topic-link">
+                <span class="topic-number">13.</span>Mensuration
+            </a>
+            <a href="http://teach.sg/mathematics/elementary-mathematics/coordinate-geometry" class="topic-link">
+                <span class="topic-number">14.</span>Coordinate Geometry
+            </a>
+            <a href="http://teach.sg/mathematics/elementary-mathematics/vectors-in-2-dimensions" class="topic-link">
+                <span class="topic-number">15.</span>Vectors In 2 Dimensions
+            </a>
+            <a href="http://teach.sg/mathematics/elementary-mathematics/data-analysis" class="topic-link">
+                <span class="topic-number">16.</span>Data Analysis
+            </a>
+        </div>
+
+        <div class="formula-section type-resources">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Summary Resources
+            </div>
+            <a href="http://teach.sg/wp-content/uploads/2018/04/E-Math-Summary-Notes.pdf" class="topic-link">
+                <span class="topic-number">17.</span>Summary Notes
+            </a>
+            <a href="http://teach.sg/wp-content/uploads/2018/04/E-Math-Summary-Diagrams.pdf" class="topic-link">
+                <span class="topic-number">18.</span>Summary Diagrams
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Scroll-triggered animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('animate-in');
+                        }, index * 100); // Stagger animation
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all formula sections
+            document.querySelectorAll('.formula-section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
