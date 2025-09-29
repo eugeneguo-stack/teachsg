@@ -50,7 +50,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 2rem;
         }
@@ -75,23 +75,24 @@
 
         .content-section {
             background: white;
-            margin: 2rem 0;
+            margin: 3rem 0;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.1);
             overflow: hidden;
         }
 
         .section-header {
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
-            padding: 1.5rem 2rem;
+            padding: 2rem;
             font-family: 'Poppins', sans-serif;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 600;
+            text-align: center;
         }
 
         .section-content {
-            padding: 2rem;
+            padding: 2.5rem;
         }
 
         .subsection {
@@ -234,6 +235,34 @@
 
             .brand {
                 font-size: 2rem;
+            }
+
+            .section-header {
+                font-size: 1.5rem;
+                padding: 1.5rem;
+            }
+
+            .section-content {
+                padding: 1.5rem;
+            }
+
+            .content-section {
+                margin: 2rem 0;
+            }
+
+            .subsection h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand {
+                font-size: 1.8rem;
+            }
+
+            .section-header {
+                font-size: 1.3rem;
+                padding: 1rem;
             }
 
             .section-content {
@@ -580,6 +609,13 @@
 
                     <div class="graph-container">
                         <svg class="graph-svg" width="600" height="300" viewBox="0 0 600 300">
+                            <!-- SVG Definitions for arrowheads -->
+                            <defs>
+                                <marker id="arrowhead" markerWidth="10" markerHeight="7"
+                                        refX="9" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+                                </marker>
+                            </defs>
                             <!-- Axes -->
                             <line x1="50" y1="150" x2="550" y2="150" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
                             <line x1="100" y1="50" x2="100" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
@@ -628,9 +664,16 @@
 
                     <div class="graph-container">
                         <svg class="graph-svg" width="600" height="300" viewBox="0 0 600 300">
+                            <!-- SVG Definitions for arrowheads -->
+                            <defs>
+                                <marker id="arrowhead2" markerWidth="10" markerHeight="7"
+                                        refX="9" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+                                </marker>
+                            </defs>
                             <!-- Axes -->
-                            <line x1="50" y1="150" x2="550" y2="150" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-                            <line x1="100" y1="50" x2="100" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="50" y1="150" x2="550" y2="150" stroke="#333" stroke-width="2" marker-end="url(#arrowhead2)"/>
+                            <line x1="100" y1="50" x2="100" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead2)"/>
 
                             <!-- Pi markings -->
                             <line x1="180" y1="145" x2="180" y2="155" stroke="#666" stroke-width="1"/>
