@@ -1,0 +1,656 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage{gensymb}
+\usepackage[landscape]{geometry}
+\usepackage{float} % for keeping figures in place \begin{figure}[H]
+\usepackage{hyperref}
+\usepackage{pstricks-add} % for geogebra
+\usepackage{amsmath,amssymb}
+\usepackage{fancyhdr}
+\usepackage{tabularx,array,booktabs} % for stretching tables to page width
+\newcolumntype{Y}{>{\centering\arraybackslash}X} % for centering tables in tabularx
+\newcolumntype{N}{@{}m{0pt}@{}} % for vertical space in tabularx
+\newcommand{\heading}[1]{\bfseries\begin{tabular}{@{}c@{}} #1 \end{tabular}} % for a header in tables
+\def\tabularxcolumn#1{m{#1}} % for vertically centering text in tables
+
+\linespread{1.2}
+
+\newenvironment{framed}
+{
+ \begin{center}
+}
+{
+\end{center} 
+}
+
+
+
+\newenvironment{cfbox}
+{
+\begin{center}\fbox
+}
+{
+\end{center}
+}
+
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+
+
+
+
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+	{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.7in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+% Turn off header and footer
+%\pagestyle{empty}
+
+
+ 
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+%\setcounter{secnumdepth}{0}
+\setcounter{secnumdepth}{1}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+
+\pagestyle{fancy}
+\fancyhf{} % sets both header and footer to nothing
+\renewcommand{\headrulewidth}{0pt}
+\lfoot{\sc{\copyright\ 2020 Eugene Guo Youjun\\All rights reserved}}
+\cfoot{\sc{Page \thepage}}
+\rfoot{\sc{For Hai Sing Catholic School}}
+
+% -----------------------------------------------------------------------
+
+\begin{document}
+
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{center}
+     \Large{\textbf{Additional Mathematics Notes (Graphs)}} \\
+    \small{Reproduced from \url{http://teach.sg}}
+\end{center}
+
+
+
+\section{Power Functions}
+
+
+\subsection{Graphs of power functions ($y=ax^n$)}
+
+\begin{cfbox}{$n=2, 4, 6, 8,...$}\end{cfbox}
+\begin{Figure}
+\centering
+\psset{xunit=0.5cm,yunit=0.5cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-8.8,-4.73)(8.8,4.73)
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,labels=none,Dx=1.,Dy=1.,ticks=none]{->}(0,0)(-5.8,-4.73)(5.8,4.73)[\scriptsize{$x$},140] [\scriptsize{$y$},-40]
+\rput{0.}(0.,0.){\psplot{-4.}{4.}{x^2/5/0.5}}
+\rput{-180.}(0.,0.){\psplot[linestyle=dashed,dash=3pt 3pt]{-4.}{4.}{x^2/5/0.5}}
+\rput[tl](-0.52,-0.17){\scriptsize{$O$}}
+\rput[tl](3,2.29){\scriptsize{$a>0$: $y=x^2, 2x^4$}}
+\rput[tl](3,-2.29){\scriptsize{$a>0$: $y=-x^2,$}}
+\rput[tl](5.8,-2.89){\scriptsize{$-\dfrac{3}{4}x^6$}}
+\end{pspicture*}
+\end{Figure}
+
+\begin{cfbox}{$n=3, 5, 7, 9,...$}\end{cfbox}
+\begin{Figure}
+\centering
+\psset{xunit=0.5cm,yunit=0.5cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-8.8,-4.73)(8.8,4.73)
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,labels=none,Dx=1.,Dy=1.,ticks=none]{->}(0,0)(-5.8,-4.73)(5.8,4.73)[\scriptsize{$x$},140] [\scriptsize{$y$},-40]
+\rput{0.}(0.,0.){\psplot{-4.}{4.}{x^3/16/0.5}}
+\rput{-180.}(0.,0.){\psplot[linestyle=dashed,dash=3pt 3pt]{-4.}{4.}{-x^3/16/0.5}}
+\rput[tl](-0.52,-0.17){\scriptsize{$O$}}
+\rput[tl](3,2.29){\scriptsize{$a>0$: $y=x^3, 2x^7$}}
+\rput[tl](3,-2.29){\scriptsize{$a>0$: $y=-x^3,$}}
+\rput[tl](5.8,-2.89){\scriptsize{$-\dfrac{3}{4}x^5$}}
+\end{pspicture*}
+\end{Figure}
+
+
+\vfill
+\columnbreak
+
+\begin{cfbox}{$n=-2, -4, -6, -8,...$}\end{cfbox}
+\begin{Figure}
+\centering
+\psset{xunit=0.5cm,yunit=0.5cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-8.8,-4.73)(8.8,4.73)
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,labels=none,Dx=1.,Dy=1.,ticks=none]{->}(0,0)(-5.8,-4.73)(5.8,4.73)[\scriptsize{$x$},140] [\scriptsize{$y$},-40]
+\rput{0.}(0.,0.){\psplot{-6}{-0.1}{x^(-2)/0.4+0.5}}
+\rput{0.}(0.,0.){\psplot{0.1}{6}{x^(-2)/0.4+0.5}}
+\rput{-180.}(0.,0.){\psplot[linestyle=dashed,dash=3pt 3pt]{-6}{-0.1}{x^(-2)/2/0.4+0.5}}
+\rput{-180.}(0.,0.){\psplot[linestyle=dashed,dash=3pt 3pt]{0.1}{6}{x^(-2)/2/0.4+0.5}}
+\rput[tl](-0.62,-0.17){\scriptsize{$O$}}
+\rput[tl](2,2.29){\scriptsize{$a>0$: $y=\dfrac{1}{x^2}, \dfrac{2}{x^4}$}}
+\rput[tl](2,-2.29){\scriptsize{$a<0$: $y=-\dfrac{1}{x^2}, -\dfrac{3}{4x^6}$}}
+\end{pspicture*}
+\end{Figure}
+
+\begin{cfbox}{$n=-1, -3, -5, -7,...$}\end{cfbox}
+\begin{Figure}
+\centering
+\psset{xunit=0.5cm,yunit=0.5cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-8.8,-4.73)(8.8,4.73)
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,labels=none,Dx=1.,Dy=1.,ticks=none]{->}(0,0)(-5.8,-4.73)(5.8,4.73)[\scriptsize{$x$},140] [\scriptsize{$y$},-40]
+\rput{0.}(0.,0.){\psplot{-6}{-0.1}{x^(-1)/2/0.5}}
+\rput{0.}(0.,0.){\psplot{0.1}{6}{x^(-1)/2/0.5}}
+\rput{0.}(0.,0.){\psplot[linestyle=dashed,dash=3pt 3pt]{-6}{-0.1}{-x^(-1)/2/0.5}}
+\rput{0.}(0.,0.){\psplot[linestyle=dashed,dash=3pt 3pt]{0.1}{6}{-x^(-1)/2/0.5}}
+\rput[tl](-0.62,-0.17){\scriptsize{$O$}}
+\rput[tl](1,2.29){\scriptsize{$a>0$: $y=\dfrac{1}{x}, \dfrac{2}{x^5}$}}
+\rput[tl](1,-2.29){\scriptsize{$a<0$: $y=-\dfrac{1}{x}, -\dfrac{3}{4x^7}$}}
+\end{pspicture*}
+\end{Figure}
+
+\begin{cfbox}{$x>0, 0<n<1$}\end{cfbox}
+\begin{Figure}
+\centering
+\psset{xunit=0.5cm,yunit=0.5cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-1.8,-4.73)(8.8,4.73)
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,labels=none,Dx=1.,Dy=1.,ticks=none]{->}(0,0)(-1.8,-4.73)(5.8,4.73)[\scriptsize{$x$},140] [\scriptsize{$y$},-40]
+\rput{0.}(0.,0.){\psplot{0}{6}{x^(0.5)/0.8}}
+\rput{0.}(0.,0.){\psplot[linestyle=dashed,dash=3pt 3pt]{0}{6}{-x^(0.5)/0.8}}
+\rput[tl](-0.62,-0.17){\scriptsize{$O$}}
+\rput[tl](1,4.29){\scriptsize{$a>0$: $y=\sqrt{x}, \sqrt[3]{2x}$}}
+\rput[tl](1,-3.29){\scriptsize{$a<0$: $y=-x^\frac{1}{2}, -\dfrac{3}{4}x^\frac{4}{5}$}}
+\end{pspicture*}
+\end{Figure}
+
+ 
+
+\begin{cfbox}{$x>0, n>1$}\end{cfbox}
+\begin{Figure}
+\centering
+\psset{xunit=0.5cm,yunit=0.5cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-1.8,-4.73)(8.8,4.73)
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,labels=none,Dx=1.,Dy=1.,ticks=none]{->}(0,0)(-1.8,-4.73)(5.8,4.73)[\scriptsize{$x$},140] [\scriptsize{$y$},-40]
+\rput{0.}(0.,0.){\psplot{0}{6}{x^2/5/0.5}}
+\rput{0.}(0.,0.){\psplot[linestyle=dashed,dash=3pt 3pt]{0}{6}{-x^2/5/0.5}}
+\rput[tl](-0.62,-0.17){\scriptsize{$O$}}
+\rput[tl](1,3.29){\scriptsize{$a>0$: $y=\sqrt{x^3}, \sqrt[4]{2x^5}$}}
+\rput[tl](1,-2.29){\scriptsize{$a<0$: $y=-x^\frac{3}{2}, -\dfrac{2}{3}x^\frac{4}{3}$}}
+\end{pspicture*}
+\end{Figure}
+
+
+\begin{cfbox}{$x>0, n<0$}\end{cfbox}
+\begin{Figure}
+\centering
+\psset{xunit=0.5cm,yunit=0.5cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-1.8,-4.73)(8.8,4.73)
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,labels=none,Dx=1.,Dy=1.,ticks=none]{->}(0,0)(-1.8,-4.73)(5.8,4.73)[\scriptsize{$x$},140] [\scriptsize{$y$},-40]
+\rput{0.}(0.,0.){\psplot{0}{6}{x^(-1)/2/0.5}}
+\rput{0.}(0.,0.){\psplot[linestyle=dashed,dash=3pt 3pt]{0}{6}{-x^(-1)/2/0.5}}
+\rput[tl](-0.62,-0.17){\scriptsize{$O$}}
+\rput[tl](1,3.29){\scriptsize{$a>0$: $y=\dfrac{1}{\sqrt{x}}, \dfrac{2}{\sqrt{x^3}}$}}
+\rput[tl](1,-2.29){\scriptsize{$a<0$: $y=-x^{-\frac{1}{2}}, -\dfrac{2}{3}x^{-\frac{4}{3}}$}}
+\end{pspicture*}
+\end{Figure}
+
+\begin{Figure}
+\centering
+\psset{xunit=0.5cm,yunit=0.5cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-8.8,-4.73)(8.8,4.73)
+\end{pspicture*}
+\end{Figure}
+
+\vfill
+\columnbreak
+
+
+\section{Exponential \& Logarithmic Function (Graphs)}
+
+
+\subsection{Graphs of exponential \& logarithmic function}
+
+\begin{cfbox}{$y=e^x, a^x, a>1$}\end{cfbox}
+\begin{cfbox}{$y=\ln x, \log_a x, a>1$}\end{cfbox}
+\begin{Figure}
+\centering
+\psset{xunit=0.5cm,yunit=0.5cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-8.8,-4.73)(8.8,4.73)
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,labels=none,Dx=1.,Dy=1.,ticks=none]{->}(0,0)(-5.8,-4.73)(5.8,4.73)[\scriptsize{$x$},140] [\scriptsize{$y$},-40]
+\rput{0.}(0.,0.){\psplot{-5.8}{6}{1.5^x}}
+\psplot{1.1599999766853165E-7}{5.8}{log(x)/log(1.5)}
+\psplot[linestyle=dotted]{-5.8}{5.8}{(-0.--1.*x)/1.}
+\rput[tl](-0.62,-0.17){\scriptsize{$O$}}
+\rput[tl](-5.8,1.6){\scriptsize{$y=e^x, 5^x, 2e^x$}}
+\rput[tl](-3.9,-2){\scriptsize{$y=x$}}
+\rput[tl](1,-2){\scriptsize{$y=\ln x, \lg x, \ln 5x, \log_3 x$}}
+\end{pspicture*}
+\end{Figure}
+
+
+\begin{cfbox}{$y=e^{-x}, a^x, 0<a<1$}\end{cfbox}
+\begin{cfbox}{$y=\log_a x, 0<a<1$}\end{cfbox}
+\begin{Figure}
+\centering
+\psset{xunit=0.5cm,yunit=0.5cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-8.8,-5.73)(8.8,5.73)
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,labels=none,Dx=1.,Dy=1.,ticks=none]{->}(0,0)(-5.8,-4.73)(5.8,4.73)[\scriptsize{$x$},140] [\scriptsize{$y$},-40]
+\rput{0.}(0.,0.){\psplot{-5.8}{5.8}{0.666667^x}}
+\psplot{1.1599999766853165E-7}{5.8}{log(x)/log(0.666667)}
+\psplot[linestyle=dotted]{-5.8}{5.8}{(-0.--1.*x)/1.}
+\rput[tl](-0.62,-0.17){\scriptsize{$O$}}
+\rput[tl](-6.5,1.6){\scriptsize{$y=e^{-x},\left(\dfrac{1}{2}\right)^x,\left(\dfrac{2}{3}\right)^x$}}
+\rput[tl](-3.9,-2){\scriptsize{$y=x$}}
+\rput[tl](1.5,-2){\scriptsize{$y=\log_{0.5} x, \log_\frac{2}{3} x$}}
+\end{pspicture*}
+\end{Figure}
+
+
+\section{Modulus Functions Graphs}
+
+\begin{Figure}
+\centering
+\psset{xunit=0.35cm,yunit=0.15cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-6.797137168928492,-9.26795859733173)(13.911924860598614,9.620638540541198)
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,Dx=2.,Dy=2.,ticks=none,labels=none]{->}(0,0)(-6.797137168928492,-9.26795859733173)(13.911924860598614,9.620638540541198)[\scriptsize{$x$},140] [\scriptsize{$y$},-40]
+\psplot[linewidth=1.2pt,plotpoints=200]{-6.797137168928492}{13.911924860598614}{x^(3.0)/18.0-4.0*x^(2.0)/9.0-17.0*x/18.0+4.0/3.0}
+\rput[tl](-0.9,-0.4){\scriptsize{$O$}}
+\rput[tl](4.9,4){$y=f(x)$}
+\end{pspicture*}
+\end{Figure}
+
+\begin{Figure}
+\centering
+\psset{xunit=0.35cm,yunit=0.25cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-6.797137168928492,-3.26795859733173)(13.911924860598614,9.620638540541198)
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,Dx=2.,Dy=2.,ticks=none,labels=none]{->}(0,0)(-6.797137168928492,-3.26795859733173)(13.911924860598614,9.620638540541198)[\scriptsize{$x$},140] [\scriptsize{$y$},-40]
+\psplot[linewidth=1.2pt,plotpoints=200]{-6.797137168928492}{13.911924860598614}{abs(x^(3.0)/18.0-4.0*x^(2.0)/9.0-17.0*x/18.0+4.0/3.0)}
+\rput[tl](-0.9,-0.4){\scriptsize{$O$}}
+\rput[tl](3.1,4){$y=|f(x)|$}
+\end{pspicture*}
+\end{Figure}
+
+As can be seen, all the negative portions below the $x$-axis is reflected in the $x$-axis when the modulus function is applied.
+
+ \section{Trigonometric Graphs}
+
+
+\subsection{Sine graph}
+
+\begin{Figure}
+\centering
+\psset{xunit=0.7cm,yunit=1.4cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-1.,-1.5)(7.,1.5)
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,xunit=3.141592654,trigLabels]{->}(0,0)(-1.,-1.5)(7.,1.5)[\scriptsize{$x$},140] [\scriptsize{$y$},-40]
+\psplot[linewidth=1.2pt,plotpoints=200]{0}{6.2831852}{SIN(x)}
+  \rput[tl](-0.5,-0.1){\scriptsize{$O$}}
+    \rput[tl](3.2,0.6){$y=\sin x$}
+\end{pspicture*}
+\end{Figure}
+ 
+\begin{enumerate}
+\item amplitude = 1
+\item period = 2$\pi$
+\end{enumerate}
+ 
+
+ 
+
+\subsection{Cosine graph}
+
+\begin{Figure}
+\centering
+\psset{xunit=0.7cm,yunit=1.4cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-1.,-1.5)(7.,1.5)
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,xunit=3.141592654,trigLabels]{->}(0,0)(-1.,-1.5)(7.,1.5)[\scriptsize{$x$},140] [\scriptsize{$y$},-40]
+\psplot[linewidth=1.2pt,plotpoints=200]{0}{6.2831852}{COS(x)}
+  \rput[tl](-0.5,-0.1){\scriptsize{$O$}}
+    \rput[tl](3.3,0.6){$y=\cos x$}
+\end{pspicture*}
+\end{Figure}
+ 
+\begin{enumerate}
+\item amplitude = 1
+\item period = 2$\pi$
+\end{enumerate}
+ 
+
+
+
+\subsection{Tangent graph}
+
+
+\begin{Figure}
+\centering
+\psset{xunit=0.7cm,yunit=1.4cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-1.,-1.5)(7.,1.5)
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,xunit=3.141592654,trigLabels]{->}(0,0)(-1.,-1.5)(7.,1.5)[\scriptsize{$x$},140] [\scriptsize{$y$},-40]
+\psplot[linewidth=1.2pt,plotpoints=200]{0}{1.570796}{TAN(x)}
+\psplot[linewidth=1.2pt,plotpoints=200]{1.58}{4.7}{TAN(x)}
+\psplot[linewidth=1.2pt,plotpoints=200]{4.8}{6.2831852}{TAN(x)}
+\psline[linestyle=dashed](4.71238898,-1.5)(4.71238898,1.5)
+\psline[linestyle=dashed](1.57079632,-1.5)(1.57079632,1.5)
+  \rput[tl](-0.5,-0.1){\scriptsize{$O$}}
+    \rput[tl](2.1,1.1){$y=\tan x$}
+\end{pspicture*}
+\end{Figure}
+ 
+{period = $\pi$}
+ 
+
+ 
+
+
+\section{Graphs Of Parabolas ($y^2=kx$)}
+
+\begin{Figure}
+\centering
+\psset{xunit=0.5cm,yunit=0.5cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-8.8,-4.73)(8.8,4.73)
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,labels=none,Dx=1.,Dy=1.,ticks=none]{->}(0,0)(-5.8,-4.73)(5.8,4.73)[\scriptsize{$x$},140] [\scriptsize{$y$},-40]
+\rput{-90.}(0.,0.){\psplot{-3.5}{3.5}{x^2/5/0.5}}
+\rput{-270.}(0.,0.){\psplot[linestyle=dashed,dash=3pt 3pt]{-3.5}{3.5}{x^2/5/0.5}}
+\rput[tl](-0.57,-0.17){\scriptsize{$O$}}
+\rput[tl](3,2.29){\scriptsize{$k>0$: $y^2=x,y^2=2x$}}
+\rput[tl](-8.8,-1.4){\scriptsize{$k<0$: $y^2=-x,y^2=-3x$}}
+\end{pspicture*}
+\end{Figure}
+
+
+\section{Proofs In Plane Geometry}
+
+\subsection{Properties Of Circles}
+
+ 
+\begin{Figure}
+\centering
+\psset{xunit=1.0cm,yunit=1.0cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-2.8324269598517975,-1.056903770492757)(4.056592516211026,4.561210388434345)
+\pspolygon[linecolor=black,fillcolor=white,fillstyle=solid,opacity=0.1](0.8880083863275616,-0.12049415735610663)(0.8885064512008807,0.13146771522802464)(0.6365445786167494,0.13196578010134358)(0.6360465137434304,-0.11999609248278764)
+\pscircle(0.64,1.88){2.}
+\psline(0.64,1.88)(0.6360465137434304,-0.11999609248278764)
+\psline(-1.6448673729115613,-0.11548730282204633)(2.7592233010482357,-0.12419307580711857)
+\begin{scriptsize}
+\rput[tl](0.7252261166838207,2.150053571812354){$O$}
+\psdots[dotstyle=*,dotsize=4pt](0.64,1.88)
+\end{scriptsize}
+\end{pspicture*}
+
+tan. $\perp$ rad.
+\end{Figure}
+ 
+ 
+\begin{Figure}
+\centering
+\psset{xunit=1.0cm,yunit=1.0cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-2.8,-1.16)(4.1,4)
+\pspolygon[linecolor=black,fillcolor=white,fillstyle=solid,opacity=0.1](-0.2765259213670165,3.5431858062823283)(-0.08622439418393169,3.378048402716371)(0.07891300938202503,3.568349929899456)(-0.11138851780105974,3.733487333465413)
+\pscircle(0.64,1.88){2.}
+\begin{scriptsize}\psdots[dotstyle=*,dotsize=4pt](0.64,1.88)\end{scriptsize}
+\psline(-0.11138851780105974,3.733487333465413)(-1.3008616542351985,2.362758779432761)
+\psline(-1.3008616542351985,2.362758779432761)(2.580861654235198,1.3972412205672393)
+\psline(-0.11138851780105974,3.733487333465413)(2.580861654235198,1.3972412205672393)
+\rput[tl](0.27950942416278823,1.8293578375818431){\scriptsize{$O$}}
+\end{pspicture*}
+
+rt. $\angle$ in semicircle
+\end{Figure}
+ 
+
+ 
+\begin{Figure}
+\centering
+\psset{xunit=1.0cm,yunit=1.0cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-2.8,-1.16)(4.1,4)
+\pscircle(0.64,1.88){2.}
+\psline(2.033368561451729,0.4452442535546546)(2.1383923028002076,3.20469638291538)
+\psline(2.1383923028002076,3.20469638291538)(-0.6309354310595386,0.33574512140077584)
+\pscustom[linecolor=black,fillcolor=white,fillstyle=solid,opacity=0.1]{
+\parametricplot{-2.3385271909611403}{-1.6088376010180994}{0.35632859358945645*cos(t)+2.1383923028002076|0.35632859358945645*sin(t)+3.20469638291538}
+\lineto(2.1383923028002076,3.20469638291538)\closepath}
+\psline(2.033368561451729,0.4452442535546546)(-0.7362709936544699,3.3311644124720456)
+\psline(-0.7362709936544699,3.3311644124720456)(-0.6309354310595386,0.33574512140077584)
+\pscustom[linecolor=black,fillcolor=white,fillstyle=solid,opacity=0.1]{
+\parametricplot{-1.5356452628945378}{-0.8059556729514971}{0.35632859358945645*cos(t)+-0.7362709936544699|0.35632859358945645*sin(t)+3.3311644124720456}
+\lineto(-0.7362709936544699,3.3311644124720456)\closepath}
+\end{pspicture*}
+
+$\angle$s in same seg.
+\end{Figure}
+ 
+ 
+\begin{Figure}
+\centering
+\psset{xunit=1.0cm,yunit=1.0cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-2.8,-1.16)(4.1,4)
+\pscircle(0.64,1.88){2.}
+\psline(-0.6309354310595386,0.33574512140077584)(0.64,1.88)
+\psline(0.64,1.88)(2.033368561451729,0.4452442535546546)
+\psline(2.033368561451729,0.4452442535546546)(0.9483262275697846,3.8560908221518018)
+\psline(0.9483262275697846,3.8560908221518018)(-0.6309354310595386,0.33574512140077584)
+\begin{scriptsize}\psdots[dotstyle=*,dotsize=4pt](0.64,1.88)\end{scriptsize}
+\pscustom[linecolor=black,fillcolor=white,fillstyle=solid,opacity=0.1]{
+\parametricplot{-2.259410445084871}{-0.8000312651987895}{0.35632859358945645*cos(t)+0.64|0.35632859358945645*sin(t)+1.88}
+\lineto(0.64,1.88)\closepath}
+\parametricplot[linecolor=black]{-2.259410445084871}{-0.8000312651987895}{0.35632859358945645*cos(t)+0.64|0.35632859358945645*sin(t)+1.88}
+\parametricplot[linecolor=black]{-2.259410445084871}{-0.8000312651987895}{0.29694049465788036*cos(t)+0.64|0.29694049465788036*sin(t)+1.88}
+\pscustom[linecolor=black,fillcolor=white,fillstyle=solid,opacity=0.1]{
+\parametricplot{-1.9924935786257407}{-1.2628039886826998}{0.35632859358945645*cos(t)+0.9483262275697846|0.35632859358945645*sin(t)+3.8560908221518018}
+\lineto(0.9483262275697846,3.8560908221518018)\closepath}
+\rput[tl](0.5051842001027776,2.20944167074393){\scriptsize{$O$}}
+\end{pspicture*}
+
+$\angle$ at centre = 2 $\angle$ at circ.
+\end{Figure}
+ 
+
+\begin{Figure}
+\centering
+\psset{xunit=1.0cm,yunit=1.0cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-2.8,-1.16)(4.1,4)
+\pscircle(0.64,1.88){2.}
+\psline(0.2757508765609353,-0.08655093401464509)(2.569477724250156,2.4064178108902086)
+\psline(-0.570411696359829,3.4721380358861227)(-1.2936704347449144,1.3691980327040494)
+\psline(-0.570411696359829,3.4721380358861227)(2.569477724250156,2.4064178108902086)
+\psline(0.2757508765609353,-0.08655093401464509)(-1.2936704347449144,1.3691980327040494)
+\pscustom[linecolor=black,fillcolor=white,fillstyle=solid,opacity=0.1]{
+\parametricplot{-1.9020510693452142}{-0.3272125060377993}{0.35632859358945645*cos(t)+-0.570411696359829|0.35632859358945645*sin(t)+3.4721380358861227}
+\lineto(-0.570411696359829,3.4721380358861227)\closepath}
+\pscustom[linecolor=black,fillcolor=white,fillstyle=solid,opacity=0.1]{
+\parametricplot{2.8143801475519936}{3.9685909033665876}{0.35632859358945645*cos(t)+2.569477724250156|0.35632859358945645*sin(t)+2.4064178108902086}
+\lineto(2.569477724250156,2.4064178108902086)\closepath}
+\pscustom[linecolor=black,fillcolor=white,fillstyle=solid,opacity=0.1]{
+\parametricplot{0.8269982497767946}{2.393752340059173}{0.35632859358945645*cos(t)+0.2757508765609353|0.35632859358945645*sin(t)+-0.08655093401464509}
+\lineto(0.2757508765609353,-0.08655093401464509)\closepath}
+\pscustom[linecolor=black,fillcolor=white,fillstyle=solid,opacity=0.1]{
+\parametricplot{-0.7478403135306202}{1.2395415842445794}{0.35632859358945645*cos(t)+-1.2936704347449144|0.35632859358945645*sin(t)+1.3691980327040494}
+\lineto(-1.2936704347449144,1.3691980327040494)\closepath}
+\begin{scriptsize}
+\rput[tl](-0.4331477630161247,3.0408750557859965){$a$}
+\rput[tl](-0.8844973148961028,1.5442949627102776){$b$}
+\rput[tl](0.14885560651332086,0.5465749006597985){$c$}
+\rput[tl](1.871110475529027,2.363850727966028){$d$}
+\end{scriptsize}
+\end{pspicture*}
+
+$\angle$s in opp. seg. ($a+c=b+d=180\degree$)
+\end{Figure}
+ 
+\begin{Figure}
+\centering
+\psset{xunit=0.8cm,yunit=0.8cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-2.3912242746085073,-1.134997220520739)(8.975412291056243,4.377104782413491)
+\pspolygon[linecolor=black,fillcolor=white,fillstyle=solid,opacity=0.1](1.3946013085375395,0.01619086305151273)(1.3369295721913161,0.21589465531906915)(1.1372257799237597,0.15822291897284574)(1.194897516269983,-0.04148087329471073)
+\pspolygon[linecolor=black,fillcolor=white,fillstyle=solid,opacity=0.1](1.281586019990875,3.5533550645106513)(1.4756734868733714,3.4789394141515526)(1.5500891372324699,3.673026881034049)(1.3560016703499738,3.7474425313931476)
+\pscircle(0.64,1.88){1.6}
+\psdots[dotstyle=*,dotsize=4pt](0.64,1.88)
+\psline(1.3560016703499738,3.7474425313931476)(6.9233958339445465,1.6128314503996237)
+\psline(6.9233958339445465,1.6128314503996237)(1.194897516269983,-0.04148087329471073)
+\psline(1.194897516269983,-0.04148087329471073)(0.64,1.88)
+\psline(1.3560016703499738,3.7474425313931476)(0.64,1.88)
+\psline(0.64,1.88)(6.9233958339445465,1.6128314503996237)
+\pscustom[linecolor=black,fillcolor=white,fillstyle=solid,opacity=0.1]{
+\parametricplot{2.775466713726621}{3.0990984794742653}{0.6859177237901143*cos(t)+6.9233958339445465|0.6859177237901143*sin(t)+1.6128314503996237}
+\lineto(6.9233958339445465,1.6128314503996237)\closepath}
+\pscustom[linecolor=black,fillcolor=white,fillstyle=solid,opacity=0.1]{
+\parametricplot{3.0990984794742653}{3.4227302452219095}{0.7839059700458448*cos(t)+6.9233958339445465|0.7839059700458448*sin(t)+1.6128314503996237}
+\lineto(6.9233958339445465,1.6128314503996237)\closepath}
+\psline(4.2169299172377,2.8815677534369795)(4.062061021165114,2.477645841949691)
+\psline(4.2169299172377,2.8815677534369795)(4.139698752147259,2.6801369908963855)
+\psline(4.139698752147259,2.6801369908963855)(4.062061021165114,2.477645841949691)
+\psline(3.997464103943195,0.9992676677436675)(4.0591466751072645,0.7856752885524566)
+\psline(4.0591466751072645,0.7856752885524566)(4.1206445104557865,0.5727226064688725)
+\begin{scriptsize}
+\rput[tl](0.21928658328246562,2.0087741257816814){$O$}
+\rput[tl](1.0971572920955022,-0.19569930834792745){$A$}
+\rput[tl](1.2519267323604018,4.050930866477608){$B$}
+\rput[tl](7.054842664443922,1.7826742863837726){$P$}
+\end{scriptsize}
+\end{pspicture*}
+tan. from ext. pt.
+\end{Figure}
+
+
+
+ 
+ \columnbreak
+\subsection{Congruent \& Similar Triangles}
+
+\begin{center}
+\begin{tabularx}{0.28\textwidth}{|Y|Y|}
+\hline
+\textbf{Congruent triangles} & \textbf{Similar triangles}\\\hline
+SSS, SAS, AAS, RHS & SSS, SAS, AAA\\\hline
+\end{tabularx}
+\end{center}
+\leavevmode\\[2\baselineskip]
+
+
+
+
+\subsection{Midpoint Theorem}
+
+
+\begin{Figure}
+\centering
+\psset{xunit=0.95cm,yunit=0.95cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-1.3912242746085073,-1.134997220520739)(8.975412291056243,4.577104782413491)
+\psline(2.3122115456665617,4.1190392934954945)(1.,0.)
+\psline(2.3122115456665617,4.1190392934954945)(6.,0.)
+\psline(1.9841586592499214,3.08927947012162)(1.7871431276163992,3.152043147975675)
+\psline(2.188021452916247,3.024334444711635)(1.9841586592499214,3.08927947012162)
+\psline(1.1240981892100936,1.0947341266998902)(1.3280528864166403,1.0297598233738734)
+\psline(1.3280528864166403,1.0297598233738734)(1.5249765145099414,0.9670254234358504)
+\psline(3.234158659249921,3.089279470121621)(3.074838316805786,2.946639481148043)
+\psline(3.234158659249921,3.089279470121621)(3.392093985741492,3.2306794500846028)
+\psline(4.922167225753206,0.8901949154841736)(5.07805288641664,1.029759823373874)
+\psline(3.234158659249921,3.089279470121621)(3.092358403993482,3.2476618801925197)
+\psline(5.215158456523074,0.8766210960258114)(5.07805288641664,1.029759823373874)
+\psline(3.092358403993482,3.2476618801925197)(2.934828553371425,3.1066249240133765)
+\psline(3.2475404134403494,3.3865968069998758)(3.092358403993482,3.2476618801925197)
+\psline(5.215158456523074,0.8766210960258114)(5.375128604674732,1.0198428580331025)
+\psline(5.215158456523074,0.8766210960258114)(5.061651263116177,0.7391856371320267)
+\psline(4.922167225753206,0.8901949154841736)(5.234603196955646,1.1699197943262591)
+\psline{->}(1.6561057728332806,2.059519646747747)(2.8217504261963606,2.0595196467477472)
+\psline{->}(1.,0.)(3.5664610977399125,0.)
+\psline(2.8217504261963606,2.0595196467477472)(4.156105772833281,2.0595196467477477)
+\psline(3.5664610977399125,0.)(6.,0.)
+\begin{scriptsize}
+\rput[tl](2.2162350531551004,4.40892227885763){$A$}
+\rput[tl](0.5916419190542419,-0.04496608208265506){$B$}
+\rput[tl](6.033753149640055,-0.04496608208265506){$C$}
+\rput[tl](1.2383643443420638,2.172557271745908){$D$}
+\rput[tl](4.311171769283465,2.1537156184627487){$E$}
+\end{scriptsize}
+\end{pspicture*}
+\end{Figure}
+If $D$ and $E$ are the midpoints of $AB$ and $AC$ respectively, then $DE$ // $BC$ and $DE=\dfrac{1}{2}BC$.\\[2\baselineskip]
+
+ 
+
+
+\subsection{Tangent-Chord Theorem (Alternate Segment Theorem)}
+
+
+\begin{figure}[H]
+\centering
+\psset{xunit=0.85cm,yunit=0.85cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-2.8912242746085073,-3.134997220520739)(8.975412291056243,5.777104782413491)
+\pscircle(2.,2.){2.55}
+\psline(-1.2108151088354968,-1.)(2.,-1.)
+\psline(2.,-1.)(5.208692971342872,-1.)
+\psline(-0.9229848681467416,2.6753957806983815)(3.3778938957792004,4.664846789587427)
+\psline(3.3778938957792004,4.664846789587427)(2.,-1.)
+\psline(2.,-1.)(-0.9229848681467416,2.6753957806983815)
+\pscustom[linecolor=black,fillcolor=white,fillstyle=solid,opacity=0.1]{
+\parametricplot{0.0}{1.332193972574238}{0.4421148815549841*cos(t)+2.|0.4421148815549841*sin(t)+-1.}
+\lineto(2.,-1.)\closepath}
+\pscustom[linecolor=black,fillcolor=white,fillstyle=solid,opacity=0.1]{
+\parametricplot{2.24265527169985}{3.141592653589793}{0.5305378578659808*cos(t)+2.|0.5305378578659808*sin(t)+-1.}
+\lineto(2.,-1.)\closepath}
+\parametricplot[linecolor=black]{2.24265527169985}{3.141592653589793}{0.5305378578659808*cos(t)+2.|0.5305378578659808*sin(t)+-1.}
+\parametricplot[linecolor=black]{2.24265527169985}{3.141592653589793}{0.442114881554984*cos(t)+2.|0.442114881554984*sin(t)+-1.}
+\pscustom[linecolor=black,fillcolor=white,fillstyle=solid,opacity=0.1]{
+\parametricplot{-0.8989373818899434}{0.43325659068429456}{0.4421148815549841*cos(t)+-0.9229848681467416|0.4421148815549841*sin(t)+2.6753957806983815}
+\lineto(-0.9229848681467416,2.6753957806983815)\closepath}
+\pscustom[linecolor=black,fillcolor=white,fillstyle=solid,opacity=0.1]{
+\parametricplot{-2.7083360629054987}{-1.8093986810155551}{0.5305378578659808*cos(t)+3.3778938957792004|0.5305378578659808*sin(t)+4.664846789587427}
+\lineto(3.3778938957792004,4.664846789587427)\closepath}
+\parametricplot[linecolor=black]{-2.7083360629054987}{-1.8093986810155551}{0.5305378578659808*cos(t)+3.3778938957792004|0.5305378578659808*sin(t)+4.664846789587427}
+\parametricplot[linecolor=black]{-2.7083360629054987}{-1.8093986810155551}{0.442114881554984*cos(t)+3.3778938957792004|0.442114881554984*sin(t)+4.664846789587427}
+\begin{scriptsize}
+\rput[tl](3.3048642545985373,5.092877365583276){$C$}
+\rput[tl](-1.4291378235550854,2.795539391830851){$A$}
+\rput[tl](1.7601968952139961,-1.115011912871686){$B$}
+\rput[tl](-1.4230302519818891,-1.1660191038025887){$D$}
+\rput[tl](5.173323780818474,-1.1320143098486535){$E$}
+\end{scriptsize}
+\end{pspicture*}
+\end{figure}
+\leavevmode\\[-4\baselineskip]
+If $DE$ is a tangent to the circle at $B$, then $\angle CAB=\angle CBE$ and $\angle ACB=\angle ABD$.
+
+
+\end{multicols}
+\end{document}

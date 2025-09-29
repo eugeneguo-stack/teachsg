@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementary Mathematics Diagrams - Teach.sg</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fefaf6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #fefaf6 0%, #f5f0e8 100%);
+            padding: 2rem 0;
+            border-bottom: 3px solid #d4af37;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c5aa0;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .breadcrumb {
+            background-color: #e8f4f8;
+            padding: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .breadcrumb a {
+            color: #2c5aa0;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            color: #2c5aa0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            color: #2c5aa0;
+            margin: 2rem 0 1rem 0;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            color: #2c5aa0;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        h4 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            color: #2c5aa0;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .formula-section {
+            background: linear-gradient(135deg, #e8f4f8 0%, #f0f8ff 100%);
+            border-left: 5px solid #2c5aa0;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .formula-section::before {
+            content: "🦉 ";
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        .diagram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .diagram-item {
+            text-align: center;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+        }
+
+        .diagram-item h5 {
+            font-family: 'Poppins', sans-serif;
+            color: #2c5aa0;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .angle-diagram {
+            margin: 1rem 0;
+        }
+
+        .angle-visual {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem auto;
+        }
+
+        .angle-line {
+            position: absolute;
+            background-color: #2c5aa0;
+            height: 2px;
+            transform-origin: left center;
+        }
+
+        .angle-arc {
+            position: absolute;
+            border: 2px solid #d4af37;
+            border-radius: 50%;
+            background: transparent;
+        }
+
+        .shape-diagram {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .shape-visual {
+            margin: 1rem auto;
+            display: inline-block;
+        }
+
+        .parallelogram {
+            width: 120px;
+            height: 60px;
+            background: linear-gradient(135deg, #e8f4f8, #f0f8ff);
+            transform: skew(-20deg);
+            border: 2px solid #2c5aa0;
+            position: relative;
+        }
+
+        .trapezium {
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 60px solid #e8f4f8;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .trapezium::after {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: -50px;
+            width: 100px;
+            height: 2px;
+            background: #2c5aa0;
+        }
+
+        .circle {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #2c5aa0;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e8f4f8, #f0f8ff);
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .circle::after {
+            content: 'r';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 2px;
+            background: #d4af37;
+            transform-origin: left center;
+        }
+
+        .cuboid {
+            width: 80px;
+            height: 60px;
+            background: linear-gradient(135deg, #e8f4f8, #f0f8ff);
+            border: 2px solid #2c5aa0;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .cuboid::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 15px;
+            width: 80px;
+            height: 60px;
+            background: linear-gradient(135deg, #f0f8ff, #e8f4f8);
+            border: 2px solid #2c5aa0;
+            z-index: -1;
+        }
+
+        .cylinder {
+            width: 80px;
+            height: 100px;
+            background: linear-gradient(to right, #e8f4f8, #f0f8ff, #e8f4f8);
+            border: 2px solid #2c5aa0;
+            border-radius: 40px 40px 0 0;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .cylinder::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: -2px;
+            width: 84px;
+            height: 20px;
+            background: #e8f4f8;
+            border: 2px solid #2c5aa0;
+            border-radius: 50%;
+        }
+
+        .cone {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 100px solid #e8f4f8;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .cone::after {
+            content: '';
+            position: absolute;
+            top: 100px;
+            left: -25px;
+            width: 50px;
+            height: 10px;
+            background: #f0f8ff;
+            border: 2px solid #2c5aa0;
+            border-radius: 50%;
+        }
+
+        .sphere {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, #f0f8ff, #e8f4f8);
+            border: 2px solid #2c5aa0;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+
+        .graph-container {
+            background: white;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .axis {
+            stroke: #333;
+            stroke-width: 2;
+        }
+
+        .grid-line {
+            stroke: #e0e0e0;
+            stroke-width: 1;
+        }
+
+        .function-curve {
+            fill: none;
+            stroke: #2c5aa0;
+            stroke-width: 3;
+        }
+
+        .function-curve.dashed {
+            stroke-dasharray: 5,5;
+            stroke: #d4af37;
+        }
+
+        .circle-property {
+            background: white;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+        }
+
+        .construction-steps {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .construction-step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 1rem;
+            margin: 0.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .step-number {
+            background: #2c5aa0;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            font-weight: bold;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.75rem 1.5rem;
+            background: #2c5aa0;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .back-link:hover {
+            background: #1e3f6f;
+        }
+
+        @media (max-width: 768px) {
+            .diagram-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .construction-steps {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">Teach.sg</div>
+            <div class="tagline">Comprehensive Educational Resources for Singapore Students</div>
+        </div>
+    </header>
+
+    <nav class="breadcrumb">
+        <div class="breadcrumb-content">
+            <a href="/">Home</a> > <a href="/content/mathematics/">Mathematics</a> > Elementary Mathematics Diagrams
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Elementary Mathematics Notes (Diagrams)</h1>
+        <p style="text-align: center; margin-bottom: 2rem; font-style: italic;">
+            Reproduced from <a href="http://teach.sg" style="color: #2c5aa0;">http://teach.sg</a>
+        </p>
+
+        <h2>Angles, Triangles & Polygons</h2>
+
+        <h3>Names of Angles</h3>
+        <div class="diagram-grid">
+            <div class="diagram-item">
+                <h5>Right Angle</h5>
+                <div class="angle-visual">
+                    <div class="angle-line" style="width: 60px; top: 60px; left: 30px;"></div>
+                    <div class="angle-line" style="width: 60px; top: 60px; left: 30px; transform: rotate(90deg);"></div>
+                    <div style="position: absolute; top: 45px; left: 45px; width: 15px; height: 15px; border: 2px solid #2c5aa0; border-bottom: none; border-left: none;"></div>
+                </div>
+                <p>$(90°)$</p>
+            </div>
+
+            <div class="diagram-item">
+                <h5>Acute Angle</h5>
+                <div class="angle-visual">
+                    <div class="angle-line" style="width: 60px; top: 60px; left: 30px;"></div>
+                    <div class="angle-line" style="width: 60px; top: 60px; left: 30px; transform: rotate(45deg);"></div>
+                    <div class="angle-arc" style="width: 30px; height: 30px; top: 45px; left: 15px; border-right: none; border-bottom: none; transform: rotate(45deg);"></div>
+                </div>
+                <p>$(<90°)$</p>
+            </div>
+
+            <div class="diagram-item">
+                <h5>Obtuse Angle</h5>
+                <div class="angle-visual">
+                    <div class="angle-line" style="width: 60px; top: 60px; left: 30px;"></div>
+                    <div class="angle-line" style="width: 60px; top: 60px; left: 30px; transform: rotate(120deg);"></div>
+                    <div class="angle-arc" style="width: 40px; height: 40px; top: 40px; left: 10px; border-right: none; border-bottom: none; transform: rotate(120deg);"></div>
+                </div>
+                <p>$(90° < θ < 180°)$</p>
+            </div>
+
+            <div class="diagram-item">
+                <h5>Reflex Angle</h5>
+                <div class="angle-visual">
+                    <div class="angle-line" style="width: 60px; top: 60px; left: 30px;"></div>
+                    <div class="angle-line" style="width: 60px; top: 60px; left: 30px; transform: rotate(250deg);"></div>
+                    <div class="angle-arc" style="width: 50px; height: 50px; top: 35px; left: 5px; border-left: none; border-top: none; transform: rotate(250deg);"></div>
+                </div>
+                <p>$(180° < θ < 360°)$</p>
+            </div>
+        </div>
+
+        <h3>Types of Angles</h3>
+
+        <div class="formula-section">
+            <h4>Angles on a Straight Line</h4>
+            <p>Angles on a straight line sum to $180°$</p>
+            <div style="text-align: center; margin: 1rem 0;">
+                <svg width="200" height="80" viewBox="0 0 200 80">
+                    <line x1="20" y1="40" x2="180" y2="40" stroke="#2c5aa0" stroke-width="2"/>
+                    <line x1="100" y1="40" x2="150" y2="10" stroke="#2c5aa0" stroke-width="2"/>
+                    <path d="M 110 40 A 10 10 0 0 1 120 35" fill="none" stroke="#d4af37" stroke-width="2"/>
+                    <path d="M 120 35 A 15 15 0 0 1 140 40" fill="none" stroke="#d4af37" stroke-width="2"/>
+                    <text x="125" y="25" text-anchor="middle" font-size="12">$a$</text>
+                    <text x="90" y="25" text-anchor="middle" font-size="12">$b$</text>
+                    <text x="100" y="65" text-anchor="middle" font-size="12">$a + b = 180°$</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="formula-section">
+            <h4>Angles at a Point</h4>
+            <p>Angles around a point sum to $360°$</p>
+            <div style="text-align: center; margin: 1rem 0;">
+                <svg width="150" height="150" viewBox="0 0 150 150">
+                    <line x1="75" y1="75" x2="75" y2="25" stroke="#2c5aa0" stroke-width="2"/>
+                    <line x1="75" y1="75" x2="125" y2="50" stroke="#2c5aa0" stroke-width="2"/>
+                    <line x1="75" y1="75" x2="100" y2="125" stroke="#2c5aa0" stroke-width="2"/>
+                    <line x1="75" y1="75" x2="25" y2="100" stroke="#2c5aa0" stroke-width="2"/>
+                    <circle cx="75" cy="75" r="3" fill="#2c5aa0"/>
+                    <text x="85" y="45" font-size="12">$x$</text>
+                    <text x="95" y="70" font-size="12">$y$</text>
+                    <text x="85" y="95" font-size="12">$z$</text>
+                    <text x="50" y="85" font-size="12">$w$</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="formula-section">
+            <h4>Vertically Opposite Angles</h4>
+            <p>Vertically opposite angles are equal</p>
+            <div style="text-align: center; margin: 1rem 0;">
+                <svg width="150" height="150" viewBox="0 0 150 150">
+                    <line x1="25" y1="25" x2="125" y2="125" stroke="#2c5aa0" stroke-width="2"/>
+                    <line x1="125" y1="25" x2="25" y2="125" stroke="#2c5aa0" stroke-width="2"/>
+                    <circle cx="75" cy="75" r="2" fill="#2c5aa0"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="formula-section">
+            <h4>Parallel Lines</h4>
+            <p><strong>Alternate Angles:</strong> Equal when lines are parallel</p>
+            <p><strong>Corresponding Angles:</strong> Equal when lines are parallel</p>
+            <p><strong>Interior Angles:</strong> Sum to $180°$ when lines are parallel</p>
+        </div>
+
+        <h2>Mensuration</h2>
+
+        <h3>Perimeter & Area</h3>
+
+        <div class="diagram-grid">
+            <div class="diagram-item">
+                <h5>Parallelogram</h5>
+                <div class="shape-visual">
+                    <div class="parallelogram"></div>
+                </div>
+                <div class="formula-section">
+                    <p><strong>Area</strong> = $b \times h$</p>
+                </div>
+            </div>
+
+            <div class="diagram-item">
+                <h5>Trapezium</h5>
+                <div class="shape-visual">
+                    <svg width="120" height="100" viewBox="0 0 120 100">
+                        <polygon points="20,80 100,80 85,20 35,20" fill="#e8f4f8" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="35" y1="15" x2="85" y2="15" stroke="#d4af37" stroke-width="2"/>
+                        <line x1="20" y1="85" x2="100" y2="85" stroke="#d4af37" stroke-width="2"/>
+                        <line x1="110" y1="20" x2="110" y2="80" stroke="#d4af37" stroke-width="2"/>
+                        <text x="60" y="10" text-anchor="middle" font-size="12">$a$</text>
+                        <text x="60" y="95" text-anchor="middle" font-size="12">$b$</text>
+                        <text x="115" y="50" text-anchor="middle" font-size="12">$h$</text>
+                    </svg>
+                </div>
+                <div class="formula-section">
+                    <p><strong>Area</strong> = $\frac{a+b}{2} \times h$</p>
+                </div>
+            </div>
+
+            <div class="diagram-item">
+                <h5>Circle</h5>
+                <div class="shape-visual">
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                        <circle cx="60" cy="60" r="40" fill="#e8f4f8" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="60" y1="60" x2="100" y2="60" stroke="#d4af37" stroke-width="2"/>
+                        <circle cx="60" cy="60" r="2" fill="#2c5aa0"/>
+                        <text x="80" y="55" font-size="12">$r$</text>
+                        <text x="55" y="65" font-size="12">$O$</text>
+                    </svg>
+                </div>
+                <div class="formula-section">
+                    <p><strong>Circumference</strong> = $2\pi r$</p>
+                    <p><strong>Area</strong> = $\pi r^2$</p>
+                </div>
+            </div>
+        </div>
+
+        <h3>Surface Area & Volume</h3>
+
+        <div class="diagram-grid">
+            <div class="diagram-item">
+                <h5>Cuboid</h5>
+                <div class="shape-visual">
+                    <svg width="120" height="100" viewBox="0 0 120 100">
+                        <rect x="10" y="40" width="70" height="50" fill="#e8f4f8" stroke="#2c5aa0" stroke-width="2"/>
+                        <polygon points="25,25 95,25 95,75 80,90 10,90 10,40 25,25" fill="none" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="25" y1="25" x2="25" y2="40" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="95" y1="25" x2="80" y2="40" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="95" y1="75" x2="80" y2="90" stroke="#2c5aa0" stroke-width="2"/>
+                        <text x="45" y="105" text-anchor="middle" font-size="12">$l$</text>
+                        <text x="105" y="50" text-anchor="middle" font-size="12">$h$</text>
+                        <text x="90" y="105" text-anchor="middle" font-size="12">$b$</text>
+                    </svg>
+                </div>
+                <div class="formula-section">
+                    <p><strong>Surface Area</strong> = $2(lb + lh + bh)$</p>
+                    <p><strong>Volume</strong> = $l \times b \times h$</p>
+                </div>
+            </div>
+
+            <div class="diagram-item">
+                <h5>Cylinder</h5>
+                <div class="shape-visual">
+                    <svg width="100" height="120" viewBox="0 0 100 120">
+                        <ellipse cx="50" cy="20" rx="30" ry="8" fill="#e8f4f8" stroke="#2c5aa0" stroke-width="2"/>
+                        <rect x="20" y="20" width="60" height="80" fill="#f0f8ff"/>
+                        <line x1="20" y1="20" x2="20" y2="100" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="80" y1="20" x2="80" y2="100" stroke="#2c5aa0" stroke-width="2"/>
+                        <ellipse cx="50" cy="100" rx="30" ry="8" fill="#e8f4f8" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="50" y1="100" x2="80" y2="100" stroke="#d4af37" stroke-width="2"/>
+                        <text x="85" y="60" font-size="12">$h$</text>
+                        <text x="65" y="105" font-size="12">$r$</text>
+                    </svg>
+                </div>
+                <div class="formula-section">
+                    <p><strong>Surface Area</strong> = $2\pi r^2 + 2\pi r h$</p>
+                    <p><strong>Volume</strong> = $\pi r^2 h$</p>
+                </div>
+            </div>
+
+            <div class="diagram-item">
+                <h5>Prism</h5>
+                <div class="shape-visual">
+                    <svg width="120" height="80" viewBox="0 0 120 80">
+                        <polygon points="10,60 30,20 40,20 20,60" fill="#e8f4f8" stroke="#2c5aa0" stroke-width="2"/>
+                        <polygon points="70,60 90,20 100,20 80,60" fill="#f0f8ff" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="10" y1="60" x2="70" y2="60" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="30" y1="20" x2="90" y2="20" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="40" y1="20" x2="100" y2="20" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="20" y1="60" x2="80" y2="60" stroke="#2c5aa0" stroke-width="2"/>
+                        <text x="55" y="75" text-anchor="middle" font-size="12">$l$</text>
+                    </svg>
+                </div>
+                <div class="formula-section">
+                    <p><strong>Volume</strong> = cross-sectional area × $l$</p>
+                </div>
+            </div>
+
+            <div class="diagram-item">
+                <h5>Pyramid</h5>
+                <div class="shape-visual">
+                    <svg width="100" height="100" viewBox="0 0 100 100">
+                        <polygon points="50,20 20,80 80,80" fill="#e8f4f8" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="50" y1="20" x2="35" y2="65" stroke="#2c5aa0" stroke-width="2" stroke-dasharray="3,3"/>
+                        <line x1="20" y1="80" x2="65" y2="65" stroke="#2c5aa0" stroke-width="2" stroke-dasharray="3,3"/>
+                        <line x1="80" y1="80" x2="65" y2="65" stroke="#2c5aa0" stroke-width="2" stroke-dasharray="3,3"/>
+                        <line x1="50" y1="20" x2="65" y2="65" stroke="#2c5aa0" stroke-width="2" stroke-dasharray="3,3"/>
+                    </svg>
+                </div>
+                <div class="formula-section">
+                    <p><strong>Volume</strong> = $\frac{1}{3} \times$ base area × height</p>
+                </div>
+            </div>
+
+            <div class="diagram-item">
+                <h5>Cone</h5>
+                <div class="shape-visual">
+                    <svg width="100" height="120" viewBox="0 0 100 120">
+                        <polygon points="50,20 25,100 75,100" fill="#e8f4f8" stroke="#2c5aa0" stroke-width="2"/>
+                        <ellipse cx="50" cy="100" rx="25" ry="6" fill="#f0f8ff" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="50" y1="100" x2="75" y2="100" stroke="#d4af37" stroke-width="2"/>
+                        <line x1="50" y1="20" x2="25" y2="100" stroke="#d4af37" stroke-width="2"/>
+                        <text x="62" y="105" font-size="12">$r$</text>
+                        <text x="30" y="60" font-size="12">$l$</text>
+                        <text x="85" y="60" font-size="12">$h$</text>
+                    </svg>
+                </div>
+                <div class="formula-section">
+                    <p><strong>Volume</strong> = $\frac{1}{3}\pi r^2 h$</p>
+                    <p><strong>Surface Area</strong> = $\pi r^2 + \pi r l$</p>
+                </div>
+            </div>
+
+            <div class="diagram-item">
+                <h5>Sphere</h5>
+                <div class="shape-visual">
+                    <svg width="100" height="100" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="30" fill="#e8f4f8" stroke="#2c5aa0" stroke-width="2"/>
+                        <ellipse cx="50" cy="50" rx="30" ry="8" fill="none" stroke="#2c5aa0" stroke-width="1" stroke-dasharray="3,3"/>
+                        <line x1="50" y1="50" x2="80" y2="50" stroke="#d4af37" stroke-width="2"/>
+                        <text x="65" y="45" font-size="12">$r$</text>
+                    </svg>
+                </div>
+                <div class="formula-section">
+                    <p><strong>Volume</strong> = $\frac{4}{3}\pi r^3$</p>
+                    <p><strong>Surface Area</strong> = $4\pi r^2$</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Functions & Graphs</h2>
+
+        <h3>Graphs of Power Functions ($y = ax^n$)</h3>
+
+        <div class="graph-container">
+            <h4>$n = 2$ (Quadratic)</h4>
+            <svg width="400" height="300" viewBox="0 0 400 300">
+                <!-- Grid -->
+                <defs>
+                    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+                    </pattern>
+                </defs>
+                <rect width="400" height="300" fill="url(#grid)"/>
+
+                <!-- Axes -->
+                <line x1="200" y1="20" x2="200" y2="280" class="axis"/>
+                <line x1="20" y1="150" x2="380" y2="150" class="axis"/>
+
+                <!-- Parabola (positive) -->
+                <path d="M 120 280 Q 200 80 280 280" class="function-curve"/>
+
+                <!-- Parabola (negative) -->
+                <path d="M 120 20 Q 200 220 280 20" class="function-curve dashed"/>
+
+                <!-- Labels -->
+                <text x="390" y="155" font-size="14">$x$</text>
+                <text x="205" y="15" font-size="14">$y$</text>
+                <text x="205" y="170" font-size="12">$O$</text>
+                <text x="300" y="100" font-size="12">$a > 0: y = x^2$</text>
+                <text x="300" y="250" font-size="12">$a < 0: y = -x^2$</text>
+            </svg>
+        </div>
+
+        <div class="graph-container">
+            <h4>$n = 3$ (Cubic)</h4>
+            <svg width="400" height="300" viewBox="0 0 400 300">
+                <!-- Grid -->
+                <rect width="400" height="300" fill="url(#grid)"/>
+
+                <!-- Axes -->
+                <line x1="200" y1="20" x2="200" y2="280" class="axis"/>
+                <line x1="20" y1="150" x2="380" y2="150" class="axis"/>
+
+                <!-- Cubic (positive) -->
+                <path d="M 80 280 Q 150 200 200 150 Q 250 100 320 20" class="function-curve"/>
+
+                <!-- Cubic (negative) -->
+                <path d="M 80 20 Q 150 100 200 150 Q 250 200 320 280" class="function-curve dashed"/>
+
+                <!-- Labels -->
+                <text x="390" y="155" font-size="14">$x$</text>
+                <text x="205" y="15" font-size="14">$y$</text>
+                <text x="205" y="170" font-size="12">$O$</text>
+                <text x="300" y="50" font-size="12">$a > 0: y = x^3$</text>
+                <text x="300" y="270" font-size="12">$a < 0: y = -x^3$</text>
+            </svg>
+        </div>
+
+        <div class="graph-container">
+            <h4>$n = -1$ (Reciprocal)</h4>
+            <svg width="400" height="300" viewBox="0 0 400 300">
+                <!-- Grid -->
+                <rect width="400" height="300" fill="url(#grid)"/>
+
+                <!-- Axes -->
+                <line x1="200" y1="20" x2="200" y2="280" class="axis"/>
+                <line x1="20" y1="150" x2="380" y2="150" class="axis"/>
+
+                <!-- Hyperbola (positive) -->
+                <path d="M 380 50 Q 250 80 220 150" class="function-curve"/>
+                <path d="M 180 150 Q 150 220 20 250" class="function-curve"/>
+
+                <!-- Hyperbola (negative) -->
+                <path d="M 20 50 Q 150 80 180 150" class="function-curve dashed"/>
+                <path d="M 220 150 Q 250 220 380 250" class="function-curve dashed"/>
+
+                <!-- Labels -->
+                <text x="390" y="155" font-size="14">$x$</text>
+                <text x="205" y="15" font-size="14">$y$</text>
+                <text x="205" y="170" font-size="12">$O$</text>
+                <text x="250" y="80" font-size="12">$a > 0: y = \frac{1}{x}$</text>
+                <text x="250" y="250" font-size="12">$a < 0: y = -\frac{1}{x}$</text>
+            </svg>
+        </div>
+
+        <h2>Exponential Function (Graphs)</h2>
+
+        <div class="graph-container">
+            <h4>$y = a^x$ (where $a > 1$)</h4>
+            <svg width="400" height="300" viewBox="0 0 400 300">
+                <!-- Grid -->
+                <rect width="400" height="300" fill="url(#grid)"/>
+
+                <!-- Axes -->
+                <line x1="200" y1="20" x2="200" y2="280" class="axis"/>
+                <line x1="20" y1="150" x2="380" y2="150" class="axis"/>
+
+                <!-- Exponential curve -->
+                <path d="M 20 280 Q 100 200 200 150 Q 250 100 300 50 Q 340 30 380 20" class="function-curve"/>
+
+                <!-- y = 1 line -->
+                <line x1="190" y1="150" x2="210" y2="150" stroke="#d4af37" stroke-width="2"/>
+
+                <!-- Labels -->
+                <text x="390" y="155" font-size="14">$x$</text>
+                <text x="205" y="15" font-size="14">$y$</text>
+                <text x="205" y="170" font-size="12">$O$</text>
+                <text x="215" y="145" font-size="12">$1$</text>
+                <text x="50" y="50" font-size="12">$y = 5^x$</text>
+            </svg>
+        </div>
+
+        <h2>Properties of Circles</h2>
+
+        <h3>Angle Properties</h3>
+
+        <div class="diagram-grid">
+            <div class="circle-property">
+                <h4>Tangent Perpendicular to Radius</h4>
+                <div style="text-align: center;">
+                    <svg width="200" height="150" viewBox="0 0 200 150">
+                        <circle cx="100" cy="75" r="50" fill="none" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="50" y1="25" x2="150" y2="25" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="100" y1="75" x2="100" y2="25" stroke="#d4af37" stroke-width="2"/>
+                        <rect x="95" y="25" width="10" height="10" fill="none" stroke="#2c5aa0" stroke-width="1"/>
+                        <circle cx="100" cy="75" r="2" fill="#2c5aa0"/>
+                        <text x="105" y="80" font-size="12">$O$</text>
+                    </svg>
+                </div>
+                <p>A tangent to a circle is perpendicular to the radius at the point of contact.</p>
+            </div>
+
+            <div class="circle-property">
+                <h4>Right Angle in Semicircle</h4>
+                <div style="text-align: center;">
+                    <svg width="200" height="150" viewBox="0 0 200 150">
+                        <circle cx="100" cy="75" r="50" fill="none" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="50" y1="75" x2="150" y2="75" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="50" y1="75" x2="125" y2="40" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="150" y1="75" x2="125" y2="40" stroke="#2c5aa0" stroke-width="2"/>
+                        <circle cx="100" cy="75" r="2" fill="#2c5aa0"/>
+                        <text x="105" y="80" font-size="12">$O$</text>
+                    </svg>
+                </div>
+                <p>The angle in a semicircle is always a right angle (90°).</p>
+            </div>
+
+            <div class="circle-property">
+                <h4>Angles in Same Segment</h4>
+                <div style="text-align: center;">
+                    <svg width="200" height="150" viewBox="0 0 200 150">
+                        <circle cx="100" cy="75" r="50" fill="none" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="70" y1="45" x2="130" y2="105" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="80" y1="35" x2="70" y2="45" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="80" y1="35" x2="130" y2="105" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="120" y1="35" x2="70" y2="45" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="120" y1="35" x2="130" y2="105" stroke="#2c5aa0" stroke-width="2"/>
+                    </svg>
+                </div>
+                <p>Angles subtended by the same arc in the same segment are equal.</p>
+            </div>
+
+            <div class="circle-property">
+                <h4>Angle at Centre vs Angle at Circumference</h4>
+                <div style="text-align: center;">
+                    <svg width="200" height="150" viewBox="0 0 200 150">
+                        <circle cx="100" cy="75" r="50" fill="none" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="100" y1="75" x2="70" y2="45" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="100" y1="75" x2="130" y2="45" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="80" y1="110" x2="70" y2="45" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="80" y1="110" x2="130" y2="45" stroke="#2c5aa0" stroke-width="2"/>
+                        <circle cx="100" cy="75" r="2" fill="#2c5aa0"/>
+                        <text x="105" y="80" font-size="12">$O$</text>
+                    </svg>
+                </div>
+                <p>The angle at the centre is twice the angle at the circumference when subtended by the same arc.</p>
+            </div>
+
+            <div class="circle-property">
+                <h4>Angles in Opposite Segments</h4>
+                <div style="text-align: center;">
+                    <svg width="200" height="150" viewBox="0 0 200 150">
+                        <circle cx="100" cy="75" r="50" fill="none" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="70" y1="35" x2="130" y2="115" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="70" y1="115" x2="130" y2="35" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="70" y1="35" x2="70" y2="115" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="130" y1="35" x2="130" y2="115" stroke="#2c5aa0" stroke-width="2"/>
+                    </svg>
+                </div>
+                <p>Opposite angles in a cyclic quadrilateral sum to 180°.</p>
+            </div>
+
+            <div class="circle-property">
+                <h4>Tangents from External Point</h4>
+                <div style="text-align: center;">
+                    <svg width="200" height="150" viewBox="0 0 200 150">
+                        <circle cx="80" cy="75" r="40" fill="none" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="150" y1="45" x2="95" y2="45" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="150" y1="45" x2="95" y2="105" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="80" y1="75" x2="95" y2="45" stroke="#d4af37" stroke-width="2"/>
+                        <line x1="80" y1="75" x2="95" y2="105" stroke="#d4af37" stroke-width="2"/>
+                        <circle cx="80" cy="75" r="2" fill="#2c5aa0"/>
+                        <circle cx="150" cy="45" r="2" fill="#2c5aa0"/>
+                        <text x="85" y="80" font-size="12">$O$</text>
+                        <text x="155" y="50" font-size="12">$P$</text>
+                    </svg>
+                </div>
+                <p>Tangents drawn from an external point to a circle are equal in length.</p>
+            </div>
+        </div>
+
+        <h2>Bisectors</h2>
+
+        <h3>Constructing Perpendicular Bisector</h3>
+        <div class="construction-steps">
+            <div class="construction-step">
+                <div class="step-number">1</div>
+                <h5>Draw Line Segment</h5>
+                <p>Draw the line segment you want to bisect.</p>
+                <svg width="120" height="60" viewBox="0 0 120 60">
+                    <line x1="20" y1="30" x2="100" y2="30" stroke="#2c5aa0" stroke-width="2"/>
+                    <circle cx="20" cy="30" r="2" fill="#2c5aa0"/>
+                    <circle cx="100" cy="30" r="2" fill="#2c5aa0"/>
+                </svg>
+            </div>
+
+            <div class="construction-step">
+                <div class="step-number">2</div>
+                <h5>Draw Arcs</h5>
+                <p>From each endpoint, draw arcs with the same radius (greater than half the line length).</p>
+                <svg width="120" height="80" viewBox="0 0 120 80">
+                    <line x1="20" y1="40" x2="100" y2="40" stroke="#2c5aa0" stroke-width="2"/>
+                    <circle cx="20" cy="40" r="2" fill="#2c5aa0"/>
+                    <circle cx="100" cy="40" r="2" fill="#2c5aa0"/>
+                    <path d="M 50 10 A 40 40 0 0 1 70 10" fill="none" stroke="#d4af37" stroke-width="2"/>
+                    <path d="M 50 70 A 40 40 0 0 0 70 70" fill="none" stroke="#d4af37" stroke-width="2"/>
+                </svg>
+            </div>
+
+            <div class="construction-step">
+                <div class="step-number">3</div>
+                <h5>Join Intersections</h5>
+                <p>Draw a line through the two intersection points. This is the perpendicular bisector.</p>
+                <svg width="120" height="80" viewBox="0 0 120 80">
+                    <line x1="20" y1="40" x2="100" y2="40" stroke="#2c5aa0" stroke-width="2"/>
+                    <line x1="60" y1="10" x2="60" y2="70" stroke="#d4af37" stroke-width="3"/>
+                    <circle cx="20" cy="40" r="2" fill="#2c5aa0"/>
+                    <circle cx="100" cy="40" r="2" fill="#2c5aa0"/>
+                    <circle cx="60" cy="10" r="2" fill="#d4af37"/>
+                    <circle cx="60" cy="70" r="2" fill="#d4af37"/>
+                </svg>
+            </div>
+        </div>
+
+        <h3>Constructing Angle Bisector</h3>
+        <div class="construction-steps">
+            <div class="construction-step">
+                <div class="step-number">1</div>
+                <h5>Draw Angle</h5>
+                <p>Start with the angle you want to bisect.</p>
+                <svg width="120" height="80" viewBox="0 0 120 80">
+                    <line x1="20" y1="60" x2="100" y2="20" stroke="#2c5aa0" stroke-width="2"/>
+                    <line x1="20" y1="60" x2="100" y2="60" stroke="#2c5aa0" stroke-width="2"/>
+                    <circle cx="20" cy="60" r="2" fill="#2c5aa0"/>
+                </svg>
+            </div>
+
+            <div class="construction-step">
+                <div class="step-number">2</div>
+                <h5>Draw Arc</h5>
+                <p>From the vertex, draw an arc that intersects both arms of the angle.</p>
+                <svg width="120" height="80" viewBox="0 0 120 80">
+                    <line x1="20" y1="60" x2="100" y2="20" stroke="#2c5aa0" stroke-width="2"/>
+                    <line x1="20" y1="60" x2="100" y2="60" stroke="#2c5aa0" stroke-width="2"/>
+                    <path d="M 50 60 A 30 30 0 0 0 50 40" fill="none" stroke="#d4af37" stroke-width="2"/>
+                    <circle cx="20" cy="60" r="2" fill="#2c5aa0"/>
+                    <circle cx="50" cy="60" r="2" fill="#d4af37"/>
+                    <circle cx="50" cy="40" r="2" fill="#d4af37"/>
+                </svg>
+            </div>
+
+            <div class="construction-step">
+                <div class="step-number">3</div>
+                <h5>Draw Angle Bisector</h5>
+                <p>From the intersection points, draw arcs with equal radius. Join the vertex to the intersection of these arcs.</p>
+                <svg width="120" height="80" viewBox="0 0 120 80">
+                    <line x1="20" y1="60" x2="100" y2="20" stroke="#2c5aa0" stroke-width="2"/>
+                    <line x1="20" y1="60" x2="100" y2="60" stroke="#2c5aa0" stroke-width="2"/>
+                    <line x1="20" y1="60" x2="90" y2="35" stroke="#d4af37" stroke-width="3"/>
+                    <circle cx="20" cy="60" r="2" fill="#2c5aa0"/>
+                </svg>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="/content/mathematics/" class="back-link">← Back to Mathematics</a>
+        </div>
+    </div>
+
+    <script>
+        // Auto-render KaTeX
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

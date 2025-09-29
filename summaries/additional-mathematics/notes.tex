@@ -1,0 +1,564 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage{gensymb}
+\usepackage{tabularx,array,booktabs} % for stretching tables to page width
+\newcolumntype{Y}{>{\centering\arraybackslash}X} % for centering tables in tabularx
+\newcolumntype{N}{@{}m{0pt}@{}} % for vertical space in tabularx
+\newcommand{\heading}[1]{\bfseries\begin{tabular}{@{}c@{}} #1 \end{tabular}} % for a header in tables
+\def\tabularxcolumn#1{m{#1}} % for vertically centering text in tables
+\usepackage{float}
+\usepackage[landscape]{geometry}
+\usepackage{hyperref}
+\usepackage{pstricks-add} % for geogebra
+\usepackage{amsmath,amssymb}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}% for framed rounded boxes
+\tcbset{colframe=black,colback=white,colupper=black,
+fonttitle=\bfseries,nobeforeafter,center title,size=small}
+\tcbuselibrary{breakable}
+\usepackage{framed}% for framed standard boxes
+
+\linespread{1.2}
+
+
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+
+
+
+
+\newenvironment{cframed}
+{
+\begin{framed}\begin{center}
+}
+{
+\end{center}\end{framed}
+}
+
+
+
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+	{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.7in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+% Turn off header and footer
+%\pagestyle{empty}
+
+
+ 
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+%\setcounter{secnumdepth}{0}
+\setcounter{secnumdepth}{1}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+
+\pagestyle{fancy}
+\fancyhf{} % sets both header and footer to nothing
+\renewcommand{\headrulewidth}{0pt}
+\lfoot{\sc{\copyright\ 2020 Eugene Guo Youjun\\All rights reserved}}
+\cfoot{\sc{Page \thepage}}
+\rfoot{\sc{For Hai Sing Catholic School}}
+
+% -----------------------------------------------------------------------
+
+\begin{document}
+
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{center}
+     \Large{\textbf{Additional Mathematics Notes}} \\
+    \small{Reproduced from \url{http://teach.sg}}
+\end{center}
+
+\section{Quadratic Equations \& Inequalities}
+
+\subsection{Sum \& Product Of Roots}
+Sum of roots $=-\dfrac{b}{a}$\\
+Product of roots $=\dfrac{c}{a}$
+
+\subsection{Quadratic Equation From Roots}
+$x^2-\text{ (sum of roots) }x+\text{ (product of roots) }=0$
+
+\subsection{2, 1 or 0 real roots}
+2 real roots: $b^2-4ac>0$\\
+1 real root (2 equal roots): $b^2-4ac=0$\\
+0 real roots: $b^2-4ac<0$
+
+\subsection{Curve Always Positive / Negative}
+$b^2-4ac<0$ (because curve has 0 real roots)
+
+\subsection{Line \& Curve}
+Line intersect curve (at 2 points): $b^2-4ac>0$\\
+Line tangent to curve: $b^2-4ac=0$\\
+Line does not intersect curve: $b^2-4ac<0$\\
+*Line meets curve: $b^2-4ac\geq0$
+
+\section{Indices \& Surds}
+
+\subsection{Indices}
+$1.\,a^m \times a^n = a^{m+n}$\\
+$2.\,a^m \div a^n = a^{m-n}$\\
+$3.\,(a^m)^n = a^{mn}$\\
+$4.\,a^0 = 1 \mbox{ where } a \neq 0$\\
+$5.\,a^{-n} = \frac{1}{a^n}$\\
+$6.\,a^{\frac{1}{n}} = \sqrt[n]{a}$\\
+$7.\,a^{\frac{m}{n}} = (\sqrt[n]{a})^m$\\
+$8.\,(a \times b)^n = a^n \times b^n$\\
+$9.\,(\frac{a}{b})^n = \frac{a^n}{b^n}$
+
+\subsection{Surds}
+$1.\,\sqrt{a} \times {\sqrt{a}} = a$\\
+$2.\,\sqrt{a} \times {\sqrt{b}} = \sqrt{ab}$\\
+$3.\,\frac{\sqrt{a}}{\sqrt{b}} = \sqrt{\frac{a}{b}}$\\
+$4.\,m \sqrt{a} + n \sqrt{a} = (m+n) \sqrt{a}$\\
+$5.\,m \sqrt{a} - n \sqrt{a} = (m-n) \sqrt{a}$
+
+\subsection{Rationalise Denominator}
+For $\dfrac{k}{a\sqrt{b}}$, multiply numerator and denominator by $\sqrt{b}$.\\
+For $\dfrac{k}{a\sqrt{b}+c\sqrt{d}}$, multiply by the conjugate, which is $a\sqrt{b}-c\sqrt{d}$.
+
+
+\section{Polynomials \& Partial Fractions}
+
+\subsection{Polynomial Division}
+$P(x)=\text{divisor}\times Q(x)+R(x)$ 
+
+\subsection{Remainder Theorem}
+If $P(x)$ is divided by $x-c$, remainder is $\text{f}(c)$. \\
+If $P(x)$ is divided by $ax-b$, remainder is $\text{f}\left(\dfrac{b}{a}\right)$.
+
+\subsection{Factor Theorem}
+If $x+c$ is a factor of $P(x)$, $\text{f}(-c)=0$.\\
+If $ax+b$ is a factor of $P(x)$, $\text{f}\left(-\dfrac{b}{a}\right)=0$.\\
+
+\subsection{Cubic Polynomials}
+$a^3+b^3 = (a+b)(a^2-ab+b^2)$\\
+$a^3-b^3 = (a-b)(a^2+ab+b^2)$
+
+\subsection{Partial Fractions}
+$1.\,\dfrac{f(x)}{(ax + b)(cx+d)} = \dfrac{A}{ax+b} + \dfrac{B}{cx+d}$\\
+$2.\,\dfrac{f(x)}{(ax + b)(cx+d)^2} = \dfrac{A}{ax+b} + \dfrac{B}{cx+d} + \dfrac{C}{({cx+d})^2}$\\
+$3.\,\dfrac{f(x)}{(ax + b)(x^2+c)} =  \dfrac{A}{ax+b} + \dfrac{Bx+C}{x^2+c}$\\
+\emph{Special case}: $\dfrac{f(x)}{(ax + b)(x^2)} =  \dfrac{A}{ax+b} + \dfrac{B}{x}+\dfrac{C}{x^2}$
+\section{Binomial Expansions}
+
+\subsection{Binomial Expansions}
+$(a+b)^n = a^n + \dbinom{n}{1}a^{n-1} b + \dbinom{n}{2}a^{n-2} b^2 + ... + \dbinom{n}{r}a^{n-r} b^r + ... +  b^{n}$ 
+
+\subsection{General Term}
+$T_{r+1}=\dbinom{n}{r}a^{n-r} b^r$ 
+
+\subsection{$n$ choose $r$}
+$\dbinom{n}{r}=\dfrac{n!}{r!(n-r)!} = \dfrac{n(n-1)...(n-r+1)}{r!}$ 
+
+\section{Power, Exponential, Logarithmic \& Modulus Functions}
+
+\subsection{Modulus Functions}
+For $|a|=b \Rightarrow a=b\text{ or }a=-b$. 
+
+\subsection{Logarithm Definition}
+For $\log_a y$ to be defined,\\
+$1.\,y>0$\\
+$2.\,a>0,a\ne 1$ 
+
+\subsection{Laws Of Logarithms}
+$1.\,\log_{a} x^n = n\log_{a} x $\\
+$2.\,\log_{a} xy = \log_{a} x + \log_{a} y$\\
+$3.\,\log_{a} \frac{x}{y} = \log_{a} x - \log_{a} y$\\
+$4.\,\log_{a} b = \dfrac{\log_{c} b}{\log_{c} a}$\\
+$5.\,\log_{a} b = \dfrac{1}{\log_{b} a}$ 
+
+\subsection{Logarithms To Exponential}
+$\log_ay=x \Leftrightarrow y=a^x$\\
+$\lg y=x \Leftrightarrow y=10^x$\\
+$\ln y=x \Leftrightarrow y=e^x$
+
+
+
+\section{Trigonometric Functions, Identities \& Equations}
+
+\subsection{Special Angles}
+\begin{center}
+$\arraycolsep=1.4pt\def\arraystretch{2.2}
+\begin{array}{|c|c|c|c|c|c|}
+\hline
+\theta & 0\degree& 30\degree &  45\degree  &  60\degree  &  90\degree \\ \hline
+ \sin\theta &  \frac{\sqrt{0}}{2}=0  &  \frac{\sqrt{1}}{2}=\frac{1}{2}  &  \frac{\sqrt{2}}{2}  &  \frac{\sqrt{3}}{2}  &  \frac{\sqrt{4}}{2}=1 \\ \hline
+ \cos\theta &  \frac{\sqrt{4}}{2}=1  &  \frac{\sqrt{3}}{2}  &  \frac{\sqrt{2}}{2}  &  \frac{\sqrt{1}}{2}=\frac{1}{2}  &  \frac{\sqrt{0}}{2}=0 \\ \hline
+ \tan\theta &  0  &  \frac{1}{\sqrt{3}}  &  1  &  \sqrt{3}  & - \\
+\hline
+\end{array}$
+\end{center}
+
+\subsection{Reciprocal Functions}
+$1.\,\text{cosec }\theta=\dfrac{1}{\sin\theta}$\\[0.5\baselineskip]
+$2.\,\sec\theta=\dfrac{1}{\cos\theta}$\\[0.5\baselineskip]
+$3.\,\cot\theta=\dfrac{1}{\tan\theta}$
+
+\subsection{Negative Functions}
+$1.\,\sin(-\theta)=-\sin\theta$\\
+$2.\,\cos(-\theta)=\cos\theta$\\
+$3.\,\tan(-\theta)=-\tan\theta$
+
+\subsection{Tangent \& Cotangent}
+$1.\,\tan\theta=\dfrac{\sin\theta}{\cos\theta}$\\[0.5\baselineskip]
+$2.\,\cot\theta=\dfrac{\cos\theta}{\sin\theta}$
+
+\subsection{ASTC}
+
+\begin{center}
+\begin{Figure}
+\psset{xunit=0.8cm,yunit=0.8cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-3.3,-1)(7.3,6)
+\psline(1.,5.)(1.,0.)
+\psline(-1.5,2.5)(3.5,2.5)
+\rput[tl](3.58,2.64){$0\degree$}
+\rput[tl](0.8,5.4){$90\degree$}
+\rput[tl](-2.3,2.64){$180\degree$}
+\rput[tl](0.65,-0.18){$270\degree$}
+\rput[tl](2.2,4){A}
+\rput[tl](-0.5,4){S}
+\rput[tl](-0.5,1){T}
+\rput[tl](2.2,1){C}
+\end{pspicture*}
+\end{Figure}
+\end{center}
+
+
+
+\subsection{Trigonometric Identities}
+$1.\,\sin^2{A} + \cos^2{A} = 1$\\
+$2.\,\sec^2{A}=1+\tan^2{A}$\\
+$3.\,\text{cosec}^2{A}=1 + \cot^2{A}$
+
+\subsection{Addition Formulae}
+$1.\,\sin(A \pm B) = \sin A\cos B \pm \cos A \sin B$\\
+$2.\,\cos(A \pm B) = \cos A \cos B \mp \sin A \sin B$\\
+$3.\,\tan(A \pm B) = \dfrac{\tan A \pm \tan B}{1 \mp \tan A \tan B}$
+
+\subsection{Double Angle Formulae}
+$1.\,\sin 2A = 2\sin A \cos A$\\
+$2.\,\cos2A = \cos^2A - \sin^2A= 2 \cos^2A -1= 1 - 2\sin^2A$\\
+$3.\,\tan 2A = \dfrac{2\tan A}{1-\tan^2A}$\\
+
+\subsection{R-Formulae}
+For $a > 0, b > 0, 0\degree < \alpha < 90\degree$,\\
+$1.\,a\sin \theta \pm b \cos \theta = R \sin (\theta \pm \alpha)$\\
+$2.\,a \cos \theta \pm b \sin \theta = R \cos (\theta \mp \alpha)$\\
+where $R=\sqrt{a^2+b^2}, \tan\alpha=\dfrac{b}{a}$.
+
+\subsection{Principal Values}
+$1.\,-\dfrac{\pi}{2}\leq\sin^{-1}\theta\leq\dfrac{\pi}{2}$\\[0.3\baselineskip]
+$2.\,0\leq\cos^{-1}\theta\leq\pi$\\[0.3\baselineskip]
+$3.\,-\dfrac{\pi}{2}<\tan^{-1}\theta<\dfrac{\pi}{2}$
+
+\section{Transformation Of Trigonometric Graphs}
+
+
+\subsection{Transformation to $y=a\sin x / a\cos x / a\tan x$}
+
+1. If $a>0$: Scaling of graph with a factor of $a$ parallel to the $y$-axis 
+2. If $a<0$: Scaling of graph with a factor of $a$ parallel to the $y$-axis, then reflecting of graph in $x$-axis\\[0.5\baselineskip]
+For sin \& cos: amplitude becomes $|a|$\\
+For tan: there is no amplitude\\[0.5\baselineskip]
+$\text{amplitude}=\dfrac{\text{maximum} -\text{minimum}}{2}$
+
+
+
+\subsection{Transformation to $y=\sin bx / \cos bx / \tan bx$}
+
+Scaling of graph with a factor of $\dfrac{1}{b}$ parallel to the $x$-axis \\
+For sin \& cos: period becomes $\dfrac{2\pi}{b}$\\
+For tan: period becomes $\dfrac{\pi}{b}$
+
+
+
+\subsection{Transformation to $y=\sin x +c/ \cos x+c / \tan x+c$}
+
+Translating of graph by $c$ units parallel to the $y$-axis\\[0.5\baselineskip]
+$c=\dfrac{\text{maximum}+\text{minimum}}{2}$
+
+
+
+\subsection{Transformation to $y=a\sin bx+c$}
+1. $y=\sin bx$: Scaling of graph with a factor of $\dfrac{1}{b}$ parallel to the $x$-axis\\
+2. $y=a\sin bx$: Scaling of graph with a factor of $a$ parallel to the $y$-axis (reflecting of graph in $x$-axis if $a<0$)\\
+3. $y=a\sin bx+c$: Translating of graph by $c$ units parallel to the $y$-axis
+
+
+
+\section{Coordinate Geometry}
+
+\subsection{Gradient}
+{$m=\dfrac{y_1-y_2}{x_1-x_2}$}
+
+
+\subsection{Equation}
+$y-y_1=m(x-x_1)$\\
+$y=mx+c$
+
+\subsection{Midpoint}
+$\left(\dfrac{x_1+x_2}{2}, \dfrac{y_1+y_2}{2}\right)$
+
+\subsection{Parallel Lines}
+$m_1=m_2$
+
+\subsection{Perpendicular Lines}
+$m_1=-\dfrac{1}{m_2}$\\
+$m_1\times m_2=-1$
+
+\subsection{Area Of Quadrilateral}
+$A=\frac{1}{2}\left| \begin{array}{ccccc} x_1 & x_2 & x_3 & x_4 & x_1\\
+y_1& y_2 & y_3 & y_4 & y_1\end{array} \right|$\\
+$=\frac{1}{2}|(x_1y_2+x_2y_3+x_3y_4+x_4y_1)-(x_2y_1+x_3y_2+x_4y_3+x_1y_4)|$\\[0.5\baselineskip]
+Note: coordinates should be in anti-clockwise direction
+
+\subsection{Circle}
+$(x-a)^2+(y-b)^2=r^2$\\
+$(a,b)$: centre of circle\\
+$r$: radius\\[\baselineskip]
+
+$x^2+y^2+2gx+2fy+c=0$\\
+$(-g,-f)$: centre of circle\\
+$\sqrt{f^2+g^2-c}$: radius
+
+
+\section{Differentiation}
+
+\subsection{Differentiation Rules}
+$1.\,\frac{\text{d}}{\text{d}x} c = 0$\\
+$2.\,\frac{\text{d}}{\text{d}x} x^n = nx^{n-1} $\\
+$3.\,\frac{\text{d}}{\text{d}x} \sin x = \cos  x $\\
+$4.\,\frac{\text{d}}{\text{d}x} \cos x = -\sin  x $\\
+$5.\,\frac{\text{d}}{\text{d}x} \tan x = \sec^2 x $\\
+$6.\,\frac{\text{d}}{\text{d}x} e^{x} = e^{x} $\\
+$7.\,\frac{\text{d}}{\text{d}x} \ln\; x = \frac{1}{x}$\\
+Note: $\frac{\text{d}}{\text{d}x} k\text{f}(x)=k\times\frac{\text{d}}{\text{d}x} \text{f}(x)$ 
+
+\subsection{Chain Rule}
+For $y=\text{f}(u)$ and $u=\text{g}(x)$,\\
+$\dfrac{\text{d}y}{\text{d}x} = \dfrac{\text{d}y}{\text{d}u} \times \dfrac{\text{d}u}{\text{d}x}$
+
+\subsection{Further Differentiation Rules (Chain Rule)}
+$1.\,\frac{\text{d}}{\text{d}x} (ax+b)^n = an(ax+b)^{n-1} $\\
+$2.\,\frac{\text{d}}{\text{d}x} \sin (ax+b) = a\cos  (ax+b)$\\
+$3.\,\frac{\text{d}}{\text{d}x} \cos (ax+b) = -a\sin  (ax+b) $\\
+$4.\,\frac{\text{d}}{\text{d}x} \tan (ax+b) = a\sec^2 (ax+b) $\\
+$5.\,\frac{\text{d}}{\text{d}x} e^{ax+b} = ae^{ax+b} $\\
+$6.\,\frac{\text{d}}{\text{d}x} \ln\; (ax+b) = \frac{a}{ax+b}$ 
+
+\subsection{Product Rule}
+$\dfrac{\text{d}}{\text{d}x}(uv) = u\dfrac{\text{d}v}{\text{d}x} + v\dfrac{\text{d}u}{\text{d}x}$ 
+
+\subsection{Quotient Rule}
+$\dfrac{\text{d}}{\text{d}x}\left(\dfrac{u}{v}\right)=\dfrac{v\frac{\text{d}u}{\text{d}x}-u\frac{\text{d}v}{\text{d}x}}{v^2}$ 
+
+\subsection{Gradient Of Curve, Tangent \& Normal}
+\begin{center}
+\begin{Figure}
+\begin{pspicture*}(-2,-4.6)(7.46,4.6)
+\psframe[linecolor=black, linewidth=0.04, dimen=outer](4,4.6)(0,3.8)
+\rput[bl](1.5,4){$y=\text{f}(x)$}
+\psline[linecolor=black, linewidth=0.04](2.0,3.8)(2.0,1.8)(2.0,1.8)(2.0,1.8)
+\psframe[linecolor=black, linewidth=0.04, dimen=outer](4,1.8)(-0,1.0)
+\rput[bl](0.85,1.25){gradient of curve}
+\rput[bl](2.4,2.6){$\dfrac{\text{d}y}{\text{d}x}$}
+\psline[linecolor=black, linewidth=0.04](2.0,1.0)(2.0,-1.0)(2.0,-1.0)(2.0,-1.0)
+\psframe[linecolor=black, linewidth=0.04, dimen=outer](4,-1.0)(-0,-1.8)
+\rput[bl](0.15,-1.5){gradient of tangent at $x=k$}
+\psline[linecolor=black, linewidth=0.04](2.0,-1.8)(2.0,-3.8)(2.0,-3.8)(2.0,-3.8)
+\psframe[linecolor=black, linewidth=0.04, dimen=outer](4,-3.8)(-0,-4.6)
+\rput[bl](0.2,-4.3){gradient of normal at $x=k$}
+\rput[bl](2.4,-0.2){Sub $x=k$}
+\rput[bl](2.4,-3.0){$-\dfrac{1}{m}$}
+\end{pspicture*}
+\end{Figure}
+\end{center}
+
+\subsection{Increasing \& Decreasing Functions}
+1. For increasing functions, $\dfrac{\text{d}y}{\text{d}x}>0$.\\
+2. For decreasing functions, $\dfrac{\text{d}y}{\text{d}x}<0$. 
+
+\subsection{Rates Of Change}
+$\dfrac{\text{d}y}{\text{d}t}=\dfrac{\text{d}y}{\text{d}x}\times\dfrac{\text{d}x}{\text{d}t}$ 
+
+\subsection{Stationary point}
+A stationary point is defined when $\dfrac{\text{d}y}{\text{d}x}=0$.
+
+
+
+\subsection{First derivative test}
+
+If $\dfrac{\text{d}y}{\text{d}x}=0$ for $x=k$, test for $k^-$, $k$, $k^+$.\\[0.5\baselineskip]
+Maximum point:
+\begin{center}
+\begin{tabularx}{0.2\textwidth}{|Y|Y|Y|Y|N}
+\hline
+$x$ & $k^-$ & $k$ & $k^+$\\\hline
+$\dfrac{\text{d}y}{\text{d}x}$ & $+$ & 0 & $-$ & \\[20pt] \hline
+\end{tabularx}
+\end{center}
+
+\columnbreak
+
+Minimum point:
+\begin{center}
+\begin{tabularx}{0.2\textwidth}{|Y|Y|Y|Y|N}
+\hline
+$x$ & $k^-$ & $k$ & $k^+$\\\hline
+$\dfrac{\text{d}y}{\text{d}x}$ & $-$ & 0 & $+$ & \\[20pt] \hline
+\end{tabularx}
+\end{center}
+
+Inflexion point:
+\begin{center}
+\begin{tabularx}{0.2\textwidth}{|Y|Y|Y|Y|N}
+\hline
+$x$ & $k^-$ & $k$ & $k^+$\\\hline
+$\dfrac{\text{d}y}{\text{d}x}$ & $+$ & 0 & $+$ & \\[20pt] \hline
+$\dfrac{\text{d}y}{\text{d}x}$ & $-$ & 0 & $-$ & \\[20pt] \hline
+\end{tabularx}
+\end{center}
+
+
+
+
+\subsection{Second Derivative Test}
+1. If $\dfrac{\text{d}^2y}{\text{d}x^2}<0$, it is a maximum point.\\[0.5\baselineskip]
+2. If $\dfrac{\text{d}^2y}{\text{d}x^2}>0$, it is a minimum point. \\[0.5\baselineskip]
+3. If $\dfrac{\text{d}^2y}{\text{d}x^2}=0$, need to do first derivative test. 
+
+
+\section{Integration}
+
+\subsection{Integration Rules}
+$1.\,\int k\,\text{d}x = kx +c$\\
+$2.\,\int x^n\,\text{d}x = \dfrac{x^{n+1}}{n+1} +c, n\ne -1$\\
+$3.\,\int \sin x\,\text{d}x = -\cos x +c$\\
+$4.\,\int \cos x\,\text{d}x = \sin x +c$\\
+$5.\,\int \sec^2 x\,\text{d}x = \tan x +c$\\
+$6.\,\int e^x\,\text{d}x = e^x +c$\\
+$7.\,\int \frac{1}{x}\,\text{d}x = \ln x +c$\\
+Note: $\int k\text{f}(x)\,\text{d}x=k\times\int \text{f}(x)\,\text{d}x$ 
+
+\subsection{Further Integration Rules}
+$1.\,\int (ax+b)^n\,\text{d}x = \dfrac{(ax+b)^{n+1}}{a(n+1)} +c, n \ne -1$\\[0.5\baselineskip]
+$2.\,\int \sin (ax+b)\,\text{d}x = -\dfrac{\cos (ax+b)}{a} +c$\\[0.5\baselineskip]
+$3.\,\int \cos (ax+b)\,\text{d}x = \dfrac{\sin (ax+b)}{a} +c$\\[0.5\baselineskip]
+$4.\,\int \sec^2 (ax+b)\,\text{d}x = \dfrac{\tan (ax+b)}{a} +c$\\[0.5\baselineskip]
+$5.\,\int e^{ax+b}\,\text{d}x = \dfrac{e^{ax+b}}{a} +c$\\[0.5\baselineskip]
+$6.\,\int \frac{1}{ax+b}\,\text{d}x = \dfrac{\ln (ax+b)}{a}+c$
+
+\columnbreak
+
+\subsection{Definite Integral}
+For $\int \text{f}(x) \,\text{d}x = \text{F}(x) + c$,\\
+$\displaystyle\int_a^b \text{f}(x) \,\text{d}x = \text{F}(b) -\text{F}(a)$.
+
+
+\subsection{Area With Respect To $x$-axis Or $y$-axis}
+
+For area with respect to $x$-axis, $\displaystyle\int_a^b \text{f}(x) \,\text{d}x$.\\[0.5\baselineskip]
+For area with respect to $y$-axis, $\displaystyle\int_c^d \text{f}(y) \,\text{d}y$.\\[0.5\baselineskip]
+Note: For area below the $x$-axis (taken with respect to $x$-axis) or area to the left of the $y$-axis (taken with respect to $y$-axis), it is taken as negative.
+ 
+
+\subsection{Kinematics}
+
+
+\begin{figure}[H]
+\centering
+\psset{xunit=1.5cm,yunit=1.5cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture*}(-1.4428768472906404,0.2667774086378739)(4.434266009852217,3.018936877076413)
+\pspolygon[linecolor=black,fillcolor=black,fillstyle=solid,opacity=1](1.3762525707342423,2.070975364230741)(1.4239591767012871,2.129283438190462)(1.4464086922437518,2.062029251800567)
+\pspolygon[linecolor=black,fillcolor=black,fillstyle=solid,opacity=1](3.372927459618189,2.0668632945226553)(3.4274378117015045,2.13358379643997)(3.4486800821334915,2.0602285903090203)
+\pspolygon[linecolor=black,fillcolor=black,fillstyle=solid,opacity=1](1.5528551410403866,1.4377479823993167)(1.5743228796367281,1.3679308895185505)(1.6248200654538139,1.4309987027335693)
+\pspolygon[linecolor=black,fillcolor=black,fillstyle=solid,opacity=1](-0.4502216626111829,1.441090451227331)(-0.4248326410005448,1.3696489943326675)(-0.37705823553370144,1.4280399343476984)
+\psline(-1.,2.)(-1.,1.5)
+\psline(0.,1.5)(-1.,1.5)
+\psline(-1.,2.)(0.,2.)
+\psline(0.,2.)(0.,1.5)
+\psline(1.,2.)(1.,1.5)
+\psline(2.,1.5)(1.,1.5)
+\psline(1.,2.)(2.,2.)
+\psline(2.,2.)(2.,1.5)
+\psline(3.,2.)(3.,1.5)
+\psline(4.,1.5)(3.,1.5)
+\psline(3.,2.)(4.,2.)
+\psline(4.,2.)(4.,1.5)
+\rput[tl](-0.57,1.78){$s$}
+\rput[tl](1.43,1.78){$v$}
+\rput[tl](3.42,1.78){$a$}
+\parametricplot{0.8850668158886105}{2.256525837701183}{1.*1.4212670403551897*cos(t)+0.*1.4212670403551897*sin(t)+0.5|0.*1.4212670403551897*cos(t)+1.*1.4212670403551897*sin(t)+1.}
+\parametricplot{0.8857778252017987}{2.254576167781473}{1.*1.4243021393431523*cos(t)+0.*1.4243021393431523*sin(t)+2.4988620689655177|0.*1.4243021393431523*cos(t)+1.*1.4243021393431523*sin(t)+0.9970099667774088}
+\rput[tl](0.22,3.02){$\dfrac{\text{d}s}{\text{d}t}$}
+\rput[tl](2.29,3.02){$\dfrac{\text{d}v}{\text{d}t}$}
+\parametricplot{4.026659469478403}{5.398118491290976}{1.*1.4212670403551897*cos(t)+0.*1.4212670403551897*sin(t)+0.5|0.*1.4212670403551897*cos(t)+1.*1.4212670403551897*sin(t)+2.5}
+\parametricplot{4.037233066823517}{5.399797935909191}{1.*1.4219232033479452*cos(t)+0.*1.4219232033479452*sin(t)+2.488729064039409|0.*1.4219232033479452*cos(t)+1.*1.4219232033479452*sin(t)+2.5099667774086383}
+\rput[tl](2.2759359605911333,0.9970099667774088){$\displaystyle\int a\,\text{d}t$}
+\rput[tl](0.08720689655172419,0.9860465116279071){$\displaystyle\int v\,\text{d}t$}
+\end{pspicture*}
+\end{figure}
+
+$1.\,v=\dfrac{\text{d}s}{\text{d}t}$\\[0.5\baselineskip]
+$2.\,a=\dfrac{\text{d}v}{\text{d}t}$\\[0.5\baselineskip]
+$3.\,s=\displaystyle\int v\,\text{d}t$\\[0.5\baselineskip]
+$4.\,v=\displaystyle\int a\,\text{d}t$ 
+
+Note:\\
+a. velocity, $v$ determines both the \emph{speed} and the \emph{direction}\\
+b. $\text{average speed}=\dfrac{\text{total distance}}{\text{total time}}$\\
+c. particle starts from origin, $s = 0 $\\
+d. instantaneously at rest, $v = 0$\\
+e. max / min velocity, $a=\dfrac{\text{d}v}{\text{d}t}=0$\\
+f. max / min displacement, $v=\dfrac{\text{d}s}{\text{d}t}=0$
+
+\vfill
+
+\end{multicols}
+\end{document}

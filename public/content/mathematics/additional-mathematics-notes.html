@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Additional Mathematics Notes | Teach.sg</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Lora:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggzjf5TCruQ8LYRR" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstih+jUhXcSjxgGPRg/eYjPr1oQh" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .header {
+            background: #fefaf6;
+            border-bottom: 3px solid #d4a574;
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c5aa0;
+            margin: 0;
+        }
+
+        .logo .accent {
+            color: #d4a574;
+        }
+
+        .nav-link {
+            font-family: 'Poppins', sans-serif;
+            color: #2c5aa0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #d4a574;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            background: linear-gradient(135deg, #2c5aa0, #4a90e2);
+            color: white;
+            border-radius: 15px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            box-shadow: 0 8px 32px rgba(44, 90, 160, 0.3);
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2c5aa0;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #d4a574;
+        }
+
+        .subsection {
+            margin-bottom: 1.5rem;
+        }
+
+        .subsection-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+        }
+
+        .formula-box {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            border-left: 4px solid #d4a574;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 6px;
+            position: relative;
+        }
+
+        .formula-box::before {
+            content: "🦉";
+            position: absolute;
+            top: -5px;
+            right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .special-angles-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .special-angles-table th,
+        .special-angles-table td {
+            padding: 0.8rem;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .special-angles-table th {
+            background: #2c5aa0;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+        }
+
+        .special-angles-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .astc-diagram {
+            text-align: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .astc-grid {
+            display: inline-grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 1px;
+            background: #2c5aa0;
+            border: 2px solid #2c5aa0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .astc-quadrant {
+            background: white;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #2c5aa0;
+        }
+
+        .astc-labels {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .derivative-chain {
+            text-align: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f0f7ff;
+            border-radius: 8px;
+            border: 2px solid #d4a574;
+        }
+
+        .chain-item {
+            display: inline-block;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 2px solid #2c5aa0;
+            border-radius: 6px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            color: #2c5aa0;
+        }
+
+        .chain-arrow {
+            font-size: 1.5rem;
+            color: #d4a574;
+            margin: 0 0.5rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .comparison-table th {
+            background: #2c5aa0;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+        }
+
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+
+        .kinematics-diagram {
+            text-align: center;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .kinematics-flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 1rem 0;
+        }
+
+        .kine-box {
+            background: white;
+            border: 2px solid #2c5aa0;
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: #2c5aa0;
+            font-size: 1.1rem;
+        }
+
+        .kine-arrow {
+            font-size: 1.5rem;
+            color: #d4a574;
+        }
+
+        .kine-operation {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .kinematics-flow {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .astc-quadrant {
+                padding: 1.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>Teach<span class="accent">.sg</span></h1>
+            </div>
+            <nav>
+                <a href="/content/mathematics/" class="nav-link">← Back to Mathematics</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title">Additional Mathematics Notes</h1>
+
+        <div class="content">
+            <!-- Quadratic Equations & Inequalities -->
+            <div class="section">
+                <h2 class="section-title">Quadratic Equations & Inequalities</h2>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Sum & Product Of Roots</h3>
+                    <div class="formula-box">
+                        Sum of roots = $-\dfrac{b}{a}$<br>
+                        Product of roots = $\dfrac{c}{a}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Quadratic Equation From Roots</h3>
+                    <div class="formula-box">
+                        $x^2-\text{(sum of roots)}x+\text{(product of roots)}=0$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">2, 1 or 0 real roots</h3>
+                    <div class="formula-box">
+                        2 real roots: $b^2-4ac>0$<br>
+                        1 real root (2 equal roots): $b^2-4ac=0$<br>
+                        0 real roots: $b^2-4ac<0$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Curve Always Positive/Negative</h3>
+                    <div class="formula-box">
+                        $b^2-4ac<0$ (because curve has 0 real roots)
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Line & Curve</h3>
+                    <div class="formula-box">
+                        Line intersect curve (at 2 points): $b^2-4ac>0$<br>
+                        Line tangent to curve: $b^2-4ac=0$<br>
+                        Line does not intersect curve: $b^2-4ac<0$<br>
+                        *Line meets curve: $b^2-4ac\geq0$
+                    </div>
+                </div>
+            </div>
+
+            <!-- Indices & Surds -->
+            <div class="section">
+                <h2 class="section-title">Indices & Surds</h2>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Indices</h3>
+                    <div class="formula-box">
+                        1. $a^m \times a^n = a^{m+n}$<br>
+                        2. $a^m \div a^n = a^{m-n}$<br>
+                        3. $(a^m)^n = a^{mn}$<br>
+                        4. $a^0 = 1$ where $a \neq 0$<br>
+                        5. $a^{-n} = \frac{1}{a^n}$<br>
+                        6. $a^{\frac{1}{n}} = \sqrt[n]{a}$<br>
+                        7. $a^{\frac{m}{n}} = (\sqrt[n]{a})^m$<br>
+                        8. $(a \times b)^n = a^n \times b^n$<br>
+                        9. $(\frac{a}{b})^n = \frac{a^n}{b^n}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Surds</h3>
+                    <div class="formula-box">
+                        1. $\sqrt{a} \times {\sqrt{a}} = a$<br>
+                        2. $\sqrt{a} \times {\sqrt{b}} = \sqrt{ab}$<br>
+                        3. $\frac{\sqrt{a}}{\sqrt{b}} = \sqrt{\frac{a}{b}}$<br>
+                        4. $m \sqrt{a} + n \sqrt{a} = (m+n) \sqrt{a}$<br>
+                        5. $m \sqrt{a} - n \sqrt{a} = (m-n) \sqrt{a}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Rationalise Denominator</h3>
+                    <div class="formula-box">
+                        For $\dfrac{k}{a\sqrt{b}}$, multiply numerator and denominator by $\sqrt{b}$.<br>
+                        For $\dfrac{k}{a\sqrt{b}+c\sqrt{d}}$, multiply by the conjugate, which is $a\sqrt{b}-c\sqrt{d}$.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Polynomials & Partial Fractions -->
+            <div class="section">
+                <h2 class="section-title">Polynomials & Partial Fractions</h2>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Polynomial Division</h3>
+                    <div class="formula-box">
+                        $P(x)=\text{divisor}\times Q(x)+R(x)$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Remainder Theorem</h3>
+                    <div class="formula-box">
+                        If $P(x)$ is divided by $x-c$, remainder is $f(c)$.<br>
+                        If $P(x)$ is divided by $ax-b$, remainder is $f\left(\dfrac{b}{a}\right)$.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Factor Theorem</h3>
+                    <div class="formula-box">
+                        If $x+c$ is a factor of $P(x)$, $f(-c)=0$.<br>
+                        If $ax+b$ is a factor of $P(x)$, $f\left(-\dfrac{b}{a}\right)=0$.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Cubic Polynomials</h3>
+                    <div class="formula-box">
+                        $a^3+b^3 = (a+b)(a^2-ab+b^2)$<br>
+                        $a^3-b^3 = (a-b)(a^2+ab+b^2)$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Partial Fractions</h3>
+                    <div class="formula-box">
+                        1. $\dfrac{f(x)}{(ax + b)(cx+d)} = \dfrac{A}{ax+b} + \dfrac{B}{cx+d}$<br><br>
+                        2. $\dfrac{f(x)}{(ax + b)(cx+d)^2} = \dfrac{A}{ax+b} + \dfrac{B}{cx+d} + \dfrac{C}{(cx+d)^2}$<br><br>
+                        3. $\dfrac{f(x)}{(ax + b)(x^2+c)} = \dfrac{A}{ax+b} + \dfrac{Bx+C}{x^2+c}$<br><br>
+                        <em>Special case</em>: $\dfrac{f(x)}{(ax + b)(x^2)} = \dfrac{A}{ax+b} + \dfrac{B}{x}+\dfrac{C}{x^2}$
+                    </div>
+                </div>
+            </div>
+
+            <!-- Binomial Expansions -->
+            <div class="section">
+                <h2 class="section-title">Binomial Expansions</h2>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Binomial Expansions</h3>
+                    <div class="formula-box">
+                        $(a+b)^n = a^n + \binom{n}{1}a^{n-1} b + \binom{n}{2}a^{n-2} b^2 + \ldots + \binom{n}{r}a^{n-r} b^r + \ldots + b^{n}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">General Term</h3>
+                    <div class="formula-box">
+                        $T_{r+1}=\binom{n}{r}a^{n-r} b^r$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">n choose r</h3>
+                    <div class="formula-box">
+                        $\binom{n}{r}=\dfrac{n!}{r!(n-r)!} = \dfrac{n(n-1)\ldots(n-r+1)}{r!}$
+                    </div>
+                </div>
+            </div>
+
+            <!-- Power, Exponential, Logarithmic & Modulus Functions -->
+            <div class="section">
+                <h2 class="section-title">Power, Exponential, Logarithmic & Modulus Functions</h2>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Modulus Functions</h3>
+                    <div class="formula-box">
+                        For $|a|=b \Rightarrow a=b$ or $a=-b$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Logarithm Definition</h3>
+                    <div class="formula-box">
+                        For $\log_a y$ to be defined,<br>
+                        1. $y>0$<br>
+                        2. $a>0, a\ne 1$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Laws Of Logarithms</h3>
+                    <div class="formula-box">
+                        1. $\log_{a} x^n = n\log_{a} x$<br>
+                        2. $\log_{a} xy = \log_{a} x + \log_{a} y$<br>
+                        3. $\log_{a} \frac{x}{y} = \log_{a} x - \log_{a} y$<br>
+                        4. $\log_{a} b = \dfrac{\log_{c} b}{\log_{c} a}$<br>
+                        5. $\log_{a} b = \dfrac{1}{\log_{b} a}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Logarithms To Exponential</h3>
+                    <div class="formula-box">
+                        $\log_ay=x \Leftrightarrow y=a^x$<br>
+                        $\lg y=x \Leftrightarrow y=10^x$<br>
+                        $\ln y=x \Leftrightarrow y=e^x$
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trigonometric Functions, Identities & Equations -->
+            <div class="section">
+                <h2 class="section-title">Trigonometric Functions, Identities & Equations</h2>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Special Angles</h3>
+                    <div class="table-container">
+                        <table class="special-angles-table">
+                            <thead>
+                                <tr>
+                                    <th>θ</th>
+                                    <th>0°</th>
+                                    <th>30°</th>
+                                    <th>45°</th>
+                                    <th>60°</th>
+                                    <th>90°</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>sin θ</strong></td>
+                                    <td>$\frac{\sqrt{0}}{2}=0$</td>
+                                    <td>$\frac{\sqrt{1}}{2}=\frac{1}{2}$</td>
+                                    <td>$\frac{\sqrt{2}}{2}$</td>
+                                    <td>$\frac{\sqrt{3}}{2}$</td>
+                                    <td>$\frac{\sqrt{4}}{2}=1$</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>cos θ</strong></td>
+                                    <td>$\frac{\sqrt{4}}{2}=1$</td>
+                                    <td>$\frac{\sqrt{3}}{2}$</td>
+                                    <td>$\frac{\sqrt{2}}{2}$</td>
+                                    <td>$\frac{\sqrt{1}}{2}=\frac{1}{2}$</td>
+                                    <td>$\frac{\sqrt{0}}{2}=0$</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>tan θ</strong></td>
+                                    <td>$0$</td>
+                                    <td>$\frac{1}{\sqrt{3}}$</td>
+                                    <td>$1$</td>
+                                    <td>$\sqrt{3}$</td>
+                                    <td>—</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Reciprocal Functions</h3>
+                    <div class="formula-box">
+                        1. $\text{cosec }\theta=\dfrac{1}{\sin\theta}$<br><br>
+                        2. $\sec\theta=\dfrac{1}{\cos\theta}$<br><br>
+                        3. $\cot\theta=\dfrac{1}{\tan\theta}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Negative Functions</h3>
+                    <div class="formula-box">
+                        1. $\sin(-\theta)=-\sin\theta$<br>
+                        2. $\cos(-\theta)=\cos\theta$<br>
+                        3. $\tan(-\theta)=-\tan\theta$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Tangent & Cotangent</h3>
+                    <div class="formula-box">
+                        1. $\tan\theta=\dfrac{\sin\theta}{\cos\theta}$<br><br>
+                        2. $\cot\theta=\dfrac{\cos\theta}{\sin\theta}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">ASTC</h3>
+                    <div class="astc-diagram">
+                        <div class="astc-grid">
+                            <div class="astc-quadrant">S</div>
+                            <div class="astc-quadrant">A</div>
+                            <div class="astc-quadrant">T</div>
+                            <div class="astc-quadrant">C</div>
+                        </div>
+                        <div class="astc-labels">
+                            <div>180° ← → 90°</div>
+                            <div>270° ← → 0°</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Trigonometric Identities</h3>
+                    <div class="formula-box">
+                        1. $\sin^2{A} + \cos^2{A} = 1$<br>
+                        2. $\sec^2{A}=1+\tan^2{A}$<br>
+                        3. $\text{cosec}^2{A}=1 + \cot^2{A}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Addition Formulae</h3>
+                    <div class="formula-box">
+                        1. $\sin(A \pm B) = \sin A\cos B \pm \cos A \sin B$<br>
+                        2. $\cos(A \pm B) = \cos A \cos B \mp \sin A \sin B$<br>
+                        3. $\tan(A \pm B) = \dfrac{\tan A \pm \tan B}{1 \mp \tan A \tan B}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Double Angle Formulae</h3>
+                    <div class="formula-box">
+                        1. $\sin 2A = 2\sin A \cos A$<br>
+                        2. $\cos2A = \cos^2A - \sin^2A= 2 \cos^2A -1= 1 - 2\sin^2A$<br>
+                        3. $\tan 2A = \dfrac{2\tan A}{1-\tan^2A}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">R-Formulae</h3>
+                    <div class="formula-box">
+                        For $a > 0, b > 0, 0° < \alpha < 90°$,<br><br>
+                        1. $a\sin \theta \pm b \cos \theta = R \sin (\theta \pm \alpha)$<br>
+                        2. $a \cos \theta \pm b \sin \theta = R \cos (\theta \mp \alpha)$<br><br>
+                        where $R=\sqrt{a^2+b^2}$, $\tan\alpha=\dfrac{b}{a}$.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Principal Values</h3>
+                    <div class="formula-box">
+                        1. $-\dfrac{\pi}{2}\leq\sin^{-1}\theta\leq\dfrac{\pi}{2}$<br><br>
+                        2. $0\leq\cos^{-1}\theta\leq\pi$<br><br>
+                        3. $-\dfrac{\pi}{2}<\tan^{-1}\theta<\dfrac{\pi}{2}$
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transformation Of Trigonometric Graphs -->
+            <div class="section">
+                <h2 class="section-title">Transformation Of Trigonometric Graphs</h2>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Transformation to $y=a\sin x$ / $a\cos x$ / $a\tan x$</h3>
+                    <div class="formula-box">
+                        1. If $a>0$: Scaling of graph with a factor of $a$ parallel to the $y$-axis<br>
+                        2. If $a<0$: Scaling of graph with a factor of $a$ parallel to the $y$-axis, then reflecting of graph in $x$-axis<br><br>
+                        For sin & cos: amplitude becomes $|a|$<br>
+                        For tan: there is no amplitude<br><br>
+                        $\text{amplitude}=\dfrac{\text{maximum} -\text{minimum}}{2}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Transformation to $y=\sin bx$ / $\cos bx$ / $\tan bx$</h3>
+                    <div class="formula-box">
+                        Scaling of graph with a factor of $\dfrac{1}{b}$ parallel to the $x$-axis<br><br>
+                        For sin & cos: period becomes $\dfrac{2\pi}{b}$<br>
+                        For tan: period becomes $\dfrac{\pi}{b}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Transformation to $y=\sin x +c$ / $\cos x+c$ / $\tan x+c$</h3>
+                    <div class="formula-box">
+                        Translating of graph by $c$ units parallel to the $y$-axis<br><br>
+                        $c=\dfrac{\text{maximum}+\text{minimum}}{2}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Transformation to $y=a\sin bx+c$</h3>
+                    <div class="formula-box">
+                        1. $y=\sin bx$: Scaling of graph with a factor of $\dfrac{1}{b}$ parallel to the $x$-axis<br>
+                        2. $y=a\sin bx$: Scaling of graph with a factor of $a$ parallel to the $y$-axis (reflecting of graph in $x$-axis if $a<0$)<br>
+                        3. $y=a\sin bx+c$: Translating of graph by $c$ units parallel to the $y$-axis
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coordinate Geometry -->
+            <div class="section">
+                <h2 class="section-title">Coordinate Geometry</h2>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Gradient</h3>
+                    <div class="formula-box">
+                        $m=\dfrac{y_1-y_2}{x_1-x_2}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Equation</h3>
+                    <div class="formula-box">
+                        $y-y_1=m(x-x_1)$<br>
+                        $y=mx+c$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Midpoint</h3>
+                    <div class="formula-box">
+                        $\left(\dfrac{x_1+x_2}{2}, \dfrac{y_1+y_2}{2}\right)$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Parallel Lines</h3>
+                    <div class="formula-box">
+                        $m_1=m_2$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Perpendicular Lines</h3>
+                    <div class="formula-box">
+                        $m_1=-\dfrac{1}{m_2}$<br>
+                        $m_1\times m_2=-1$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Area Of Quadrilateral</h3>
+                    <div class="formula-box">
+                        $A=\frac{1}{2}\left| \begin{array}{ccccc} x_1 & x_2 & x_3 & x_4 & x_1\\
+y_1& y_2 & y_3 & y_4 & y_1\end{array} \right|$<br><br>
+                        $=\frac{1}{2}|(x_1y_2+x_2y_3+x_3y_4+x_4y_1)-(x_2y_1+x_3y_2+x_4y_3+x_1y_4)|$<br><br>
+                        Note: coordinates should be in anti-clockwise direction
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Circle</h3>
+                    <div class="formula-box">
+                        $(x-a)^2+(y-b)^2=r^2$<br>
+                        $(a,b)$: centre of circle<br>
+                        $r$: radius<br><br>
+
+                        $x^2+y^2+2gx+2fy+c=0$<br>
+                        $(-g,-f)$: centre of circle<br>
+                        $\sqrt{f^2+g^2-c}$: radius
+                    </div>
+                </div>
+            </div>
+
+            <!-- Differentiation -->
+            <div class="section">
+                <h2 class="section-title">Differentiation</h2>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Differentiation Rules</h3>
+                    <div class="formula-box">
+                        1. $\frac{\text{d}}{\text{d}x} c = 0$<br>
+                        2. $\frac{\text{d}}{\text{d}x} x^n = nx^{n-1}$<br>
+                        3. $\frac{\text{d}}{\text{d}x} \sin x = \cos x$<br>
+                        4. $\frac{\text{d}}{\text{d}x} \cos x = -\sin x$<br>
+                        5. $\frac{\text{d}}{\text{d}x} \tan x = \sec^2 x$<br>
+                        6. $\frac{\text{d}}{\text{d}x} e^{x} = e^{x}$<br>
+                        7. $\frac{\text{d}}{\text{d}x} \ln x = \frac{1}{x}$<br><br>
+                        Note: $\frac{\text{d}}{\text{d}x} kf(x)=k\times\frac{\text{d}}{\text{d}x} f(x)$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Chain Rule</h3>
+                    <div class="formula-box">
+                        For $y=f(u)$ and $u=g(x)$,<br>
+                        $\dfrac{\text{d}y}{\text{d}x} = \dfrac{\text{d}y}{\text{d}u} \times \dfrac{\text{d}u}{\text{d}x}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Further Differentiation Rules (Chain Rule)</h3>
+                    <div class="formula-box">
+                        1. $\frac{\text{d}}{\text{d}x} (ax+b)^n = an(ax+b)^{n-1}$<br>
+                        2. $\frac{\text{d}}{\text{d}x} \sin (ax+b) = a\cos (ax+b)$<br>
+                        3. $\frac{\text{d}}{\text{d}x} \cos (ax+b) = -a\sin (ax+b)$<br>
+                        4. $\frac{\text{d}}{\text{d}x} \tan (ax+b) = a\sec^2 (ax+b)$<br>
+                        5. $\frac{\text{d}}{\text{d}x} e^{ax+b} = ae^{ax+b}$<br>
+                        6. $\frac{\text{d}}{\text{d}x} \ln (ax+b) = \frac{a}{ax+b}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Product Rule</h3>
+                    <div class="formula-box">
+                        $\dfrac{\text{d}}{\text{d}x}(uv) = u\dfrac{\text{d}v}{\text{d}x} + v\dfrac{\text{d}u}{\text{d}x}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Quotient Rule</h3>
+                    <div class="formula-box">
+                        $\dfrac{\text{d}}{\text{d}x}\left(\dfrac{u}{v}\right)=\dfrac{v\frac{\text{d}u}{\text{d}x}-u\frac{\text{d}v}{\text{d}x}}{v^2}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Gradient Of Curve, Tangent & Normal</h3>
+                    <div class="derivative-chain">
+                        <div class="chain-item">$y=f(x)$</div>
+                        <div class="chain-arrow">↓</div>
+                        <div class="kine-operation">$\dfrac{\text{d}y}{\text{d}x}$</div>
+                        <div class="chain-item">gradient of curve</div>
+                        <div class="chain-arrow">↓</div>
+                        <div class="kine-operation">Sub $x=k$</div>
+                        <div class="chain-item">gradient of tangent at $x=k$</div>
+                        <div class="chain-arrow">↓</div>
+                        <div class="kine-operation">$-\dfrac{1}{m}$</div>
+                        <div class="chain-item">gradient of normal at $x=k$</div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Increasing & Decreasing Functions</h3>
+                    <div class="formula-box">
+                        1. For increasing functions, $\dfrac{\text{d}y}{\text{d}x}>0$.<br>
+                        2. For decreasing functions, $\dfrac{\text{d}y}{\text{d}x}<0$.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Rates Of Change</h3>
+                    <div class="formula-box">
+                        $\dfrac{\text{d}y}{\text{d}t}=\dfrac{\text{d}y}{\text{d}x}\times\dfrac{\text{d}x}{\text{d}t}$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Stationary point</h3>
+                    <div class="formula-box">
+                        A stationary point is defined when $\dfrac{\text{d}y}{\text{d}x}=0$.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">First derivative test</h3>
+                    <div class="formula-box">
+                        If $\dfrac{\text{d}y}{\text{d}x}=0$ for $x=k$, test for $k^-$, $k$, $k^+$.<br><br>
+                        <strong>Maximum point:</strong>
+                        <table class="comparison-table">
+                            <tr><th>$x$</th><th>$k^-$</th><th>$k$</th><th>$k^+$</th></tr>
+                            <tr><td>$\dfrac{\text{d}y}{\text{d}x}$</td><td>$+$</td><td>$0$</td><td>$-$</td></tr>
+                        </table><br>
+
+                        <strong>Minimum point:</strong>
+                        <table class="comparison-table">
+                            <tr><th>$x$</th><th>$k^-$</th><th>$k$</th><th>$k^+$</th></tr>
+                            <tr><td>$\dfrac{\text{d}y}{\text{d}x}$</td><td>$-$</td><td>$0$</td><td>$+$</td></tr>
+                        </table><br>
+
+                        <strong>Inflexion point:</strong>
+                        <table class="comparison-table">
+                            <tr><th>$x$</th><th>$k^-$</th><th>$k$</th><th>$k^+$</th></tr>
+                            <tr><td rowspan="2">$\dfrac{\text{d}y}{\text{d}x}$</td><td>$+$</td><td>$0$</td><td>$+$</td></tr>
+                            <tr><td>$-$</td><td>$0$</td><td>$-$</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Second Derivative Test</h3>
+                    <div class="formula-box">
+                        1. If $\dfrac{\text{d}^2y}{\text{d}x^2}<0$, it is a maximum point.<br><br>
+                        2. If $\dfrac{\text{d}^2y}{\text{d}x^2}>0$, it is a minimum point.<br><br>
+                        3. If $\dfrac{\text{d}^2y}{\text{d}x^2}=0$, need to do first derivative test.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Integration -->
+            <div class="section">
+                <h2 class="section-title">Integration</h2>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Integration Rules</h3>
+                    <div class="formula-box">
+                        1. $\int k\,\text{d}x = kx +c$<br>
+                        2. $\int x^n\,\text{d}x = \dfrac{x^{n+1}}{n+1} +c, n\ne -1$<br>
+                        3. $\int \sin x\,\text{d}x = -\cos x +c$<br>
+                        4. $\int \cos x\,\text{d}x = \sin x +c$<br>
+                        5. $\int \sec^2 x\,\text{d}x = \tan x +c$<br>
+                        6. $\int e^x\,\text{d}x = e^x +c$<br>
+                        7. $\int \frac{1}{x}\,\text{d}x = \ln x +c$<br><br>
+                        Note: $\int kf(x)\,\text{d}x=k\times\int f(x)\,\text{d}x$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Further Integration Rules</h3>
+                    <div class="formula-box">
+                        1. $\int (ax+b)^n\,\text{d}x = \dfrac{(ax+b)^{n+1}}{a(n+1)} +c, n \ne -1$<br><br>
+                        2. $\int \sin (ax+b)\,\text{d}x = -\dfrac{\cos (ax+b)}{a} +c$<br><br>
+                        3. $\int \cos (ax+b)\,\text{d}x = \dfrac{\sin (ax+b)}{a} +c$<br><br>
+                        4. $\int \sec^2 (ax+b)\,\text{d}x = \dfrac{\tan (ax+b)}{a} +c$<br><br>
+                        5. $\int e^{ax+b}\,\text{d}x = \dfrac{e^{ax+b}}{a} +c$<br><br>
+                        6. $\int \frac{1}{ax+b}\,\text{d}x = \dfrac{\ln (ax+b)}{a}+c$
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Definite Integral</h3>
+                    <div class="formula-box">
+                        For $\int f(x) \,\text{d}x = F(x) + c$,<br>
+                        $\displaystyle\int_a^b f(x) \,\text{d}x = F(b) -F(a)$.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Area With Respect To $x$-axis Or $y$-axis</h3>
+                    <div class="formula-box">
+                        For area with respect to $x$-axis, $\displaystyle\int_a^b f(x) \,\text{d}x$.<br><br>
+                        For area with respect to $y$-axis, $\displaystyle\int_c^d f(y) \,\text{d}y$.<br><br>
+                        Note: For area below the $x$-axis (taken with respect to $x$-axis) or area to the left of the $y$-axis (taken with respect to $y$-axis), it is taken as negative.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Kinematics</h3>
+                    <div class="kinematics-diagram">
+                        <div class="kinematics-flow">
+                            <div class="kine-box">
+                                $s$
+                                <div class="kine-operation">$\displaystyle\int v\,\text{d}t$</div>
+                            </div>
+                            <div class="kine-arrow">⟷</div>
+                            <div class="kine-box">
+                                $v$
+                                <div class="kine-operation">$\dfrac{\text{d}s}{\text{d}t}$</div>
+                            </div>
+                            <div class="kine-arrow">⟷</div>
+                            <div class="kine-box">
+                                $a$
+                                <div class="kine-operation">$\dfrac{\text{d}v}{\text{d}t}$</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem; text-align: center;">
+                            <div class="kine-arrow" style="transform: rotate(180deg); display: inline-block;">⟷</div>
+                            <span style="margin: 0 1rem;">$\displaystyle\int a\,\text{d}t$</span>
+                            <div class="kine-arrow" style="display: inline-block;">⟷</div>
+                        </div>
+                    </div>
+
+                    <div class="formula-box">
+                        1. $v=\dfrac{\text{d}s}{\text{d}t}$<br><br>
+                        2. $a=\dfrac{\text{d}v}{\text{d}t}$<br><br>
+                        3. $s=\displaystyle\int v\,\text{d}t$<br><br>
+                        4. $v=\displaystyle\int a\,\text{d}t$
+                    </div>
+
+                    <div class="note">
+                        <strong>Note:</strong><br>
+                        a. velocity, $v$ determines both the <em>speed</em> and the <em>direction</em><br>
+                        b. $\text{average speed}=\dfrac{\text{total distance}}{\text{total time}}$<br>
+                        c. particle starts from origin, $s = 0$<br>
+                        d. instantaneously at rest, $v = 0$<br>
+                        e. max / min velocity, $a=\dfrac{\text{d}v}{\text{d}t}=0$<br>
+                        f. max / min displacement, $v=\dfrac{\text{d}s}{\text{d}t}=0$
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ],
+                throwOnError: false,
+                strict: false,
+                trust: true,
+                macros: {
+                    "\\dfrac": "\\frac",
+                    "\\text": "\\textrm"
+                }
+            });
+        });
+    </script>
+</body>
+</html>

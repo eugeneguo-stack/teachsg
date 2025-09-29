@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Additional Mathematics - Graphs | Teach.sg</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #fefaf6 0%, #f9f3ec 100%);
+            padding: 2rem 0;
+            text-align: center;
+            border-bottom: 3px solid #d4a574;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .brand {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #1e3c72, #2a5298, #d4a574);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .nav-breadcrumb {
+            background: rgba(255,255,255,0.9);
+            padding: 1rem 2rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-breadcrumb a {
+            color: #2a5298;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav-breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .content-section {
+            background: white;
+            margin: 2rem 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .section-content {
+            padding: 2rem;
+        }
+
+        .subsection {
+            margin: 2rem 0;
+        }
+
+        .subsection h3 {
+            font-family: 'Poppins', sans-serif;
+            color: #1e3c72;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #d4a574;
+        }
+
+        .formula-box {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-left: 5px solid #d4a574;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(212, 165, 116, 0.2);
+        }
+
+        .formula-box::before {
+            content: "🦉";
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .graph-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+
+        .graph-svg {
+            max-width: 100%;
+            height: auto;
+            margin: 1rem 0;
+        }
+
+        .graph-description {
+            background: rgba(30, 60, 114, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        .properties-list {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .properties-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .properties-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .properties-list li:last-child {
+            border-bottom: none;
+        }
+
+        .properties-list li::before {
+            content: "▸";
+            color: #d4a574;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .theorem-box {
+            background: linear-gradient(135deg, #e8f5e8 0%, #d4f4d4 100%);
+            border-left: 5px solid #4caf50;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .theorem-box h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #2e7d32;
+            margin-bottom: 1rem;
+        }
+
+        .circle-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1rem 0;
+        }
+
+        .footer {
+            background: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .brand {
+                font-size: 2rem;
+            }
+
+            .section-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="brand">Teach.sg</div>
+        <div class="subtitle">Additional Mathematics - Graphs</div>
+    </header>
+
+    <div class="container">
+        <nav class="nav-breadcrumb">
+            <a href="../../mathematics.html">← Back to Mathematics</a>
+        </nav>
+
+        <!-- Power Functions Section -->
+        <section class="content-section">
+            <div class="section-header">Power Functions</div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>Graphs of Power Functions ($y = ax^n$)</h3>
+
+                    <!-- Even Powers -->
+                    <div class="formula-box">
+                        <strong>Even Powers: $n = 2, 4, 6, 8, ...$</strong>
+                    </div>
+
+                    <div class="graph-container">
+                        <svg class="graph-svg" width="400" height="300" viewBox="0 0 400 300">
+                            <!-- Axes -->
+                            <line x1="50" y1="250" x2="350" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="200" y1="50" x2="200" y2="280" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                            <!-- Arrow markers -->
+                            <defs>
+                                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+                                </marker>
+                            </defs>
+
+                            <!-- Positive parabola (a > 0) -->
+                            <path d="M 100 220 Q 200 80 300 220" stroke="#2a5298" stroke-width="3" fill="none"/>
+
+                            <!-- Negative parabola (a < 0) -->
+                            <path d="M 100 80 Q 200 220 300 80" stroke="#d4a574" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+
+                            <!-- Labels -->
+                            <text x="205" y="245" font-size="12" text-anchor="middle">O</text>
+                            <text x="360" y="255" font-size="12">x</text>
+                            <text x="210" y="45" font-size="12">y</text>
+                            <text x="310" y="200" font-size="10" fill="#2a5298">a > 0: y = x², 2x⁴</text>
+                            <text x="310" y="100" font-size="10" fill="#d4a574">a < 0: y = -x², -¾x⁶</text>
+                        </svg>
+
+                        <div class="graph-description">
+                            Even powers create U-shaped or inverted U-shaped curves. When $a > 0$, the parabola opens upward; when $a < 0$, it opens downward.
+                        </div>
+                    </div>
+
+                    <!-- Odd Powers -->
+                    <div class="formula-box">
+                        <strong>Odd Powers: $n = 3, 5, 7, 9, ...$</strong>
+                    </div>
+
+                    <div class="graph-container">
+                        <svg class="graph-svg" width="400" height="300" viewBox="0 0 400 300">
+                            <!-- Axes -->
+                            <line x1="50" y1="250" x2="350" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="200" y1="50" x2="200" y2="280" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                            <!-- Positive cubic (a > 0) -->
+                            <path d="M 80 280 Q 150 200 200 150 Q 250 100 320 20" stroke="#2a5298" stroke-width="3" fill="none"/>
+
+                            <!-- Negative cubic (a < 0) -->
+                            <path d="M 80 20 Q 150 100 200 150 Q 250 200 320 280" stroke="#d4a574" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+
+                            <!-- Labels -->
+                            <text x="205" y="245" font-size="12" text-anchor="middle">O</text>
+                            <text x="360" y="255" font-size="12">x</text>
+                            <text x="210" y="45" font-size="12">y</text>
+                            <text x="250" y="80" font-size="10" fill="#2a5298">a > 0: y = x³, 2x⁷</text>
+                            <text x="80" y="80" font-size="10" fill="#d4a574">a < 0: y = -x³, -¾x⁵</text>
+                        </svg>
+
+                        <div class="graph-description">
+                            Odd powers create S-shaped curves that pass through the origin. The curves have rotational symmetry about the origin.
+                        </div>
+                    </div>
+
+                    <!-- Negative Even Powers -->
+                    <div class="formula-box">
+                        <strong>Negative Even Powers: $n = -2, -4, -6, -8, ...$</strong>
+                    </div>
+
+                    <div class="graph-container">
+                        <svg class="graph-svg" width="400" height="300" viewBox="0 0 400 300">
+                            <!-- Axes -->
+                            <line x1="50" y1="250" x2="350" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="200" y1="50" x2="200" y2="280" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                            <!-- Positive hyperbola (a > 0) -->
+                            <path d="M 60 60 Q 150 100 190 200" stroke="#2a5298" stroke-width="3" fill="none"/>
+                            <path d="M 210 200 Q 250 100 340 60" stroke="#2a5298" stroke-width="3" fill="none"/>
+
+                            <!-- Negative hyperbola (a < 0) -->
+                            <path d="M 60 240 Q 150 200 190 100" stroke="#d4a574" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+                            <path d="M 210 100 Q 250 200 340 240" stroke="#d4a574" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+
+                            <!-- Vertical asymptote -->
+                            <line x1="200" y1="50" x2="200" y2="280" stroke="#666" stroke-width="1" stroke-dasharray="3,3"/>
+
+                            <!-- Labels -->
+                            <text x="205" y="245" font-size="12" text-anchor="middle">O</text>
+                            <text x="360" y="255" font-size="12">x</text>
+                            <text x="210" y="45" font-size="12">y</text>
+                            <text x="250" y="80" font-size="10" fill="#2a5298">a > 0: y = 1/x², 2/x⁴</text>
+                            <text x="250" y="260" font-size="10" fill="#d4a574">a < 0: y = -1/x², -¾/x⁶</text>
+                        </svg>
+
+                        <div class="graph-description">
+                            Negative even powers create hyperbolas with vertical asymptote at x = 0. Both branches are in the same vertical half-plane.
+                        </div>
+                    </div>
+
+                    <!-- Negative Odd Powers -->
+                    <div class="formula-box">
+                        <strong>Negative Odd Powers: $n = -1, -3, -5, -7, ...$</strong>
+                    </div>
+
+                    <div class="graph-container">
+                        <svg class="graph-svg" width="400" height="300" viewBox="0 0 400 300">
+                            <!-- Axes -->
+                            <line x1="50" y1="250" x2="350" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="200" y1="50" x2="200" y2="280" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                            <!-- Positive hyperbola (a > 0) -->
+                            <path d="M 60 60 Q 120 90 190 200" stroke="#2a5298" stroke-width="3" fill="none"/>
+                            <path d="M 210 100 Q 280 130 340 240" stroke="#2a5298" stroke-width="3" fill="none"/>
+
+                            <!-- Negative hyperbola (a < 0) -->
+                            <path d="M 60 240 Q 120 210 190 100" stroke="#d4a574" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+                            <path d="M 210 200 Q 280 170 340 60" stroke="#d4a574" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+
+                            <!-- Asymptotes -->
+                            <line x1="200" y1="50" x2="200" y2="280" stroke="#666" stroke-width="1" stroke-dasharray="3,3"/>
+                            <line x1="50" y1="150" x2="350" y2="150" stroke="#666" stroke-width="1" stroke-dasharray="3,3"/>
+
+                            <!-- Labels -->
+                            <text x="205" y="245" font-size="12" text-anchor="middle">O</text>
+                            <text x="360" y="255" font-size="12">x</text>
+                            <text x="210" y="45" font-size="12">y</text>
+                            <text x="250" y="120" font-size="10" fill="#2a5298">a > 0: y = 1/x, 2/x⁵</text>
+                            <text x="80" y="120" font-size="10" fill="#d4a574">a < 0: y = -1/x, -¾/x⁷</text>
+                        </svg>
+
+                        <div class="graph-description">
+                            Negative odd powers create hyperbolas with both vertical and horizontal asymptotes. The branches are in opposite quadrants.
+                        </div>
+                    </div>
+
+                    <!-- Fractional Powers (0 < n < 1) -->
+                    <div class="formula-box">
+                        <strong>Fractional Powers (x > 0, 0 < n < 1): $y = ax^{1/2}, y = ax^{3/4}, ...$</strong>
+                    </div>
+
+                    <div class="graph-container">
+                        <svg class="graph-svg" width="400" height="300" viewBox="0 0 400 300">
+                            <!-- Axes -->
+                            <line x1="50" y1="250" x2="350" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="200" y1="50" x2="200" y2="280" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                            <!-- Square root function (a > 0) -->
+                            <path d="M 200 250 Q 220 200 250 170 Q 300 130 350 100" stroke="#2a5298" stroke-width="3" fill="none"/>
+
+                            <!-- Negative square root function (a < 0) -->
+                            <path d="M 200 250 Q 220 300 250 280 Q 300 270 350 260" stroke="#d4a574" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+
+                            <!-- Labels -->
+                            <text x="205" y="245" font-size="12" text-anchor="middle">O</text>
+                            <text x="360" y="255" font-size="12">x</text>
+                            <text x="210" y="45" font-size="12">y</text>
+                            <text x="260" y="120" font-size="10" fill="#2a5298">a > 0: y = √x, ∛(2x)</text>
+                            <text x="260" y="280" font-size="10" fill="#d4a574">a < 0: y = -x^(1/2), -¾x^(4/5)</text>
+                        </svg>
+
+                        <div class="graph-description">
+                            Fractional powers (0 < n < 1) create root functions that start at the origin and curve upward with decreasing slope.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Exponential & Logarithmic Functions Section -->
+        <section class="content-section">
+            <div class="section-header">Exponential & Logarithmic Functions</div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>Exponential Functions ($y = e^x, a^x$ where $a > 1$) and Logarithmic Functions ($y = \ln x, \log_a x$ where $a > 1$)</h3>
+
+                    <div class="graph-container">
+                        <svg class="graph-svg" width="500" height="350" viewBox="0 0 500 350">
+                            <!-- Axes -->
+                            <line x1="50" y1="300" x2="450" y2="300" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="250" y1="50" x2="250" y2="330" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                            <!-- Exponential function (a > 1) -->
+                            <path d="M 50 290 Q 150 250 200 200 Q 225 150 250 100 Q 280 50 350 20" stroke="#2a5298" stroke-width="3" fill="none"/>
+
+                            <!-- Logarithmic function (a > 1) -->
+                            <path d="M 260 330 Q 300 280 350 250 Q 400 220 450 200" stroke="#4caf50" stroke-width="3" fill="none"/>
+
+                            <!-- Line y = x (dotted) -->
+                            <line x1="100" y1="250" x2="400" y2="100" stroke="#999" stroke-width="2" stroke-dasharray="3,3"/>
+
+                            <!-- Labels -->
+                            <text x="255" y="315" font-size="12" text-anchor="middle">O</text>
+                            <text x="460" y="305" font-size="12">x</text>
+                            <text x="260" y="45" font-size="12">y</text>
+                            <text x="80" y="80" font-size="12" fill="#2a5298">y = e^x, 5^x, 2e^x</text>
+                            <text x="350" y="170" font-size="12" fill="#4caf50">y = ln x, lg x, log₃ x</text>
+                            <text x="300" y="160" font-size="10" fill="#999">y = x</text>
+                        </svg>
+
+                        <div class="graph-description">
+                            Exponential and logarithmic functions are inverse functions, reflected across the line y = x. The exponential function grows rapidly for large x, while the logarithmic function grows slowly.
+                        </div>
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Functions with base 0 < a < 1: $y = e^{-x}, (\frac{1}{2})^x, \log_{0.5} x$</strong>
+                    </div>
+
+                    <div class="graph-container">
+                        <svg class="graph-svg" width="500" height="350" viewBox="0 0 500 350">
+                            <!-- Axes -->
+                            <line x1="50" y1="300" x2="450" y2="300" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="250" y1="50" x2="250" y2="330" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                            <!-- Exponential function (0 < a < 1) -->
+                            <path d="M 50 20 Q 150 50 200 100 Q 225 150 250 200 Q 300 250 450 290" stroke="#d4a574" stroke-width="3" fill="none"/>
+
+                            <!-- Logarithmic function (0 < a < 1) -->
+                            <path d="M 260 50 Q 300 100 350 130 Q 400 160 450 180" stroke="#e91e63" stroke-width="3" fill="none"/>
+
+                            <!-- Line y = x (dotted) -->
+                            <line x1="100" y1="250" x2="400" y2="100" stroke="#999" stroke-width="2" stroke-dasharray="3,3"/>
+
+                            <!-- Labels -->
+                            <text x="255" y="315" font-size="12" text-anchor="middle">O</text>
+                            <text x="460" y="305" font-size="12">x</text>
+                            <text x="260" y="45" font-size="12">y</text>
+                            <text x="60" y="40" font-size="12" fill="#d4a574">y = e^(-x), (1/2)^x, (2/3)^x</text>
+                            <text x="350" y="120" font-size="12" fill="#e91e63">y = log₀.₅ x, log₂/₃ x</text>
+                            <text x="300" y="160" font-size="10" fill="#999">y = x</text>
+                        </svg>
+
+                        <div class="graph-description">
+                            When 0 < a < 1, exponential functions decay as x increases, while their inverse logarithmic functions decrease as x increases.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modulus Functions Section -->
+        <section class="content-section">
+            <div class="section-header">Modulus Functions</div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>Effect of Modulus on Function Graphs</h3>
+
+                    <div class="graph-container">
+                        <svg class="graph-svg" width="500" height="300" viewBox="0 0 500 300">
+                            <!-- Axes -->
+                            <line x1="50" y1="250" x2="450" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="250" y1="50" x2="250" y2="280" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                            <!-- Original function f(x) -->
+                            <path d="M 100 200 Q 150 150 200 180 Q 250 220 300 160 Q 350 100 400 140" stroke="#2a5298" stroke-width="3" fill="none"/>
+
+                            <!-- Grid lines -->
+                            <defs>
+                                <pattern id="grid" width="25" height="25" patternUnits="userSpaceOnUse">
+                                    <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+                                </pattern>
+                            </defs>
+                            <rect width="500" height="300" fill="url(#grid)"/>
+
+                            <!-- Labels -->
+                            <text x="255" y="265" font-size="12" text-anchor="middle">O</text>
+                            <text x="460" y="255" font-size="12">x</text>
+                            <text x="260" y="45" font-size="12">y</text>
+                            <text x="320" y="120" font-size="14" fill="#2a5298">y = f(x)</text>
+                        </svg>
+                        <div class="graph-description">Original function f(x)</div>
+                    </div>
+
+                    <div class="graph-container">
+                        <svg class="graph-svg" width="500" height="300" viewBox="0 0 500 300">
+                            <!-- Axes -->
+                            <line x1="50" y1="250" x2="450" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="250" y1="50" x2="250" y2="280" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                            <!-- Grid lines -->
+                            <rect width="500" height="300" fill="url(#grid)"/>
+
+                            <!-- |f(x)| - positive parts unchanged -->
+                            <path d="M 100 200 Q 150 150 200 180" stroke="#d4a574" stroke-width="3" fill="none"/>
+                            <path d="M 300 160 Q 350 100 400 140" stroke="#d4a574" stroke-width="3" fill="none"/>
+
+                            <!-- |f(x)| - negative parts reflected -->
+                            <path d="M 200 180 Q 250 130 300 160" stroke="#d4a574" stroke-width="3" fill="none"/>
+
+                            <!-- Labels -->
+                            <text x="255" y="265" font-size="12" text-anchor="middle">O</text>
+                            <text x="460" y="255" font-size="12">x</text>
+                            <text x="260" y="45" font-size="12">y</text>
+                            <text x="320" y="120" font-size="14" fill="#d4a574">y = |f(x)|</text>
+                        </svg>
+                        <div class="graph-description">Modulus function |f(x)| - all negative portions are reflected above the x-axis</div>
+                    </div>
+
+                    <div class="theorem-box">
+                        <h4>Key Property of Modulus Functions</h4>
+                        <p>When applying the modulus function to any graph y = f(x), all portions below the x-axis (where f(x) < 0) are reflected upward across the x-axis to become positive, while portions above the x-axis remain unchanged.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trigonometric Graphs Section -->
+        <section class="content-section">
+            <div class="section-header">Trigonometric Graphs</div>
+            <div class="section-content">
+
+                <div class="subsection">
+                    <h3>Sine Function: $y = \sin x$</h3>
+
+                    <div class="graph-container">
+                        <svg class="graph-svg" width="600" height="300" viewBox="0 0 600 300">
+                            <!-- Axes -->
+                            <line x1="50" y1="150" x2="550" y2="150" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="100" y1="50" x2="100" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                            <!-- Pi markings -->
+                            <line x1="180" y1="145" x2="180" y2="155" stroke="#666" stroke-width="1"/>
+                            <line x1="260" y1="145" x2="260" y2="155" stroke="#666" stroke-width="1"/>
+                            <line x1="340" y1="145" x2="340" y2="155" stroke="#666" stroke-width="1"/>
+                            <line x1="420" y1="145" x2="420" y2="155" stroke="#666" stroke-width="1"/>
+                            <line x1="500" y1="145" x2="500" y2="155" stroke="#666" stroke-width="1"/>
+
+                            <!-- Sine wave -->
+                            <path d="M 100 150 Q 140 100 180 150 Q 220 200 260 150 Q 300 100 340 150 Q 380 200 420 150 Q 460 100 500 150"
+                                  stroke="#e91e63" stroke-width="3" fill="none"/>
+
+                            <!-- Labels -->
+                            <text x="105" y="140" font-size="12" text-anchor="middle">O</text>
+                            <text x="560" y="155" font-size="12">x</text>
+                            <text x="110" y="45" font-size="12">y</text>
+                            <text x="175" y="170" font-size="10">π</text>
+                            <text x="255" y="170" font-size="10">2π</text>
+                            <text x="335" y="170" font-size="10">3π</text>
+                            <text x="415" y="170" font-size="10">4π</text>
+                            <text x="400" y="120" font-size="14" fill="#e91e63">y = sin x</text>
+
+                            <!-- Amplitude markings -->
+                            <line x1="95" y1="100" x2="105" y2="100" stroke="#666" stroke-width="1"/>
+                            <line x1="95" y1="200" x2="105" y2="200" stroke="#666" stroke-width="1"/>
+                            <text x="85" y="105" font-size="10">1</text>
+                            <text x="80" y="205" font-size="10">-1</text>
+                        </svg>
+
+                        <div class="properties-list">
+                            <ul>
+                                <li><strong>Amplitude:</strong> 1</li>
+                                <li><strong>Period:</strong> $2\pi$</li>
+                                <li><strong>Domain:</strong> All real numbers</li>
+                                <li><strong>Range:</strong> [-1, 1]</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Cosine Function: $y = \cos x$</h3>
+
+                    <div class="graph-container">
+                        <svg class="graph-svg" width="600" height="300" viewBox="0 0 600 300">
+                            <!-- Axes -->
+                            <line x1="50" y1="150" x2="550" y2="150" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="100" y1="50" x2="100" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                            <!-- Pi markings -->
+                            <line x1="180" y1="145" x2="180" y2="155" stroke="#666" stroke-width="1"/>
+                            <line x1="260" y1="145" x2="260" y2="155" stroke="#666" stroke-width="1"/>
+                            <line x1="340" y1="145" x2="340" y2="155" stroke="#666" stroke-width="1"/>
+                            <line x1="420" y1="145" x2="420" y2="155" stroke="#666" stroke-width="1"/>
+                            <line x1="500" y1="145" x2="500" y2="155" stroke="#666" stroke-width="1"/>
+
+                            <!-- Cosine wave -->
+                            <path d="M 100 100 Q 140 150 180 200 Q 220 150 260 100 Q 300 150 340 200 Q 380 150 420 100 Q 460 150 500 200"
+                                  stroke="#4caf50" stroke-width="3" fill="none"/>
+
+                            <!-- Labels -->
+                            <text x="105" y="140" font-size="12" text-anchor="middle">O</text>
+                            <text x="560" y="155" font-size="12">x</text>
+                            <text x="110" y="45" font-size="12">y</text>
+                            <text x="175" y="170" font-size="10">π</text>
+                            <text x="255" y="170" font-size="10">2π</text>
+                            <text x="335" y="170" font-size="10">3π</text>
+                            <text x="415" y="170" font-size="10">4π</text>
+                            <text x="400" y="80" font-size="14" fill="#4caf50">y = cos x</text>
+
+                            <!-- Amplitude markings -->
+                            <line x1="95" y1="100" x2="105" y2="100" stroke="#666" stroke-width="1"/>
+                            <line x1="95" y1="200" x2="105" y2="200" stroke="#666" stroke-width="1"/>
+                            <text x="85" y="105" font-size="10">1</text>
+                            <text x="80" y="205" font-size="10">-1</text>
+                        </svg>
+
+                        <div class="properties-list">
+                            <ul>
+                                <li><strong>Amplitude:</strong> 1</li>
+                                <li><strong>Period:</strong> $2\pi$</li>
+                                <li><strong>Domain:</strong> All real numbers</li>
+                                <li><strong>Range:</strong> [-1, 1]</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Tangent Function: $y = \tan x$</h3>
+
+                    <div class="graph-container">
+                        <svg class="graph-svg" width="600" height="300" viewBox="0 0 600 300">
+                            <!-- Axes -->
+                            <line x1="50" y1="150" x2="550" y2="150" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="100" y1="50" x2="100" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                            <!-- Vertical asymptotes -->
+                            <line x1="180" y1="50" x2="180" y2="250" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+                            <line x1="260" y1="50" x2="260" y2="250" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+                            <line x1="340" y1="50" x2="340" y2="250" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+                            <line x1="420" y1="50" x2="420" y2="250" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+
+                            <!-- Tangent curves -->
+                            <path d="M 110 200 Q 130 170 150 120 Q 170 70" stroke="#ff9800" stroke-width="3" fill="none"/>
+                            <path d="M 190 230 Q 210 200 230 150 Q 250 100" stroke="#ff9800" stroke-width="3" fill="none"/>
+                            <path d="M 270 230 Q 290 200 310 150 Q 330 100" stroke="#ff9800" stroke-width="3" fill="none"/>
+                            <path d="M 350 230 Q 370 200 390 150 Q 410 100" stroke="#ff9800" stroke-width="3" fill="none"/>
+
+                            <!-- Labels -->
+                            <text x="105" y="140" font-size="12" text-anchor="middle">O</text>
+                            <text x="560" y="155" font-size="12">x</text>
+                            <text x="110" y="45" font-size="12">y</text>
+                            <text x="175" y="170" font-size="10">π/2</text>
+                            <text x="255" y="170" font-size="10">π</text>
+                            <text x="330" y="170" font-size="10">3π/2</text>
+                            <text x="415" y="170" font-size="10">2π</text>
+                            <text x="200" y="80" font-size="14" fill="#ff9800">y = tan x</text>
+                        </svg>
+
+                        <div class="properties-list">
+                            <ul>
+                                <li><strong>Period:</strong> $\pi$</li>
+                                <li><strong>Domain:</strong> All real numbers except $x = \frac{\pi}{2} + n\pi$ where $n$ is an integer</li>
+                                <li><strong>Range:</strong> All real numbers</li>
+                                <li><strong>Vertical asymptotes:</strong> $x = \frac{\pi}{2} + n\pi$</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Parabolas Section -->
+        <section class="content-section">
+            <div class="section-header">Parabolas with Horizontal Axis</div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>Graphs of $y^2 = kx$</h3>
+
+                    <div class="graph-container">
+                        <svg class="graph-svg" width="400" height="300" viewBox="0 0 400 300">
+                            <!-- Axes -->
+                            <line x1="50" y1="250" x2="350" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="200" y1="50" x2="200" y2="280" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                            <!-- Parabola k > 0 (opens right) -->
+                            <path d="M 200 150 Q 250 100 300 80 Q 350 60" stroke="#2a5298" stroke-width="3" fill="none"/>
+                            <path d="M 200 150 Q 250 200 300 220 Q 350 240" stroke="#2a5298" stroke-width="3" fill="none"/>
+
+                            <!-- Parabola k < 0 (opens left) -->
+                            <path d="M 200 150 Q 150 100 100 80 Q 50 60" stroke="#d4a574" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+                            <path d="M 200 150 Q 150 200 100 220 Q 50 240" stroke="#d4a574" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+
+                            <!-- Labels -->
+                            <text x="205" y="265" font-size="12" text-anchor="middle">O</text>
+                            <text x="360" y="255" font-size="12">x</text>
+                            <text x="210" y="45" font-size="12">y</text>
+                            <text x="310" y="120" font-size="12" fill="#2a5298">k > 0: y² = x, y² = 2x</text>
+                            <text x="60" y="120" font-size="12" fill="#d4a574">k < 0: y² = -x, y² = -3x</text>
+                        </svg>
+
+                        <div class="graph-description">
+                            Horizontal parabolas: When k > 0, the parabola opens to the right; when k < 0, it opens to the left. The vertex is always at the origin.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Circle Properties Section -->
+        <section class="content-section">
+            <div class="section-header">Circle Properties and Theorems</div>
+            <div class="section-content">
+
+                <div class="subsection">
+                    <h3>Key Circle Theorems</h3>
+
+                    <div class="theorem-box">
+                        <h4>1. Tangent Perpendicular to Radius</h4>
+                        <div class="circle-diagram">
+                            <svg width="200" height="200" viewBox="0 0 200 200">
+                                <circle cx="100" cy="100" r="60" stroke="#2a5298" stroke-width="2" fill="none"/>
+                                <line x1="100" y1="100" x2="100" y2="40" stroke="#2a5298" stroke-width="2"/>
+                                <line x1="40" y1="40" x2="160" y2="40" stroke="#d4a574" stroke-width="2"/>
+                                <circle cx="100" cy="100" r="2" fill="#2a5298"/>
+                                <text x="105" y="110" font-size="12">O</text>
+                                <rect x="95" y="35" width="10" height="10" stroke="#333" stroke-width="1" fill="none"/>
+                            </svg>
+                        </div>
+                        <p>A tangent to a circle is perpendicular to the radius at the point of tangency.</p>
+                    </div>
+
+                    <div class="theorem-box">
+                        <h4>2. Right Angle in Semicircle</h4>
+                        <div class="circle-diagram">
+                            <svg width="200" height="200" viewBox="0 0 200 200">
+                                <circle cx="100" cy="100" r="60" stroke="#2a5298" stroke-width="2" fill="none"/>
+                                <line x1="50" y1="100" x2="150" y2="100" stroke="#2a5298" stroke-width="2"/>
+                                <line x1="50" y1="100" x2="100" y2="50" stroke="#4caf50" stroke-width="2"/>
+                                <line x1="150" y1="100" x2="100" y2="50" stroke="#4caf50" stroke-width="2"/>
+                                <circle cx="100" cy="100" r="2" fill="#2a5298"/>
+                                <text x="105" y="110" font-size="12">O</text>
+                                <path d="M 90 60 L 90 50 L 100 50" stroke="#333" stroke-width="1" fill="none"/>
+                            </svg>
+                        </div>
+                        <p>Any angle inscribed in a semicircle is a right angle (90°).</p>
+                    </div>
+
+                    <div class="theorem-box">
+                        <h4>3. Angles in Same Segment</h4>
+                        <div class="circle-diagram">
+                            <svg width="200" height="200" viewBox="0 0 200 200">
+                                <circle cx="100" cy="100" r="60" stroke="#2a5298" stroke-width="2" fill="none"/>
+                                <line x1="60" y1="70" x2="140" y2="130" stroke="#4caf50" stroke-width="2"/>
+                                <line x1="60" y1="70" x2="80" y2="45" stroke="#e91e63" stroke-width="2"/>
+                                <line x1="140" y1="130" x2="80" y2="45" stroke="#e91e63" stroke-width="2"/>
+                                <line x1="60" y1="70" x2="120" y2="155" stroke="#ff9800" stroke-width="2"/>
+                                <line x1="140" y1="130" x2="120" y2="155" stroke="#ff9800" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <p>Angles subtended by the same chord in the same segment of a circle are equal.</p>
+                    </div>
+
+                    <div class="theorem-box">
+                        <h4>4. Angle at Centre = 2 × Angle at Circumference</h4>
+                        <div class="circle-diagram">
+                            <svg width="200" height="200" viewBox="0 0 200 200">
+                                <circle cx="100" cy="100" r="60" stroke="#2a5298" stroke-width="2" fill="none"/>
+                                <line x1="100" y1="100" x2="60" y2="70" stroke="#2a5298" stroke-width="2"/>
+                                <line x1="100" y1="100" x2="140" y2="130" stroke="#2a5298" stroke-width="2"/>
+                                <line x1="60" y1="70" x2="80" y2="45" stroke="#4caf50" stroke-width="2"/>
+                                <line x1="140" y1="130" x2="80" y2="45" stroke="#4caf50" stroke-width="2"/>
+                                <circle cx="100" cy="100" r="2" fill="#2a5298"/>
+                                <text x="105" y="110" font-size="12">O</text>
+                            </svg>
+                        </div>
+                        <p>The angle subtended at the centre is twice the angle subtended at any point on the circumference by the same chord.</p>
+                    </div>
+
+                    <div class="theorem-box">
+                        <h4>5. Opposite Angles of Cyclic Quadrilateral</h4>
+                        <div class="circle-diagram">
+                            <svg width="200" height="200" viewBox="0 0 200 200">
+                                <circle cx="100" cy="100" r="60" stroke="#2a5298" stroke-width="2" fill="none"/>
+                                <polygon points="70,60 130,70 120,140 80,130" stroke="#4caf50" stroke-width="2" fill="none"/>
+                                <text x="65" y="55" font-size="12" fill="#e91e63">a</text>
+                                <text x="125" y="65" font-size="12" fill="#e91e63">b</text>
+                                <text x="115" y="150" font-size="12" fill="#ff9800">c</text>
+                                <text x="75" y="140" font-size="12" fill="#ff9800">d</text>
+                            </svg>
+                        </div>
+                        <p>Opposite angles of a cyclic quadrilateral are supplementary: a + c = 180°, b + d = 180°</p>
+                    </div>
+
+                    <div class="theorem-box">
+                        <h4>6. Tangent-Chord Theorem (Alternate Segment Theorem)</h4>
+                        <div class="circle-diagram">
+                            <svg width="250" height="200" viewBox="0 0 250 200">
+                                <circle cx="125" cy="100" r="60" stroke="#2a5298" stroke-width="2" fill="none"/>
+                                <line x1="50" y1="140" x2="200" y2="140" stroke="#d4a574" stroke-width="2"/>
+                                <line x1="125" y1="140" x2="95" y2="70" stroke="#4caf50" stroke-width="2"/>
+                                <line x1="125" y1="140" x2="165" y2="80" stroke="#4caf50" stroke-width="2"/>
+                                <text x="90" y="65" font-size="12">A</text>
+                                <text x="170" y="75" font-size="12">C</text>
+                                <text x="125" y="155" font-size="12">B</text>
+                                <text x="45" y="155" font-size="12">D</text>
+                                <text x="205" y="155" font-size="12">E</text>
+                            </svg>
+                        </div>
+                        <p>If DE is tangent to the circle at B, then ∠CAB = ∠CBE and ∠ACB = ∠ABD (alternate segment theorem).</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Congruent and Similar Triangles</h3>
+
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Congruent Triangles</th>
+                                <th>Similar Triangles</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SSS, SAS, AAS, RHS</td>
+                                <td>SSS, SAS, AAA</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>Midpoint Theorem</h3>
+
+                    <div class="theorem-box">
+                        <h4>Midpoint Theorem</h4>
+                        <div class="circle-diagram">
+                            <svg width="300" height="200" viewBox="0 0 300 200">
+                                <polygon points="150,30 50,150 250,150" stroke="#2a5298" stroke-width="2" fill="none"/>
+                                <line x1="100" y1="90" x2="200" y2="90" stroke="#d4a574" stroke-width="3"/>
+                                <line x1="150" y1="150" x2="200" y2="90" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+                                <circle cx="100" cy="90" r="3" fill="#d4a574"/>
+                                <circle cx="200" cy="90" r="3" fill="#d4a574"/>
+                                <text x="155" y="25" font-size="12">A</text>
+                                <text x="45" y="165" font-size="12">B</text>
+                                <text x="255" y="165" font-size="12">C</text>
+                                <text x="90" y="80" font-size="12">D</text>
+                                <text x="210" y="80" font-size="12">E</text>
+                            </svg>
+                        </div>
+                        <p>If D and E are midpoints of AB and AC respectively, then DE ∥ BC and DE = ½BC</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Teach.sg - Excellence in Mathematical Education</p>
+    </footer>
+
+    <script>
+        // Render all KaTeX expressions
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false
+            });
+        });
+    </script>
+</body>
+</html>

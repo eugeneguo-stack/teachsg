@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementary Mathematics Notes - TeachSG</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: #f3f4f6;
+            color: #333;
+        }
+
+        .header {
+            background: #fefaf6;
+            color: #1e3a8a;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header a {
+            color: #1e3a8a;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .header a:hover {
+            color: #d97706;
+            text-decoration: underline;
+        }
+
+        .brand {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .brand .teach {
+            color: #1e3a8a;
+        }
+
+        .brand .sg {
+            color: #d97706;
+        }
+
+        .nav-link {
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: transparent;
+            min-height: calc(100vh - 60px);
+            position: relative;
+            column-count: 3;
+            column-gap: 2rem;
+            column-rule: 1px solid #e2e8f0;
+        }
+
+        .container:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(30, 58, 138, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30, 58, 138, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #d97706;
+            text-align: center;
+            margin-bottom: 2rem;
+            column-span: all;
+        }
+
+        .section-header {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin: 2rem 0 1rem 0;
+            border-bottom: 2px solid #d97706;
+            padding-bottom: 0.5rem;
+            break-inside: avoid;
+        }
+
+        .subsection-header {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin: 1.5rem 0 0.8rem 0;
+            break-inside: avoid;
+        }
+
+        .formula-section {
+            margin: 1rem 0;
+            padding: 1.2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-left: 4px solid #d97706;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            break-inside: avoid;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .formula-section.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .formula-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .formula-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .formula-icon {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .katex-display {
+            margin: 0.8rem 0;
+            text-align: center;
+        }
+
+        .katex * {
+            font-family: KaTeX_Main, "Times New Roman", serif !important;
+        }
+
+        .section-content {
+            color: #333;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0.5rem 0;
+        }
+
+        .formula-list {
+            margin: 0.8rem 0;
+        }
+
+        .formula-item {
+            margin: 0.6rem 0;
+            text-align: center;
+        }
+
+        .inline-formula {
+            margin: 0.3rem 0;
+        }
+
+        .content-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-table th, .content-table td {
+            padding: 0.8rem;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .content-table th {
+            background: #1e3a8a;
+            color: white;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .content-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .content-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .diagram-container {
+            text-align: center;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            break-inside: avoid;
+        }
+
+        .diagram-description {
+            font-style: italic;
+            color: #6b7280;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .bearing-diagram {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        .special-note {
+            background: rgba(30, 58, 138, 0.1);
+            border: 1px solid rgba(30, 58, 138, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            font-weight: 600;
+            color: #1e3a8a;
+            break-inside: avoid;
+        }
+
+        .column-break {
+            break-after: column;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                column-count: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                column-count: 1;
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .section-header {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-nav">
+            <a href="/" class="brand"><span class="teach">Teach</span><span class="sg">.sg</span></a>
+            <a href="/content/mathematics/" class="nav-link">← Back to Mathematics</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="page-title">Elementary Mathematics Notes</h1>
+
+        <div class="section-header">Numbers & Their Operations</div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Types of Numbers
+            </div>
+            <div class="section-content">
+                <strong>Integers ($\mathbb{Z}$):</strong> $..., -3, -2, -1, 0, 1, 2, 3, 4, ...$
+            </div>
+            <div class="section-content">
+                <strong>Prime:</strong> integers that are divisible by 1 and itself only, smallest prime number is 2
+            </div>
+            <div class="section-content">
+                <strong>Rational numbers ($\mathbb{Q}$)</strong> $\frac{\text{integer}}{\text{integer}}$: $\frac{4}{7}, -3\frac{1}{8}, 0.3, 2.\dot{6}\dot{5}, 92, \sqrt{16}$
+            </div>
+            <div class="section-content">
+                <strong>Irrational numbers:</strong> $\pi, \sqrt{2}, e$
+            </div>
+            <div class="section-content">
+                <strong>Real numbers ($\mathbb{R}$):</strong> all numbers
+            </div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Standard Form
+            </div>
+            <div class="katex-display">$$A \times 10^n$$</div>
+            <div class="section-content" style="text-align: center;">
+                where $n$ is an integer, and $1 \leq A < 10$
+            </div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                SI Prefix
+            </div>
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <th>Prefix</th>
+                        <th>$10^n$</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>pico</td><td>$10^{-12}$</td></tr>
+                    <tr><td>nano</td><td>$10^{-9}$</td></tr>
+                    <tr><td>micro</td><td>$10^{-6}$</td></tr>
+                    <tr><td>milli</td><td>$10^{-3}$</td></tr>
+                    <tr><td>kilo</td><td>$10^3$</td></tr>
+                    <tr><td>mega</td><td>$10^6$</td></tr>
+                    <tr><td>giga</td><td>$10^9$</td></tr>
+                    <tr><td>tera</td><td>$10^{12}$</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Indices
+            </div>
+            <div class="formula-list">
+                <div class="formula-item">$$1.\,a^m \times a^n = a^{m+n}$$</div>
+                <div class="formula-item">$$2.\,a^m \div a^n = a^{m-n}$$</div>
+                <div class="formula-item">$$3.\,(a^m)^n = a^{mn}$$</div>
+                <div class="formula-item">$$4.\,(ab)^m = a^m b^m$$</div>
+                <div class="formula-item">$$5.\,\left(\frac{a}{b}\right)^n = \frac{a^n}{b^n}$$</div>
+                <div class="formula-item">$$6.\,a^{-n} = \frac{1}{a^n}$$</div>
+                <div class="formula-item">$$7.\,a^0 = 1$$</div>
+                <div class="formula-item">$$8.\,a^\frac{1}{n} = \sqrt[n]{a}$$</div>
+                <div class="formula-item">$$9.\,a^\frac{m}{n} = (\sqrt[n]{a})^m$$</div>
+            </div>
+        </div>
+
+        <div class="section-header">Ratio & Proportion</div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Map Scale
+            </div>
+            <div class="inline-formula">Length scale = $1:r$</div>
+            <div class="inline-formula">Area scale = $1:r^2$</div>
+        </div>
+
+        <div class="section-header">Percentage</div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Percentage Change
+            </div>
+            <div class="katex-display">$$\text{Percentage increase/decrease} = \frac{\text{increase/decrease}}{\text{original}} \times 100\%$$</div>
+        </div>
+
+        <div class="section-header">Rate & Speed</div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Distance-Speed-Time Triangle
+            </div>
+            <div class="diagram-container">
+                <div style="position: relative; width: 120px; height: 100px; margin: 0 auto;">
+                    <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); font-size: 1.5rem; font-weight: bold; color: #1e3a8a;">D</div>
+                    <div style="position: absolute; bottom: 0; left: 20%; font-size: 1.5rem; font-weight: bold; color: #1e3a8a;">S</div>
+                    <div style="position: absolute; bottom: 0; right: 20%; font-size: 1.5rem; font-weight: bold; color: #1e3a8a;">T</div>
+                    <div style="position: absolute; top: 20px; left: 0; right: 0; bottom: 20px; border: 2px solid #1e3a8a; clip-path: polygon(50% 0%, 0% 100%, 100% 100%);"></div>
+                    <div style="position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: #1e3a8a;"></div>
+                </div>
+            </div>
+            <div class="katex-display">$$\text{Average speed} = \frac{\text{total distance}}{\text{total time}}$$</div>
+        </div>
+
+        <div class="section-header">Algebraic Expressions & Formulae</div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                nth Term (Arithmetic Sequence)
+            </div>
+            <div class="katex-display">$$a + (n-1)d$$</div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Special Algebraic Identities
+            </div>
+            <div class="formula-item">$$(a+b)^2 = a^2 + 2ab + b^2$$</div>
+            <div class="formula-item">$$(a-b)^2 = a^2 - 2ab + b^2$$</div>
+            <div class="formula-item">$$(a+b)(a-b) = a^2 - b^2$$</div>
+        </div>
+
+        <div class="section-header">Equations</div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Quadratic Formula
+            </div>
+            <div class="katex-display">$$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$</div>
+        </div>
+
+        <div class="section-header">Set Language & Notation</div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Set Symbols
+            </div>
+            <div class="section-content">$\in$: is an element of</div>
+            <div class="section-content">n($A$): number of elements in set $A$</div>
+            <div class="section-content">$A'$: complement of set A</div>
+            <div class="section-content">$\varnothing$: empty set</div>
+            <div class="section-content">$\xi$: universal set</div>
+            <div class="section-content">$\cup$: union</div>
+            <div class="section-content">$\cap$: intersection</div>
+            <div class="section-content">$\subset$: subset</div>
+        </div>
+
+        <div class="column-break"></div>
+
+        <div class="section-header">Problems In Real-World Contexts</div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Simple Interest
+            </div>
+            <div class="katex-display">$$I = \frac{PRT}{100}$$</div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Compound Interest
+            </div>
+            <div class="katex-display">$$A = P\left(1 + \frac{R}{100}\right)^n$$</div>
+        </div>
+
+        <div class="section-header">Angles, Triangles & Polygons</div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Types of Polygons
+            </div>
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <th>No. of sides</th>
+                        <th>Polygons</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>3</td><td>triangle</td></tr>
+                    <tr><td>4</td><td>quadrilateral</td></tr>
+                    <tr><td>5</td><td><strong>pent</strong>agon</td></tr>
+                    <tr><td>6</td><td><strong>hex</strong>agon</td></tr>
+                    <tr><td>7</td><td><strong>hept</strong>agon</td></tr>
+                    <tr><td>8</td><td><strong>oct</strong>agon</td></tr>
+                    <tr><td>9</td><td><strong>non</strong>agon</td></tr>
+                    <tr><td>10</td><td><strong>dec</strong>agon</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Sum of Interior & Exterior Angles
+            </div>
+            <div class="inline-formula">Sum of interior angles = $(n-2) \times 180°$</div>
+            <div class="inline-formula">Sum of exterior angles = $360°$</div>
+        </div>
+
+        <div class="section-header">Congruence & Similarity</div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Congruent & Similar Triangles
+            </div>
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <th>Congruent triangles</th>
+                        <th>Similar triangles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>SSS, SAS, AAS, RHS</td><td>SSS, SAS, AAA</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Ratio of Area & Volume
+            </div>
+            <div class="katex-display">$$\frac{A_1}{A_2} = \left(\frac{l_1}{l_2}\right)^2$$</div>
+            <div class="katex-display">$$\frac{V_1}{V_2} = \left(\frac{l_1}{l_2}\right)^3$$</div>
+        </div>
+
+        <div class="section-header">Pythagoras' Theorem & Trigonometry</div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Pythagoras' Theorem
+            </div>
+            <div class="katex-display">$$a^2 + b^2 = c^2$$</div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Trigonometric Ratios
+            </div>
+            <div class="formula-item">$$\tan\theta = \frac{\text{opposite}}{\text{adjacent}}$$</div>
+            <div class="formula-item">$$\cos\theta = \frac{\text{adjacent}}{\text{hypotenuse}}$$</div>
+            <div class="formula-item">$$\sin\theta = \frac{\text{opposite}}{\text{hypotenuse}}$$</div>
+            <div class="special-note">
+                <strong>TOA CAH SOH</strong> is applicable for only right-angled triangles
+            </div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Obtuse Angles
+            </div>
+            <div class="formula-item">$$\sin(180° - \theta) = \sin\theta$$</div>
+            <div class="formula-item">$$\cos(180° - \theta) = -\cos\theta$$</div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Sine Rule
+            </div>
+            <div class="katex-display">$$\frac{a}{\sin A} = \frac{b}{\sin B}$$</div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Cosine Rule
+            </div>
+            <div class="katex-display">$$c^2 = a^2 + b^2 - 2ab\cos C$$</div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Area of Triangle
+            </div>
+            <div class="katex-display">$$\text{Area of triangle} = \frac{1}{2}ab\sin C$$</div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Bearings
+            </div>
+            <div class="diagram-container">
+                <div class="bearing-diagram">
+                    <div style="position: relative; width: 200px; height: 200px; margin: 0 auto;">
+                        <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); font-weight: bold;">000°</div>
+                        <div style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-weight: bold;">180°</div>
+                        <div style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-weight: bold;">090°</div>
+                        <div style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-weight: bold;">270°</div>
+                        <div style="position: absolute; top: 50%; left: 50%; width: 2px; height: 180px; background: #1e3a8a; transform: translate(-50%, -50%);">
+                            <div style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 12px solid #1e3a8a;"></div>
+                        </div>
+                        <div style="position: absolute; top: 50%; left: 50%; width: 180px; height: 2px; background: #1e3a8a; transform: translate(-50%, -50%);">
+                            <div style="position: absolute; right: -10px; top: 50%; transform: translateY(-50%); width: 0; height: 0; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-left: 12px solid #1e3a8a;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-content">
+                A bearing is a <strong>3-digit positive number</strong> with units of degree to show direction <strong>clockwise</strong> from the north direction.
+            </div>
+        </div>
+
+        <div class="column-break"></div>
+
+        <div class="section-header">Mensuration</div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Conversion
+            </div>
+            <div class="section-content">$1\text{ m} = 100\text{ cm}$</div>
+            <div class="section-content">$1\text{ m}^2 = 10,000\text{ cm}^2$</div>
+            <div class="section-content">$1\text{ m}^3 = 1,000,000\text{ cm}^3$</div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Radian & Degree
+            </div>
+            <div class="katex-display">$$180° = \pi \text{ rad}$$</div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Arc Length & Sector Area (Degree)
+            </div>
+            <div class="formula-item">$$s = \frac{\theta}{360°} \times 2\pi r$$</div>
+            <div class="section-content" style="text-align: center;">where $\theta$ is in degrees</div>
+            <div class="formula-item">$$A = \frac{\theta}{360°} \times \pi r^2$$</div>
+            <div class="section-content" style="text-align: center;">where $\theta$ is in degrees</div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Arc Length & Sector Area (Radian)
+            </div>
+            <div class="formula-item">$$s = r\theta$$</div>
+            <div class="section-content" style="text-align: center;">where $\theta$ is in radians</div>
+            <div class="formula-item">$$A = \frac{1}{2}r^2\theta$$</div>
+            <div class="section-content" style="text-align: center;">where $\theta$ is in radians</div>
+        </div>
+
+        <div class="section-header">Coordinate Geometry</div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Cartesian Coordinate
+            </div>
+            <div class="katex-display">$$(x, y)$$</div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Gradient
+            </div>
+            <div class="katex-display">$$m = \frac{y_1 - y_2}{x_1 - x_2}$$</div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Equation of Line
+            </div>
+            <div class="formula-item">$$y - y_1 = m(x - x_1)$$</div>
+            <div class="formula-item">$$y = mx + c$$</div>
+            <div class="section-content">*Vertical line: $x = a$</div>
+            <div class="section-content">*Horizontal line: $y = b$</div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Distance Between Points
+            </div>
+            <div class="katex-display">$$\text{Length} = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$$</div>
+        </div>
+
+        <div class="section-header">Vectors In 2 Dimensions</div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Vector Representation
+            </div>
+            <div class="section-content">
+                Vectors can be represented by $\begin{pmatrix}x\\y\end{pmatrix}$, $\overrightarrow{AB}$, <strong>a</strong> or $\underline{a}$.
+            </div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Vector Magnitude
+            </div>
+            <div class="katex-display">$$|\overrightarrow{AB}| \text{ or } |\mathbf{a}| = \sqrt{x^2 + y^2}$$</div>
+        </div>
+
+        <div class="section-header">Data Analysis</div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Mode
+            </div>
+            <div class="section-content">
+                Mode is the <strong>most frequently occurring</strong> number. A set of data can have <strong>more than one</strong> mode.
+            </div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Mean
+            </div>
+            <div class="katex-display">$$\text{mean} = \frac{\text{sum of all numbers}}{\text{number of numbers}}$$</div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Median
+            </div>
+            <div class="section-content">
+                Median is the <strong>centre</strong> number when the numbers are arranged from <strong>smallest to largest</strong>.
+            </div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Range
+            </div>
+            <div class="inline-formula">Range = maximum - minimum</div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Quartiles & Percentiles
+            </div>
+            <div class="diagram-container">
+                <div style="position: relative; width: 100%; height: 60px; margin: 1rem 0;">
+                    <div style="position: absolute; top: 20px; left: 10%; width: 80%; height: 2px; background: #1e3a8a;"></div>
+                    <div style="position: absolute; top: 10px; left: 10%; width: 2px; height: 20px; background: #1e3a8a;"></div>
+                    <div style="position: absolute; top: 10px; left: 32.5%; width: 2px; height: 20px; background: #1e3a8a;"></div>
+                    <div style="position: absolute; top: 10px; left: 55%; width: 2px; height: 20px; background: #1e3a8a;"></div>
+                    <div style="position: absolute; top: 10px; left: 77.5%; width: 2px; height: 20px; background: #1e3a8a;"></div>
+                    <div style="position: absolute; top: 10px; left: 90%; width: 2px; height: 20px; background: #1e3a8a;"></div>
+                    <div style="position: absolute; top: 35px; left: 8%; font-size: 0.8rem;">0th</div>
+                    <div style="position: absolute; top: 35px; left: 30%; font-size: 0.8rem;">25th</div>
+                    <div style="position: absolute; top: 35px; left: 52%; font-size: 0.8rem;">50th</div>
+                    <div style="position: absolute; top: 35px; left: 74%; font-size: 0.8rem;">75th</div>
+                    <div style="position: absolute; top: 35px; left: 86%; font-size: 0.8rem;">100th</div>
+                    <div style="position: absolute; top: -5px; left: 5%; font-size: 0.8rem;">min</div>
+                    <div style="position: absolute; top: -5px; left: 25%; font-size: 0.8rem;">lower quartile</div>
+                    <div style="position: absolute; top: -5px; left: 50%; font-size: 0.8rem;">median</div>
+                    <div style="position: absolute; top: -5px; left: 70%; font-size: 0.8rem;">upper quartile</div>
+                    <div style="position: absolute; top: -5px; left: 87%; font-size: 0.8rem;">max</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Interquartile Range
+            </div>
+            <div class="inline-formula">Interquartile range = upper quartile - lower quartile</div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Box-and-Whisker Plot
+            </div>
+            <div class="diagram-container">
+                <div style="position: relative; width: 100%; height: 80px; margin: 1rem 0;">
+                    <!-- Main box -->
+                    <div style="position: absolute; top: 20px; left: 30%; width: 40%; height: 40px; border: 2px solid #1e3a8a; background: rgba(30, 58, 138, 0.1);"></div>
+                    <!-- Median line -->
+                    <div style="position: absolute; top: 20px; left: 50%; width: 2px; height: 40px; background: #1e3a8a;"></div>
+                    <!-- Left whisker -->
+                    <div style="position: absolute; top: 39px; left: 10%; width: 20%; height: 2px; background: #1e3a8a;"></div>
+                    <div style="position: absolute; top: 30px; left: 10%; width: 2px; height: 20px; background: #1e3a8a;"></div>
+                    <!-- Right whisker -->
+                    <div style="position: absolute; top: 39px; left: 70%; width: 20%; height: 2px; background: #1e3a8a;"></div>
+                    <div style="position: absolute; top: 30px; left: 90%; width: 2px; height: 20px; background: #1e3a8a;"></div>
+                    <!-- Labels -->
+                    <div style="position: absolute; top: 65px; left: 8%; font-size: 0.8rem;">minimum</div>
+                    <div style="position: absolute; top: 65px; left: 25%; font-size: 0.8rem;">lower quartile</div>
+                    <div style="position: absolute; top: 65px; left: 47%; font-size: 0.8rem;">median</div>
+                    <div style="position: absolute; top: 65px; left: 65%; font-size: 0.8rem;">upper quartile</div>
+                    <div style="position: absolute; top: 65px; left: 87%; font-size: 0.8rem;">maximum</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Mean & Standard Deviation (Ungrouped)
+            </div>
+            <div class="formula-item">$$\text{Mean}, \bar{x} = \frac{\sum x}{N}$$</div>
+            <div class="formula-item">$$\text{Standard deviation}, \sigma = \sqrt{\frac{\sum(x-\bar{x})^2}{N}}$$</div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Mean & Standard Deviation (Grouped)
+            </div>
+            <div class="formula-item">$$\text{Mean}, \bar{x} = \frac{\sum fx}{\sum f}$$</div>
+            <div class="formula-item">$$\text{Standard deviation}, \sigma = \sqrt{\frac{\sum fx^2}{\sum f} - \left(\frac{\sum fx}{\sum f}\right)^2}$$</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+
+            // Scroll-triggered animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -30px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('animate-in');
+                        }, index * 50); // Stagger animation
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all formula sections
+            document.querySelectorAll('.formula-section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>

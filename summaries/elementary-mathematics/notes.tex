@@ -1,0 +1,504 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage{gensymb}
+\usepackage{tabularx,array,booktabs} % for stretching tables to page width
+\newcolumntype{Y}{>{\centering\arraybackslash}X} % for centering tables in tabularx
+\newcolumntype{N}{@{}m{0pt}@{}} % for vertical space in tabularx
+\newcommand{\heading}[1]{\bfseries\begin{tabular}{@{}c@{}} #1 \end{tabular}} % for a header in tables
+\def\tabularxcolumn#1{m{#1}} % for vertically centering text in tables
+\usepackage{float}
+\usepackage[landscape]{geometry}
+\usepackage{hyperref}
+\usepackage{tikz} % for rainbow method in expansion
+\usetikzlibrary{calc,shapes} % for rainbow method in expansion
+\usetikzlibrary{quotes,angles} % for angles
+\usepackage{pstricks-add} % for geogebra
+\usepackage{amsmath,amssymb}
+\usepackage{esvect} % for vectors
+\usepackage{undertilde} % for vectors
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}% for framed rounded boxes
+\tcbset{colframe=black,colback=white,colupper=black,
+fonttitle=\bfseries,nobeforeafter,center title,size=small}
+\tcbuselibrary{breakable}
+\usepackage{framed}% for framed standard boxes
+
+\linespread{1.2}
+
+
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+
+
+
+
+\newenvironment{cframed}
+{
+\begin{framed}\begin{center}
+}
+{
+\end{center}\end{framed}
+}
+
+
+
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+	{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.7in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+% Turn off header and footer
+%\pagestyle{empty}
+
+
+ 
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+%\setcounter{secnumdepth}{0}
+\setcounter{secnumdepth}{1}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+
+\pagestyle{fancy}
+\fancyhf{} % sets both header and footer to nothing
+\renewcommand{\headrulewidth}{0pt}
+\lfoot{\sc{\copyright\ 2019 Eugene Guo Youjun\\All rights reserved}}
+\cfoot{\sc{Page \thepage}}
+\rfoot{\sc{For Hai Sing Catholic School}}
+
+% -----------------------------------------------------------------------
+
+\begin{document}
+
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{center}
+     \Large{\textbf{Elementary Mathematics Notes}} \\
+    \small{Reproduced from \url{http://teach.sg}}
+\end{center}
+
+\section{Numbers \& Their Operations}
+
+\subsection{Types of numbers}
+
+Integers ($\mathbb{Z}$): $..., -3, -2, -1, 0, 1, 2, 3, 4, ...$\\
+Prime: integers that are divisible by 1 and itself only, smallest prime number is 2\\
+Rational numbers ($\mathbb{Q}$) $\dfrac{\text{integer}}{\text{integer}}$: $\dfrac{4}{7}, -3\dfrac{1}{8}, 0.3, 2.\dot{6}\dot{5}, 92, \sqrt{16}$\\
+Irrational numbers: $\pi, \sqrt{2}, e$\\
+Real numbers ($\mathbb{R}$): all numbers
+
+\subsection{Standard form}
+
+$A\times10^n$, where $n$ is an integer, and $1\leq A<10$
+
+\subsection{SI prefix}
+
+
+
+
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{0.2\textwidth}{|Y|Y|}
+\hline
+\heading{Prefix} & \heading{$10^n$}\\ \hline
+pico & $10^{-12}$ \\\hline
+nano & $10^{-9}$ \\\hline
+micro & $10^{-6}$ \\\hline
+milli & $10^{-3}$ \\\hline
+kilo & $10^3$ \\\hline
+mega & $10^6$ \\\hline
+giga & $10^9$ \\\hline
+tera & $10^{12}$\\\hline
+\end{tabularx}
+\end{table}
+
+
+\subsection{Indices}
+
+$1.\,a^m\times a^n=a^{m+n}$\\
+$2.\,a^m\div a^n=a^{m-n}$\\
+$3.\,(a^m)^n=a^{mn}$\\
+$4.\,(ab)^m=a^mb^m$\\
+$5.\,\left(\dfrac{a}{b}\right)^n=\dfrac{a^n}{b^n}$\\
+$6.\,a^{-n}=\dfrac{1}{a^n}$\\
+$7.\,a^0=1$\\
+$8.\,a^\frac{1}{n}=\sqrt[n]{a}$\\
+$9.\,a^\frac{m}{n}=(\sqrt[n]{a})^m$
+
+
+\section{Ratio \& Proportion}
+
+\subsection{Map scale}
+Length scale = $1:r$\\
+Area scale = $1:r^2$
+
+
+\section{Percentage}
+
+$\text{Percentage increase / decrease}=\dfrac{\text{increase / decrease}}{\text{original}}\times 100\%$
+
+\section{Rate \& Speed}
+
+\begin{figure}[H]
+\centering
+\psset{xunit=0.7cm,yunit=0.7cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=3pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\psscalebox{0.5 0.5}{
+\begin{pspicture*}(-6.08555548614,-1)(6,5.3)
+\pspolygon[linecolor=black](0.,5.)(2.88675,0.)(-2.88675,0.)
+\psline[linecolor=black](0.,5.)(2.88675,0.)
+\psline[linecolor=black](2.88675,0.)(-2.88675,0.)
+\psline[linecolor=black](-2.88675,0.)(0.,5.)
+\psline(-1.49193285585,2.41589528734)(1.48976761918,2.41964558901)
+\psline(0.,2.42)(0.,0.)
+\rput[tl](-0.3,3.7){\Large{D}}
+\rput[tl](-1.4,1.3){\Large{S}}
+\rput[tl](0.8,1.3){\Large{T}}
+\end{pspicture*}
+}
+\end{figure}
+
+$\text{Average speed}=\dfrac{\text{total distance}}{\text{total time}}$
+
+
+\section{Algebraic Expressions \& Formulae}
+
+\subsection{$n^{th}$ term}
+$a+(n-1)d$
+
+
+\subsection{Special algebraic identities}
+$(a+b)^2=a^2+2ab+b^2$\\
+$(a-b)^2=a^2-2ab+b^2$\\
+$(a+b)(a-b)=a^2-b^2$
+
+
+
+\section{Equations}
+
+\subsection{Quadratic formula}
+
+$x=\dfrac{-b\pm\sqrt{b^2-4ac}}{2a}$
+
+
+
+\section{Set Language \& Notation}
+
+$\in$: is an element of\\
+n($A$): number of elements in set $A$\\
+$A'$: complement of set A\\
+$\varnothing$: empty set\\
+$\xi$: universal set\\
+$\cup$: union\\
+$\cap$: intercept\\
+$\subset$: subset	
+
+
+\section{Problems In Real-World Contexts}
+
+\subsection{Simple interest}
+
+$I=\dfrac{PRT}{100}$
+
+\subsection{Compound interest}
+
+$A=P\left(1+\dfrac{R}{100}\right)^n$
+
+
+\section{Angles, Triangles \& Polygons}
+
+
+
+\subsection{Types of polygons}
+\begin{table}[H]
+\centering
+\begin{tabularx}{0.2\textwidth}{|Y|Y|}
+\hline
+\heading{No. of sides}& \heading{Polygons} \\\hline
+3 & triangle \\\hline
+4 & quadrilateral \\\hline
+5 & \textbf{pent}agon \\\hline
+6 & \textbf{hex}agon \\\hline
+7 & \textbf{hept}agon \\\hline
+8 & \textbf{oct}agon \\\hline
+9 & \textbf{non}agon \\\hline
+10 & \textbf{dec}agon \\\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Sum of interior \& exterior angles}
+
+Sum of interior angles $=(n-2)\times180\degree$\\
+Sum of exterior angles $=360\degree$
+
+
+
+\section{Congruence \& Similarity}
+
+
+\subsection{Congruent \& Similar Triangles}
+
+\begin{center}
+\begin{tabularx}{0.28\textwidth}{|Y|Y|}
+\hline
+\textbf{Congruent triangles} & \textbf{Similar triangles}\\\hline
+SSS, SAS, AAS, RHS & SSS, SAS, AAA\\\hline
+\end{tabularx}
+\end{center}
+
+\subsection{Ratio of area \& volume}
+
+$\dfrac{A_1}{A_2}=\left(\dfrac{l_1}{l_2}\right)^2$\\
+$\dfrac{V_1}{V_2}=\left(\dfrac{l_1}{l_2}\right)^3$
+
+
+\section{Pythagoras' Theorem \& Trigonometry}
+
+\subsection{Pythagoras' theorem}
+
+$a^2+b^2=c^2$
+
+\subsection{Trigonometric ratios}
+
+$\tan\theta=\frac{\text{opposite}}{\text{adjacent}}$\\
+$\cos\theta=\frac{\text{adjacent}}{\text{hypotenuse}}$\\
+$\sin\theta=\frac{\text{opposite}}{\text{hypotenuse}}$\\
+
+\begin{center}
+\textbf{TOA CAH SOH }is applicable for only right-angled triangles
+\end{center}
+
+
+\subsection{Obtuse angles}
+$\sin(180\degree-\theta)=\sin\theta$\\
+$\cos(180\degree-\theta)=-\cos\theta$
+
+\subsection{Sine rule}
+$\dfrac{a}{\sin A}=\dfrac{b}{\sin B}$
+
+
+\subsection{Cosine rule}
+$c^2=a^2+b^2-2 ab \cos C$
+
+\subsection{Area of triangle}
+
+$\text{Area of triangle}=\frac{1}{2}ab \sin C$
+
+\subsection{Bearings}
+
+\begin{figure}[H]
+\centering
+\psset{xunit=0.7cm,yunit=0.7cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=3pt 0,linewidth=0.8pt,arrowsize=3pt 2,arrowinset=0.25}
+\begin{pspicture}(8,-3.33291)(16.42291,3.33291)
+\psline[linewidth=0.8pt,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{<-}(12.021015,2.9145117)(12.021015,-2.8454883)
+\psline[linewidth=0.8pt,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{<-}(14.901015,0.014511718)(9.141016,0.014511718)
+\begin{scriptsize}
+\usefont{T1}{ptm}{m}{n}
+\rput(12.112471,3.1195116){$000\degree$}
+\usefont{T1}{ptm}{m}{n}
+\rput(12.01247,-3.1604884){$180\degree$}
+\usefont{T1}{ptm}{m}{n}
+\rput(15.332471,0.048828){$090\degree$}
+\usefont{T1}{ptm}{m}{n}
+\rput(8.71247,0.019511718){$270\degree$}
+\end{scriptsize}
+\end{pspicture} 
+\end{figure}
+
+A bearing is a \textbf{3-digit positive number} with units of degree to show direction \textbf{clockwise} from the north direction.
+
+
+\section{Mensuration}
+
+\subsection{Conversion}
+$1\text{ m}= 100\text{ cm}$\\
+$1\text{ m}^2= 10,000\text{ cm}^2$\\
+$1\text{ m}^3= 1,000,000\text{ cm}^3$\\
+
+
+\subsection{Radian \& Degree}
+$180\degree = \pi \text{ rad}$\\
+
+\subsection{Arc length \& sector area}
+
+\subsubsection{Degree}
+
+$s = \frac{\theta}{360\degree} \times 2 \pi r$, where $\theta$ is in degrees\\
+$A = \frac{\theta}{360\degree} \times \pi r^2$, where $\theta$ is in degrees
+
+\subsubsection{Radian}
+
+$s = r \theta$, where $\theta$ is in radians\\
+$A = \frac{1}{2} r^2 \theta$, where $\theta$ is in radians
+
+\columnbreak
+
+\section{Coordinate Geometry}
+
+\subsection{Cartesian coordinate}
+
+$(x,y)$
+\subsection{Gradient}
+{$m=\dfrac{y_1-y_2}{x_1-x_2}$}
+
+
+\subsection{Equation}
+$y-y_1=m(x-x_1)$\\
+$y=mx+c$\\
+*Vertical line: $x=a$\\
+*Horizontal line: $y=b$
+
+\subsection{Length}
+$\text{Length } = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$
+
+
+
+
+\section{Vectors In 2 Dimensions}
+
+\subsection{Representation}
+Vectors can be represented by $\begin{pmatrix}x\\y\end{pmatrix}$, $\vv{AB}$, \textbf{a} or $\utilde{a}$.
+
+\subsection{Magnitude}
+$|\vv{AB}|\text{ or }|\textbf{a}| = \sqrt{x^2+y^2}$
+
+
+\section{Data Analysis}
+
+\subsection{Mode}
+Mode is the \textbf{most frequently occurring} number. A set of data can have \textbf{more than one} mode.
+
+\subsection{Mean}
+$\text{mean} = \dfrac{\text{sum of all numbers}}{\text{number of numbers}}$
+
+\subsection{Median}
+Median is the \textbf{centre} number when the numbers are arranged from \textbf{smallest to largest}.
+
+\subsection{Range}
+Range = maximum $-$ minimum
+
+
+\subsection{Quartiles \& percentiles}
+
+\begin{figure}[H]
+\centering
+\psscalebox{0.55 0.55}{
+\begin{pspicture}(1,-1.0238281)(16.936583,1.0238281)
+\psline[linewidth=0.04cm](2.2269921,-0.0061328127)(14.3469925,-0.0061328127)
+\psline[linewidth=0.04cm](8.286992,0.4338672)(8.286992,-0.4261328)
+\psline[linewidth=0.04cm](5.266992,0.4338672)(5.266992,-0.4261328)
+\psline[linewidth=0.04cm](11.306993,0.41386718)(11.306993,-0.4461328)
+ \rput(8.314707,0.79886717){median}
+ \rput(5.2264256,0.8388672){lower quartile}
+ \rput(11.331612,0.79886717){upper quartile}
+ \rput(4.96792,-0.7811328){25\textsuperscript{th} percentile}
+ \rput(8.303174,-0.7811328){50\textsuperscript{th} percentile}
+ \rput(11.305107,-0.76113284){75\textsuperscript{th} percentile}
+\psdots[dotsize=0.12](2.2069921,-0.026132813)
+\psdots[dotsize=0.12](14.366992,-0.026132813)
+ \rput(2.255283,-0.8011328){0\textsuperscript{th} percentile}
+ \rput(14.420693,-0.7411328){100\textsuperscript{th} percentile}
+ \rput(14.354717,0.8188672){maximum}
+ \rput(2.244717,0.8388672){minimum}
+\end{pspicture} 
+}
+\end{figure}
+
+
+\subsection{Interquartile range}
+Interquartile range = upper quartile $-$ lower quartile
+
+\subsection{Box-and-whisker plot}
+
+\begin{figure}[H]
+\centering
+\psscalebox{0.45 0.45}{
+\begin{pspicture}(0,-1.878496)(17.26,1.8384961)
+\psline[linewidth=0.04cm](11.42,1.1584961)(14.42,1.1584961)
+\psline[linewidth=0.04cm](2.26,-0.8015039)(2.26,-1.3215039)
+ \rput(7.467715,-1.6265039){median}
+ \rput(5.2394335,-1.6565039){lower quartile}
+ \rput(11.244619,-1.6565039){upper quartile}
+\psdots[dotsize=0.12](2.28,1.138496)
+\psdots[dotsize=0.12](14.44,1.138496)
+ \rput(2.2777245,-1.6565039){minimum}
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(0.0,-1.0415039)(17.24,-1.0415039)
+\psline[linewidth=0.04cm](14.44,-0.7815039)(14.44,-1.3015039)
+ \rput(14.447724,-1.6565039){maximum}
+\psframe[linewidth=0.04,dimen=outer](11.42,1.8384961)(5.82,0.4584961)
+\psline[linewidth=0.04cm](2.24,1.138496)(5.86,1.1184961)
+\psline[linewidth=0.04cm](5.82,-0.8015039)(5.82,-1.3215039)
+\psline[linewidth=0.04cm](7.44,-0.8215039)(7.44,-1.3415039)
+\psline[linewidth=0.04cm](11.42,-0.8015039)(11.42,-1.3215039)
+\psline[linewidth=0.04cm](7.44,1.8184961)(7.44,0.4584961)
+\end{pspicture} 
+}
+\end{figure}
+
+\subsection{Mean \& standard deviation}
+
+\subsubsection{Ungrouped}
+$\text{Mean}, \bar{x} =\frac{\sum x}{N}$\\
+$\text{Standard deviation}, \sigma =\sqrt{\frac{\sum(x-\overline{x})^2}{N}}$
+
+
+
+
+\subsubsection{Grouped}
+
+$\text{Mean}, \overline{x}=\frac{\sum fx}{\sum f}$\\
+$\text{Standard deviation}, \sigma =\sqrt{\frac{\sum fx^2}{\sum f}-\left(\frac{\sum fx}{\sum f}\right)^2}$
+
+
+
+
+
+\end{multicols}
+
+
+
+
+\end{document}
