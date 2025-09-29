@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properties Of Circles - TeachSG</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: #f3f4f6;
+            color: #333;
+        }
+
+        .header {
+            background: #fefaf6;
+            color: #1e3a8a;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-nav {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header a {
+            color: #1e3a8a;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .header a:hover {
+            color: #d97706;
+            text-decoration: underline;
+        }
+
+        .brand {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .brand .teach {
+            color: #1e3a8a;
+        }
+
+        .brand .sg {
+            color: #d97706;
+        }
+
+        .nav-link {
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: transparent;
+            min-height: calc(100vh - 60px);
+            position: relative;
+        }
+
+        .container:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(30, 58, 138, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30, 58, 138, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #d97706;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .formula-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-left: 4px solid #d97706;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .formula-section.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .formula-section.animate-in:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .formula-section.type-properties { border-left-color: #6b7280; }
+
+        .formula-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .formula-icon {
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .property-list {
+            color: #333;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .property-list div {
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-nav">
+            <a href="/" class="brand"><span class="teach">Teach</span><span class="sg">.sg</span></a>
+            <a href="/content/mathematics/" class="nav-link">← Back to Mathematics</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Properties Of Circles</h1>
+
+        <div class="formula-section type-properties">
+            <div class="formula-title">
+                <span class="formula-icon">🦉</span>
+                Properties Of Circles
+            </div>
+            <div class="property-list">
+                <div>1. Tangent $\perp$ radius</div>
+                <div>2. Right $\angle$ in semicircle</div>
+                <div>3. $\angle$s in same segment</div>
+                <div>4. $\angle$ at centre = 2 $\angle$ at circumference</div>
+                <div>5. $\angle$s in opposite segment ($a+c=b+d=180^\circ$)</div>
+                <div>6. Tangent from external point</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+
+            // Scroll-triggered animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('animate-in');
+                        }, index * 100); // Stagger animation
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all formula sections
+            document.querySelectorAll('.formula-section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
