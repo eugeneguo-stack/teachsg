@@ -1000,64 +1000,61 @@
             <div class="circle-property">
                 <h4>Tangents from External Point</h4>
                 <div style="text-align: center;">
-                    <svg width="280" height="200" viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="320" height="200" viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
                         <!-- Circle with center O -->
-                        <circle cx="100" cy="100" r="60" fill="none" stroke="#2c5aa0" stroke-width="2"/>
+                        <circle cx="90" cy="100" r="50" fill="none" stroke="#2c5aa0" stroke-width="2"/>
 
-                        <!-- External point P -->
-                        <circle cx="220" cy="100" r="3" fill="#2c5aa0"/>
+                        <!-- External point P (much further right) -->
+                        <circle cx="260" cy="100" r="3" fill="#2c5aa0"/>
 
-                        <!-- Calculate tangent points:
-                             For a circle at (100, 100) with radius 60 and external point at (220, 100)
-                             Distance from center to P = 120
-                             Using right triangle: tangent length = sqrt(120^2 - 60^2) = sqrt(10800) ≈ 103.92
-                             Angle from horizontal = arcsin(60/120) = 30°
-                             Tangent point A at angle +30°: (100 + 60*cos(30°), 100 - 60*sin(30°))
-                             Tangent point B at angle -30°: (100 + 60*cos(-30°), 100 + 60*sin(-30°)) -->
+                        <!-- Calculate tangent points for more realistic angles:
+                             Circle at (90, 100) with radius 50
+                             P at (260, 100), distance = 170
+                             Tangent length = sqrt(170^2 - 50^2) = sqrt(26400) ≈ 162.48
+                             Angle = arcsin(50/170) ≈ 17.1° -->
 
-                        <!-- Tangent point A (upper) -->
-                        <circle cx="152" cy="70" r="3" fill="#2c5aa0"/>
+                        <!-- Tangent point B (upper) - positioned at angle from horizontal -->
+                        <circle cx="125" cy="65" r="3" fill="#2c5aa0"/>
 
-                        <!-- Tangent point B (lower) -->
-                        <circle cx="152" cy="130" r="3" fill="#2c5aa0"/>
+                        <!-- Tangent point A (lower) -->
+                        <circle cx="125" cy="135" r="3" fill="#2c5aa0"/>
 
                         <!-- Center O -->
-                        <circle cx="100" cy="100" r="3" fill="#2c5aa0"/>
+                        <circle cx="90" cy="100" r="3" fill="#2c5aa0"/>
 
-                        <!-- Radii to tangent points -->
-                        <line x1="100" y1="100" x2="152" y2="70" stroke="#d4af37" stroke-width="2"/>
-                        <line x1="100" y1="100" x2="152" y2="130" stroke="#d4af37" stroke-width="2"/>
+                        <!-- Main horizontal line from O through to P -->
+                        <line x1="90" y1="100" x2="260" y2="100" stroke="#2c5aa0" stroke-width="2"/>
 
-                        <!-- Tangent lines from P to A and B -->
-                        <line x1="220" y1="100" x2="152" y2="70" stroke="#2c5aa0" stroke-width="2"/>
-                        <line x1="220" y1="100" x2="152" y2="130" stroke="#2c5aa0" stroke-width="2"/>
+                        <!-- Radii to tangent points (hidden behind for cleaner look) -->
+                        <line x1="90" y1="100" x2="125" y2="65" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="90" y1="100" x2="125" y2="135" stroke="#2c5aa0" stroke-width="2"/>
 
-                        <!-- Right angle markers at tangent points -->
-                        <!-- At point A -->
-                        <path d="M 147 70 L 147 75 L 152 75" fill="none" stroke="#2c5aa0" stroke-width="1.5"/>
-                        <!-- At point B -->
-                        <path d="M 147 130 L 147 125 L 152 125" fill="none" stroke="#2c5aa0" stroke-width="1.5"/>
+                        <!-- Tangent lines from P to B and A -->
+                        <line x1="260" y1="100" x2="125" y2="65" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="260" y1="100" x2="125" y2="135" stroke="#2c5aa0" stroke-width="2"/>
 
-                        <!-- Equal length markers on PA and PB -->
-                        <!-- On PA -->
-                        <line x1="183" y1="82" x2="187" y2="86" stroke="#d4af37" stroke-width="2"/>
-                        <line x1="185" y1="80" x2="189" y2="84" stroke="#d4af37" stroke-width="2"/>
+                        <!-- Right angle markers at tangent points (larger and properly positioned) -->
+                        <!-- At point B (upper) -->
+                        <path d="M 125 75 L 115 75 L 115 65" fill="none" stroke="#2c5aa0" stroke-width="1.5"/>
+                        <rect x="115" y="65" width="10" height="10" fill="none" stroke="#2c5aa0" stroke-width="1.5"/>
 
+                        <!-- At point A (lower) -->
+                        <rect x="115" y="125" width="10" height="10" fill="none" stroke="#2c5aa0" stroke-width="1.5"/>
+
+                        <!-- Equal length markers on PB and PA (perpendicular tick marks) -->
                         <!-- On PB -->
-                        <line x1="183" y1="118" x2="187" y2="114" stroke="#d4af37" stroke-width="2"/>
-                        <line x1="185" y1="120" x2="189" y2="116" stroke="#d4af37" stroke-width="2"/>
+                        <line x1="190" y1="80" x2="195" y2="85" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="195" y1="75" x2="190" y2="80" stroke="#2c5aa0" stroke-width="2"/>
 
-                        <!-- Line from O to P (for completeness) -->
-                        <line x1="100" y1="100" x2="220" y2="100" stroke="#2c5aa0" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+                        <!-- On PA -->
+                        <line x1="190" y1="120" x2="195" y2="115" stroke="#2c5aa0" stroke-width="2"/>
+                        <line x1="195" y1="125" x2="190" y2="120" stroke="#2c5aa0" stroke-width="2"/>
 
                         <!-- Labels -->
-                        <text x="100" y="115" font-size="14" fill="#2c5aa0" text-anchor="middle" font-family="Arial, sans-serif" font-style="italic">O</text>
-                        <text x="235" y="105" font-size="14" fill="#2c5aa0" text-anchor="middle" font-family="Arial, sans-serif" font-style="italic">P</text>
-                        <text x="152" y="60" font-size="14" fill="#2c5aa0" text-anchor="middle" font-family="Arial, sans-serif" font-style="italic">A</text>
-                        <text x="152" y="145" font-size="14" fill="#2c5aa0" text-anchor="middle" font-family="Arial, sans-serif" font-style="italic">B</text>
-
-                        <!-- Optional: Add "PA = PB" annotation -->
-                        <text x="140" y="190" font-size="12" fill="#666" text-anchor="middle" font-family="Arial, sans-serif">PA = PB</text>
+                        <text x="85" y="115" font-size="14" fill="#2c5aa0" text-anchor="middle" font-family="Arial, sans-serif" font-style="italic">O</text>
+                        <text x="275" y="105" font-size="14" fill="#2c5aa0" text-anchor="middle" font-family="Arial, sans-serif" font-style="italic">P</text>
+                        <text x="125" y="55" font-size="14" fill="#2c5aa0" text-anchor="middle" font-family="Arial, sans-serif" font-style="italic">B</text>
+                        <text x="125" y="150" font-size="14" fill="#2c5aa0" text-anchor="middle" font-family="Arial, sans-serif" font-style="italic">A</text>
                     </svg>
                 </div>
                 <p>Tangents drawn from an external point to a circle are equal in length.</p>
